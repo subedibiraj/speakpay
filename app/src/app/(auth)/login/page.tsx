@@ -18,13 +18,15 @@ export default function LoginPage() {
   const [mode, setMode] = useState<'voice' | 'text'>('voice')
   const [started, setStarted] = useState(false) // Blocks until user taps screen
   
-  const [phone, setPhone] = useState('')
+  const [phone, _setPhone] = useState('')
   const [pin,   setPin]   = useState('')
   const [error, setError] = useState('')
   const [authState, setAuthState] = useState<AuthState>('idle')
   const [loading, setLoading] = useState(false)
   
   const recorderRef = useRef<ReturnType<typeof createRecorder> | null>(null)
+  const phoneRef = useRef('')
+  const setPhone = (v: string) => { phoneRef.current = v; _setPhone(v) }
 
   useEffect(() => {
     preloadVoices()
@@ -64,7 +66,7 @@ export default function LoginPage() {
         const result = await transcribeBlob(blob, { allowFallback: true })
         const extracted = extractPIN(result.transcript)
         if (extracted) {
-          setPin(extracted); authenticate(phone, extracted)
+          setPin(extracted); authenticate(phoneRef.current, extracted)
         } else {
           setError('PIN बुझिएन।'); setAuthState('idle');
           await speak('PIN बुझिएन। फेरि भन्नुहोस्।')

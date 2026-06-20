@@ -24,13 +24,15 @@ export default function RegisterPage() {
   
   const [fullName, setFullName] = useState('')
   const [phone, setPhone] = useState('')
-  const [pin1, setPin1] = useState('')
+  const [pin1, _setPin1] = useState('')
   const [pin2, setPin2] = useState('')
   const [error, setError] = useState('')
   const [regState, setRegState] = useState<RegState>('idle')
   const [loading, setLoading] = useState(false)
   
   const recorderRef = useRef<ReturnType<typeof createRecorder> | null>(null)
+  const pin1Ref = useRef('')
+  const setPin1 = (v: string) => { pin1Ref.current = v; _setPin1(v) }
 
   useEffect(() => {
     preloadVoices()
@@ -119,12 +121,12 @@ export default function RegisterPage() {
         const extracted = extractPIN(text)
         if (extracted) {
           setPin2(extracted)
-          if (extracted !== pin1) {
+          if (extracted !== pin1Ref.current) {
             setError('PIN मेल खाएन।'); setPin1(''); setPin2(''); setRegState('idle'); 
             await speak('तपाईंले भनेको PIN मेल खाएन। सुरुदेखि PIN भन्नुहोस्।')
             startPin1()
           } else {
-            register(fullName, phone, pin1)
+            register(fullName, phone, pin1Ref.current)
           }
         } else {
           throw new Error()

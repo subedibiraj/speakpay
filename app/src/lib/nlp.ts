@@ -21,12 +21,45 @@ const NEP_DIGIT: Record<string,string> = {
   '५':'5','६':'6','७':'7','८':'8','९':'9'
 }
 
+// Nepali spoken number words → digit
+const NEP_WORD_DIGIT: Record<string,string> = {
+  'शून्य':'0','सुन्ना':'0',
+  'एक':'1','एउटा':'1',
+  'दुई':'2','दुइ':'2',
+  'तीन':'3','तिन':'3',
+  'चार':'4',
+  'पाँच':'5','पांच':'5',
+  'छ':'6',
+  'सात':'7',
+  'आठ':'8',
+  'नौ':'9','नऊ':'9',
+}
+
+/**
+ * Full normalization pipeline for ASR transcripts:
+ * 1. Convert Nepali digit characters (०-९) → ASCII (0-9)
+ * 2. Convert Nepali spoken number words → ASCII digits
+ * 3. Collapse all whitespace so "९ ८ ० १" becomes "9801"
+ */
 export function normalizeNumerals(s: string): string {
   return s.replace(/[०-९]/g, d => NEP_DIGIT[d] ?? d)
 }
 
+function normalizeForDigitExtraction(text: string): string {
+  let s = text
+  // Step 1: Replace Nepali digit characters with ASCII
+  s = s.replace(/[०-९]/g, d => NEP_DIGIT[d] ?? d)
+  // Step 2: Replace Nepali spoken number words with digits
+  for (const [word, digit] of Object.entries(NEP_WORD_DIGIT)) {
+    s = s.replace(new RegExp(word, 'g'), digit)
+  }
+  // Step 3: Strip all whitespace so "9 8 0 1 2 3 4 5 6 7" → "9801234567"
+  s = s.replace(/\s+/g, '')
+  return s
+}
+
 function extractAmount(text: string): number | null {
-  const normalized = normalizeNumerals(text)
+  const normalized = normalizeForDigitExtraction(text)
   const matches = [...normalized.matchAll(/\d+/g)]
     .map(m => parseInt(m[0]))
     .filter(n => n > 0 && n <= 10_000_000)
@@ -35,17 +68,17 @@ function extractAmount(text: string): number | null {
 }
 
 export function extractPhoneNumber(text: string): string | null {
-  const normalized = normalizeNumerals(text)
+  const normalized = normalizeForDigitExtraction(text)
   // Match any sequence of exactly 10 digits starting with 9
   const match = normalized.match(/9\d{9}/)
   return match ? match[0] : null
 }
 
 export function extractPIN(text: string): string | null {
-  const normalized = normalizeNumerals(text)
-  // Match any sequence of exactly 6 digits
-  const match = normalized.match(/\d{6}/)
-  return match ? match[0] : null
+  const normalized = normalizeForDigitExtraction(text)
+  // Match any sequence of exactly 4-6 digits
+  const match = normalized.match(/\d{4,6}/)
+  return match ? match[0].slice(0, 6).padStart(6, '0') : null
 }
 
 function extractRecipient(text: string): string | null {
