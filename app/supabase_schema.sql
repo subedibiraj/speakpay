@@ -7,7 +7,7 @@
 create extension if not exists "uuid-ossp";
 
 -- ── Users ────────────────────────────────────────────────────────
-create table public.users (
+create table if not exists public.users (
   id            uuid primary key default uuid_generate_v4(),
   phone         text unique not null,          -- e.g. 9841234567
   full_name     text not null,
@@ -16,7 +16,7 @@ create table public.users (
 );
 
 -- ── Wallets ──────────────────────────────────────────────────────
-create table public.wallets (
+create table if not exists public.wallets (
   id            uuid primary key default uuid_generate_v4(),
   user_id       uuid unique not null references public.users(id) on delete cascade,
   balance       numeric(12,2) not null default 0.00,
@@ -24,10 +24,17 @@ create table public.wallets (
 );
 
 -- ── Transactions ─────────────────────────────────────────────────
-create type public.tx_type as enum ('load', 'send', 'receive');
-create type public.tx_status as enum ('pending', 'completed', 'failed');
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'tx_type') THEN
+        CREATE TYPE public.tx_type AS ENUM ('load', 'send', 'receive');
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'tx_status') THEN
+        CREATE TYPE public.tx_status AS ENUM ('pending', 'completed', 'failed');
+    END IF;
+END$$;
 
-create table public.transactions (
+create table if not exists public.transactions (
   id              uuid primary key default uuid_generate_v4(),
   wallet_id       uuid not null references public.wallets(id),
   type            public.tx_type not null,
@@ -41,7 +48,7 @@ create table public.transactions (
 );
 
 -- ── ASR Logs (for research / demo page) ──────────────────────────
-create table public.asr_logs (
+create table if not exists public.asr_logs (
   id              uuid primary key default uuid_generate_v4(),
   transcript      text not null,
   model_used      text not null,   -- 'base' | 'general' | 'domain'
@@ -51,9 +58,9 @@ create table public.asr_logs (
 );
 
 -- ── Indexes ───────────────────────────────────────────────────────
-create index idx_transactions_wallet   on public.transactions(wallet_id);
-create index idx_transactions_created  on public.transactions(created_at desc);
-create index idx_asr_logs_model        on public.asr_logs(model_used);
+create index if not exists idx_transactions_wallet   on public.transactions(wallet_id);
+create index if not exists idx_transactions_created  on public.transactions(created_at desc);
+create index if not exists idx_asr_logs_model        on public.asr_logs(model_used);
 
 -- ── Row Level Security ────────────────────────────────────────────
 alter table public.users         enable row level security;
@@ -63,9 +70,13 @@ alter table public.asr_logs      enable row level security;
 
 -- Service role bypasses RLS (used by our API routes)
 -- Anon / authenticated policies (API routes use service key so RLS won't block)
+drop policy if exists "service_all_users" on public.users;
 create policy "service_all_users"        on public.users        using (true) with check (true);
+drop policy if exists "service_all_wallets" on public.wallets;
 create policy "service_all_wallets"      on public.wallets      using (true) with check (true);
+drop policy if exists "service_all_transactions" on public.transactions;
 create policy "service_all_transactions" on public.transactions using (true) with check (true);
+drop policy if exists "service_all_asr_logs" on public.asr_logs;
 create policy "service_all_asr_logs"     on public.asr_logs     using (true) with check (true);
 
 -- ── Helper function: atomic transfer ─────────────────────────────
