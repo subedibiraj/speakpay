@@ -42,8 +42,8 @@ export async function POST(req: NextRequest) {
     )
 
     return NextResponse.json({ transcript, intent })
-  } catch (err) {
+  } catch (err: any) {
     console.error('Transcribe error:', err)
-    return NextResponse.json({ error: 'Internal error' }, { status: 500 })
+    return NextResponse.json({ error: err.message || String(err) }, { status: 500 })
   }
 }
