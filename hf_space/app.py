@@ -54,11 +54,8 @@ async def transcribe(audio: UploadFile = File(...)):
     try:
         content = await audio.read()
         
-        # librosa handles wav correctly from memory
-        y, sr = librosa.load(io.BytesIO(content), sr=16000)
-        
-        # Transcribe
-        result = asr_pipeline(y, generate_kwargs={"language": LANGUAGE, "task": TASK})
+        # The transformers pipeline natively decodes webm/ogg/wav bytes using ffmpeg
+        result = asr_pipeline(content, generate_kwargs={"language": LANGUAGE, "task": TASK})
         text = result.get("text", "").strip()
         
         return {"text": text}
