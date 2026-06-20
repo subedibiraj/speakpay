@@ -1,0 +1,2017 @@
+[
+  {
+    "audio_id": "audio1",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1733026906/audio1.wav",
+    "transcript": "मेरो खातामा  १०००० लोड गर ।"
+  },
+  {
+    "audio_id": "audio3",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1733026962/audio3.wav",
+    "transcript": "हरिओमलाई ईसेवामा ९७५ रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio4",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1733026983/audio4.wav",
+    "transcript": "मेरो आफ्नो खातामा ५०० बैंक ट्रान्सफर गर ।"
+  },
+  {
+    "audio_id": "audio6",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1733027160/audio6.wav",
+    "transcript": "निकिता सिलवालको खातामा ५०० रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio7",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1733042098/audio7.wav",
+    "transcript": "कञ्चन धमलाको ईसेवा खातामा ५० रुपैयाँ पठाउनुहोस्।"
+  },
+  {
+    "audio_id": "audio8",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1733042118/audio8.wav",
+    "transcript": "मेरो यीसेवा अकाउन्टमा ५० रूपैयाँ लोड गर ।"
+  },
+  {
+    "audio_id": "audio9",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1735830648/audio9.wav",
+    "transcript": "शान्ता घिमिरेलाई सिद्धार्थ बैंकमा ५८०० रुपैयाँ पठाउ ।"
+  },
+  {
+    "audio_id": "audio10",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1735830669/audio10.wav",
+    "transcript": "रमेश पोख्रेललाई ग्लोबल आइएमइ बैंकमा ९५० रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio11",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1735830691/audio11.wav",
+    "transcript": "प्रिया सापकोटाको खातामा ३६७५ रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio12",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1735830715/audio12.wav",
+    "transcript": "रश्मी श्रेष्ठलाई नबिल बैंकमा ८११५ रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio13",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1735830741/audio13.wav",
+    "transcript": "कञ्चन लम्साललाई एनआइसी बैंकमा ५९९९ रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio14",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1735830763/audio14.wav",
+    "transcript": "चेतबहादुर थापालाई माछापुछ्रे बैंकमा १५०००० पठाउ।"
+  },
+  {
+    "audio_id": "audio15",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1735830780/audio15.wav",
+    "transcript": "भीमसेन देवकोटालाई कृषि विकास बैंकमा ८५०० रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio16",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1735907335/audio16.wav",
+    "transcript": "मदन भण्डारीले नेपाल इन्भेस्टमेन्ट मेगा बैंक १७५० जम्मा गरेका छन् ।"
+  },
+  {
+    "audio_id": "audio17",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1735907520/audio17.wav",
+    "transcript": "अर्चना श्रेष्ठले कुमारी बैंकमा ४७५० जम्मा रूपैयाँ गरेकी छिन्।"
+  },
+  {
+    "audio_id": "audio18",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1735907551/audio18.wav",
+    "transcript": "गीता थापाले राष्ट्रिय वाणिज्य बैंकबाट ७८००० निकालेका छन्।"
+  },
+  {
+    "audio_id": "audio19",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1735907582/audio19.wav",
+    "transcript": "प्रिय सापकोटाले सिद्धार्थ बैंक लिमिटेडमा ३६७५ जम्मा गरेकी छिन्।"
+  },
+  {
+    "audio_id": "audio20",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1735907730/audio20.wav",
+    "transcript": "अनिता कँडेलले नेपाल एसबिआइ बैंकमा ८८०० रूपैयाँ जम्मा गरेकी छिन्।"
+  },
+  {
+    "audio_id": "audio21",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1735907765/audio21.wav",
+    "transcript": "रोशनी पोखरेलले लक्ष्मी बैंकबाट ३८५० रुपैयाँ निकालेकी छिन्।"
+  },
+  {
+    "audio_id": "audio22",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1735907800/audio22.wav",
+    "transcript": "निशा भट्टराईले लक्ष्मी बैंक लिमिटेडमा ७५००० जम्मा गरेकी छिन्।"
+  },
+  {
+    "audio_id": "audio24",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736003321/audio24.wav",
+    "transcript": "समिरा पराजुलीको राष्ट्रिय वाणिज्य बैंकमा १४५००० रुपैयाँ रहेछ।"
+  },
+  {
+    "audio_id": "audio25",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736003343/audio25.wav",
+    "transcript": "सुरेश चन्दलाई नेपाल बैंक लिमिटेडमा २५०० रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio26",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736004167/audio26.wav",
+    "transcript": "गंगा कार्कीले रिलायन्स फाइनान्समा ७०००  जम्मा गरेका छन्।"
+  },
+  {
+    "audio_id": "audio27",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736005041/audio27.wav",
+    "transcript": "मेरो खाताबाट शशि भट्टलाई ५२५ रुपैयाँ पठाउनु।"
+  },
+  {
+    "audio_id": "audio30",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736005131/audio30.wav",
+    "transcript": "मेरो खाताबाट गरिमालाई ८८८ रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio31",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736005148/audio31.wav",
+    "transcript": "मेरो खाताबाट सरोज जोशीलाई २५५ रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio32",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736005177/audio32.wav",
+    "transcript": "भुवन बस्नेतलाई मेरो खाताबाट २४०५ रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio33",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736005205/audio33.wav",
+    "transcript": "आशिष लमसाललाई मेरो खाताबाट ५८०० रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio34",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736005228/audio34.wav",
+    "transcript": "शारदा पन्तलाई मेरो खाताबाट २१२२ रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio35",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736005257/audio35.wav",
+    "transcript": "मेरो खाताबाट विश्वास भण्डारीलाई १४८८ रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio36",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736005265/audio36.wav",
+    "transcript": "रिता बस्नेतले सरिता बस्नेतलाई ४०००० पठाएकी छिन्।"
+  },
+  {
+    "audio_id": "audio37",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736005283/audio37.wav",
+    "transcript": "दीक्षा पाण्डेलाई मेरो खाताबाट २४६ रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio38",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736005303/audio38.wav",
+    "transcript": "अस्मिता धवलाको खातामा २०००० रुपैयाँ पठाउ ।"
+  },
+  {
+    "audio_id": "audio39",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736005311/audio39.wav",
+    "transcript": "दीप्तिका शाहलाई मेरो खाताबाट १२३८ रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio40",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736005348/audio40.wav",
+    "transcript": "विनोद श्रेष्ठले सिद्धार्थ बैंकमा ६५००००  रुपैयाँ जम्मा गरेका छन्।"
+  },
+  {
+    "audio_id": "audio42",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736005383/audio42.wav",
+    "transcript": "शारदा जोशीलाई मेरो खाताबाट १६०५ रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio43",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736005415/audio43.wav",
+    "transcript": "मेरो एनआइसी बैंकको खाताबाट ५५२० रुपैयाँ लोड गर।"
+  },
+  {
+    "audio_id": "audio44",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736005441/audio44.wav",
+    "transcript": "मेरो खाताबाट ५५३५ रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio45",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736005471/audio45.wav",
+    "transcript": "मिना राईलाई मेरो खाताबाट ३९८९ रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio46",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736005491/audio46.wav",
+    "transcript": "दीपिका पोखरेललाई मेरो खाताबाट ३७५० रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio47",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736005540/audio47.wav",
+    "transcript": "कमल सापकोटाको हिमालयन बैंकमा ५०००  रुपैयाँ जम्मा भएको छ।"
+  },
+  {
+    "audio_id": "audio48",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736005637/audio48.wav",
+    "transcript": "शरद कुमार शाक्यको नबिल बैंकमा ३२०० जम्मा भएको छ।"
+  },
+  {
+    "audio_id": "audio49",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736005761/audio49.wav",
+    "transcript": "विक्रम थापाको माछापुछ्रे बैंकमा ५००० रुपैयाँ जम्मा भएको छ।"
+  },
+  {
+    "audio_id": "audio50",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736006149/audio50.wav",
+    "transcript": "रूपा थापाले आयोजित राईलाई ५००० रुपैयाँ पठाएकी छिन्।"
+  },
+  {
+    "audio_id": "audio51",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736006349/audio51.wav",
+    "transcript": "कञ्चन धमलाको खाताबाट कवीन गिरीको खातामा ५०००० ट्रान्सफर भएको छ।"
+  },
+  {
+    "audio_id": "audio52",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736006472/audio52.wav",
+    "transcript": "सृष्टि आले मगरको खातामा ५० रुपैयाँ जम्मा भएको छ।"
+  },
+  {
+    "audio_id": "audio53",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736006563/audio53.wav",
+    "transcript": "सुमन महर्जनको खाताबाट श्रीकृष्ण धमलाको खातामा ५००० ट्रान्सफर भएको छ।"
+  },
+  {
+    "audio_id": "audio54",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736006694/audio54.wav",
+    "transcript": "प्रिया सापकोटाको सिद्धार्थ बैंकको खातामा ३००० रुपैयाँ जम्मा भएको छ।"
+  },
+  {
+    "audio_id": "audio55",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736006748/audio55.wav",
+    "transcript": "चेतबहादुर थापाको माछापुछ्रे बैंकमा १००० रुपैयाँ जम्मा भएको छ।"
+  },
+  {
+    "audio_id": "audio56",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736006905/audio56.wav",
+    "transcript": "अस्मिता धमलाको खातामा ५०००० जम्मा भएको छ।"
+  },
+  {
+    "audio_id": "audio57",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736007321/audio57.wav",
+    "transcript": "कृष्ण शाहलाई मेघा बैंक नेपालमा १३००००  पठाउनुहोस्।"
+  },
+  {
+    "audio_id": "audio58",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736007379/audio58.wav",
+    "transcript": "पिया सापकोटाको सिद्धार्थ बैंकमा ३६७५ रुपैयाँ पठाउनुहोस्।"
+  },
+  {
+    "audio_id": "audio59",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736007411/audio59.wav",
+    "transcript": "रमेश पोखरेलको ग्लोबल आइएमइ बैंकमा १५० जम्मा गरिदिनुहोस् ।"
+  },
+  {
+    "audio_id": "audio60",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736007496/audio60.wav",
+    "transcript": "शर्मिला दाहाललाई एनआइसी बैंकमा १०५०० पठाउनुहोस्।"
+  },
+  {
+    "audio_id": "audio62",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736007554/audio62.wav",
+    "transcript": "प्रकाश खत्रीको कुमारी बैंकमा २००० जम्मा गर्नुहोस्।"
+  },
+  {
+    "audio_id": "audio63",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736007584/audio63.wav",
+    "transcript": "नवराज पराजुलीलाई डेभलपमेन्ट बैंकमा ५०००० पठाउनुहोस्।"
+  },
+  {
+    "audio_id": "audio64",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736007603/audio64.wav",
+    "transcript": "पुष्प लामिछानेलाई विकास बैंकमा ३५००० पठाउ ।"
+  },
+  {
+    "audio_id": "audio65",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736007640/audio65.wav",
+    "transcript": "महेश जोशीको सिद्धार्थ बैंकबाट ७५००० यीसेवामा ट्रान्सफर गरौँ।"
+  },
+  {
+    "audio_id": "audio66",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736007664/audio66.wav",
+    "transcript": "प्रिय सापकोटाको सिद्धार्थ बैंकमा ३००० रुपैयाँ भुक्तानी गरौं।"
+  },
+  {
+    "audio_id": "audio67",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736007747/audio67.wav",
+    "transcript": "सुभाष थापालाई एनआइसी बैंकमा ११०००० पठाउ ।"
+  },
+  {
+    "audio_id": "audio68",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736007992/audio68.wav",
+    "transcript": "कविन गिरीलाई १०० रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio69",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736008018/audio69.wav",
+    "transcript": "अपूर्व सुवेदीलाई २०० रूपैयाँ पठाउ ।"
+  },
+  {
+    "audio_id": "audio70",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736008044/audio70.wav",
+    "transcript": "अविरल भट्टराईलाई ३०० रूपैयाँ पठाउ ।"
+  },
+  {
+    "audio_id": "audio71",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736008068/audio71.wav",
+    "transcript": "अंशु बास्कोटालाई ४०० रूपैयाँ पठाउ ।"
+  },
+  {
+    "audio_id": "audio72",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736008095/audio72.wav",
+    "transcript": "अपेक्षा श्रेष्ठलाई ५०० रूपैयाँ पठाउ ।"
+  },
+  {
+    "audio_id": "audio73",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736008168/audio73.wav",
+    "transcript": "ईसा पन्तलाई ६०० रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio74",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736008187/audio74.wav",
+    "transcript": "दिपेश थापालाई ७०० रुपैयाँ पठाउ ।"
+  },
+  {
+    "audio_id": "audio75",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736008215/audio75.wav",
+    "transcript": "विद्या अधिकारीलाई ८०० रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio76",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736008318/audio76.wav",
+    "transcript": "आशुतोष जोशीलाई १००० रुपैयाँ पठाउ ।"
+  },
+  {
+    "audio_id": "audio77",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736008364/audio77.wav",
+    "transcript": "विराज सुवेदीलाई ५० रूपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio78",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736008388/audio78.wav",
+    "transcript": "आयुष डंगोललाई १५० रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio79",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736008406/audio79.wav",
+    "transcript": "विश्वास खनाललाई २५० रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio80",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736008509/audio80.wav",
+    "transcript": "रामलाई ३५० रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio81",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736008568/audio81.wav",
+    "transcript": "रामलाई ४५० रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio82",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736011071/audio82.wav",
+    "transcript": "अजिता खरेलले प्रभु बैंकमा ५००० रुपैयाँ जम्मा गरेकी छिन्।"
+  },
+  {
+    "audio_id": "audio83",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736400809/audio83.wav",
+    "transcript": "कृतिकालाई १०० रूपैयाँ टपअप गरिदिनुहोस्।"
+  },
+  {
+    "audio_id": "audio84",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736401423/audio84.wav",
+    "transcript": "नमस्कार रेणुका सिंहले माछापुछ्रे बैंकमा १२००००  जम्मा गर्नुभएको छ।"
+  },
+  {
+    "audio_id": "audio85",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736401441/audio85.wav",
+    "transcript": "आराधना ओजालाई ३१२५ रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio86",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736401476/audio86.wav",
+    "transcript": "नमस्कार मेरो नाम रामप्रसाद कँडेल।म ८५ वर्षको भए ।"
+  },
+  {
+    "audio_id": "audio87",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736401516/audio87.wav",
+    "transcript": "मसँग १५०० रुपैयाँ छ।"
+  },
+  {
+    "audio_id": "audio89",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736401549/audio89.wav",
+    "transcript": "म १६ वर्षको भए।"
+  },
+  {
+    "audio_id": "audio90",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736401574/audio90.wav",
+    "transcript": "साक्षीलाई ३५०० रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio92",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736401620/audio92.wav",
+    "transcript": "मेरो ईसेवामा १०० रुपैयाँ लोड गर्देउ।"
+  },
+  {
+    "audio_id": "audio93",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736401636/audio93.wav",
+    "transcript": "हरिलाई ५०० रुपैयाँ पठा।"
+  },
+  {
+    "audio_id": "audio94",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736401659/audio94.wav",
+    "transcript": "यो वर्ष हाम्रोमा ३५५०० मात्र भयो।"
+  },
+  {
+    "audio_id": "audio95",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736401674/audio95.wav",
+    "transcript": "रोशनले मलाई १५०० रुपैयाँ पठाको छ ।"
+  },
+  {
+    "audio_id": "audio96",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736401693/audio96.wav",
+    "transcript": "रितासँग १७०० रुपैयाँ  छ।"
+  },
+  {
+    "audio_id": "audio97",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736401710/audio97.wav",
+    "transcript": "बहादुर १०० वर्षसम्म बाँचेको छ।"
+  },
+  {
+    "audio_id": "audio98",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736401723/audio98.wav",
+    "transcript": "रवि किरण ५० रूपैयाँ बोकेर घर गएको छ।"
+  },
+  {
+    "audio_id": "audio100",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736401775/audio100.wav",
+    "transcript": "बालकृष्ण १६०० रुपैयाँ घर बोकेर गएको छ।"
+  },
+  {
+    "audio_id": "audio101",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736401789/audio101.wav",
+    "transcript": "म २८ वर्षको भएँ।"
+  },
+  {
+    "audio_id": "audio103",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736401803/audio103.wav",
+    "transcript": "हरिले ५५० चोरेको छ।"
+  },
+  {
+    "audio_id": "audio104",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736401811/audio104.wav",
+    "transcript": "म २३ वर्षको भए।"
+  },
+  {
+    "audio_id": "audio105",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736401830/audio105.wav",
+    "transcript": "रमेशलाई २००० रुपैयाँ पठाउ ।"
+  },
+  {
+    "audio_id": "audio107",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736401847/audio107.wav",
+    "transcript": "मेरो ईसेवामा ५००० रुपैयाँ लोड गर ।"
+  },
+  {
+    "audio_id": "audio108",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736401865/audio108.wav",
+    "transcript": "बधाई छ तपाईँले दशैं तिहारको उपलक्ष्यमा २००० जित्नुभएको छ।"
+  },
+  {
+    "audio_id": "audio109",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736401867/audio109.wav",
+    "transcript": "रामकुमार भट्टराईलाई १५०० रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio110",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736401881/audio110.wav",
+    "transcript": "मेरो ईसेवामा ५० रुपैयाँ लोड गर।"
+  },
+  {
+    "audio_id": "audio112",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736401931/audio112.wav",
+    "transcript": "तपाईँले ५०००  रुपैयाँ प्राप्त गर्नुभएको छ।"
+  },
+  {
+    "audio_id": "audio113",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736401943/audio113.wav",
+    "transcript": "विवेकलाई पाँच हजार रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio114",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736402000/audio114.wav",
+    "transcript": "थानेश्वरलाई रु १०५११ रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio115",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736402032/audio115.wav",
+    "transcript": "प्रतिनलाई ६५००० रुपैयाँ पठाइदिनुहोस् ।"
+  },
+  {
+    "audio_id": "audio116",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736402035/audio116.wav",
+    "transcript": "सौरवलाई ११० रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio117",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736402071/audio117.wav",
+    "transcript": "कृष्णप्रसाद पौडेललाई नेपाल बैंक लिमिटेडबाट ५०० रुपैयाँ पठाइदिनु ।"
+  },
+  {
+    "audio_id": "audio118",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736402083/audio118.wav",
+    "transcript": "कृतिकालाई ७८ रूपैयाँ पठाइदिनुहोस्।"
+  },
+  {
+    "audio_id": "audio119",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736402104/audio119.wav",
+    "transcript": "म २२ वर्ष भएँ।"
+  },
+  {
+    "audio_id": "audio121",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736402168/audio121.wav",
+    "transcript": "सन्देशलाई ३२४५ रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio122",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736402172/audio122.wav",
+    "transcript": "सज्जा अर्याललाई नबिल बैंकबाट १५०० पठाइदिनुस्।"
+  },
+  {
+    "audio_id": "audio123",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736402185/audio123.wav",
+    "transcript": "उमङ्गलाई २३२२ पठा।"
+  },
+  {
+    "audio_id": "audio124",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736402191/audio124.wav",
+    "transcript": "आराधना ओजालाई २१४० रुपैयाँ पठा।"
+  },
+  {
+    "audio_id": "audio125",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736402201/audio125.wav",
+    "transcript": "गौरव झालाई ४६२२ ट्रान्सफर गर ।"
+  },
+  {
+    "audio_id": "audio127",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736402217/audio127.wav",
+    "transcript": "दिपेश बिष्टलाई २०३ रुपैयाँ ट्रान्सफर गर ।"
+  },
+  {
+    "audio_id": "audio128",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736402228/audio128.wav",
+    "transcript": "आयुषलाई ४६२२ रूपैयाँ सेन्ड गर ।"
+  },
+  {
+    "audio_id": "audio129",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736402262/audio129.wav",
+    "transcript": "स्नेहलाई १२३४ ट्रान्सफर गर ।"
+  },
+  {
+    "audio_id": "audio130",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736402294/audio130.wav",
+    "transcript": "सुमित्रा अधिकारीलाई एनआइसी एसिया बैंकमा ९५०० ट्रान्सफर गर ।"
+  },
+  {
+    "audio_id": "audio131",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736402302/audio131.wav",
+    "transcript": "डिप्सनलाई ७३२ रुपैयाँ डिपोजिट गर ।"
+  },
+  {
+    "audio_id": "audio132",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736402314/audio132.wav",
+    "transcript": "पुष्पा लामिछानेलाई ३५००० रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio133",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736402331/audio133.wav",
+    "transcript": "समीपलाई ६२४९ रुपैयाँ ट्रान्सफर गर ।"
+  },
+  {
+    "audio_id": "audio134",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736402366/audio134.wav",
+    "transcript": "अभिषेकलाई २३३२  रुपैयाँ डिपोजिट गर।"
+  },
+  {
+    "audio_id": "audio135",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736402406/audio135.wav",
+    "transcript": "खुशबु न्यौपानेलाई ४६११ रुपैयाँ ट्रान्सफर गर।"
+  },
+  {
+    "audio_id": "audio136",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736402421/audio136.wav",
+    "transcript": "अनिश सापकोटालाई रु ५११ रुपैयाँ ट्रान्सफर गर।"
+  },
+  {
+    "audio_id": "audio137",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736402433/audio137.wav",
+    "transcript": "मेरो उमेर २२ वर्ष भयो।"
+  },
+  {
+    "audio_id": "audio138",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736402475/audio138.wav",
+    "transcript": "अनुषलाई १२११ रुपैयाँ सेन्ड गर।"
+  },
+  {
+    "audio_id": "audio139",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736402526/audio139.wav",
+    "transcript": "दीप्सीका शाहलाई ४६२३ ट्रान्सफर रुपैयाँ गर।"
+  },
+  {
+    "audio_id": "audio140",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736402768/audio140.wav",
+    "transcript": "म ५५ वर्षको भएँ।"
+  },
+  {
+    "audio_id": "audio144",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736402904/audio144.wav",
+    "transcript": "मेरो जमिन भन्नाले २०१ रुपैयाँ पठाइदिनु ।"
+  },
+  {
+    "audio_id": "audio145",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736402918/audio145.wav",
+    "transcript": "मेरो ईसेवामा ५० रुपैयाँ लोड गर्नु ।"
+  },
+  {
+    "audio_id": "audio146",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736402938/audio146.wav",
+    "transcript": "पदम भण्डारीलाई ४००० रुपैयाँ लोड गरिदिनु।"
+  },
+  {
+    "audio_id": "audio147",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736403038/audio147.wav",
+    "transcript": "सन्देश भट्टराई ३४५५ रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio148",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736403052/audio148.wav",
+    "transcript": "सन्देश भट्टलाई २१२५ रुपैयाँ पठाउ ।"
+  },
+  {
+    "audio_id": "audio149",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736403065/audio149.wav",
+    "transcript": "थानेश्वरलाई ३२४५ सेन्ड गर ।"
+  },
+  {
+    "audio_id": "audio150",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736403079/audio150.wav",
+    "transcript": "सन्तोषलाई ६२३९ पठाउ ।"
+  },
+  {
+    "audio_id": "audio151",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736403092/audio151.wav",
+    "transcript": "शम्भु २० वर्ष भए ।"
+  },
+  {
+    "audio_id": "audio152",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736403146/audio152.wav",
+    "transcript": "महेन्द्रलाई ४६५५ ट्रान्सफर गर ।"
+  },
+  {
+    "audio_id": "audio154",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736403201/audio154.wav",
+    "transcript": "मनिषलाई १००० रुपैयाँ पैसा पठाइदेउ।"
+  },
+  {
+    "audio_id": "audio155",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736403216/audio155.wav",
+    "transcript": "मेरो २००० डिपोजिट गर्नुपर्नेछ।"
+  },
+  {
+    "audio_id": "audio156",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736403217/audio156.wav",
+    "transcript": "दीक्षालाई रु.५००० पैसा सेन्ड गर।"
+  },
+  {
+    "audio_id": "audio158",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736403241/audio158.wav",
+    "transcript": "म २० वर्षको भए ।"
+  },
+  {
+    "audio_id": "audio159",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736403255/audio159.wav",
+    "transcript": "शान्तिलाई ४८०० रुपैयाँ पठा।"
+  },
+  {
+    "audio_id": "audio160",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736403352/audio160.wav",
+    "transcript": "रोहितलाई ५० रुपैयाँ पठाइदिनुस्।"
+  },
+  {
+    "audio_id": "audio163",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736403428/audio163.wav",
+    "transcript": "प्रभु शाहलाई ३४५५ रुपैयाँ ट्रान्सफर गर ।"
+  },
+  {
+    "audio_id": "audio164",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736403429/audio164.wav",
+    "transcript": "सुनितालाई २००० ट्रान्सफर गरिदिनुस्।"
+  },
+  {
+    "audio_id": "audio165",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736403450/audio165.wav",
+    "transcript": "मसँग १७०० रुपैयाँ  छ।"
+  },
+  {
+    "audio_id": "audio166",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736403461/audio166.wav",
+    "transcript": "कुमार पाण्डे ४२ वर्ष भयो।"
+  },
+  {
+    "audio_id": "audio167",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736403513/audio167.wav",
+    "transcript": "कमलालाई ७२०० ट्रान्सफर गर्दिनु"
+  },
+  {
+    "audio_id": "audio168",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736403553/audio168.wav",
+    "transcript": "करुणा पाण्डेलाई ५०० यी सेवा हाल्दिनुहोला।"
+  },
+  {
+    "audio_id": "audio169",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736403599/audio169.wav",
+    "transcript": "आशिषलाई ५०० रुपैयाँ ट्रान्सफर गरिदिनुस् ।"
+  },
+  {
+    "audio_id": "audio170",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736403764/audio170.wav",
+    "transcript": "युकेशलाई ५०० रुपैयाँ ट्रान्सफर गरिदिनुहोस्।"
+  },
+  {
+    "audio_id": "audio172",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736403978/audio172.wav",
+    "transcript": "सुमितलाई ५०० रुपैयाँ  पठाउ।"
+  },
+  {
+    "audio_id": "audio173",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736404020/audio173.wav",
+    "transcript": "मिनिका ४३ वर्ष भई ।"
+  },
+  {
+    "audio_id": "audio175",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736417376/audio175.wav",
+    "transcript": "रमेश पोख्रेललाई आइएमइ बैंकमा ९५० पठाउ।"
+  },
+  {
+    "audio_id": "audio176",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736417446/audio176.wav",
+    "transcript": "रेणुका सिंहलाई माछापुछ्रे बैंकमा २०००० ट्रान्सफर गर।"
+  },
+  {
+    "audio_id": "audio177",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736417468/audio177.wav",
+    "transcript": "विनोद श्रेष्ठलाई सिद्धार्थ बैंकमा ६५००० ट्रान्सफर गर।"
+  },
+  {
+    "audio_id": "audio178",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736417488/audio178.wav",
+    "transcript": "गङ्गा कार्कीलाई रिलायन्स फाइनान्समा ५००० ट्रान्सफर गर ।"
+  },
+  {
+    "audio_id": "audio179",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736417525/audio179.wav",
+    "transcript": "प्रेम गिरीलाई शिवम बैंकबाट ६५० पैसा ट्रान्सफर गर ।"
+  },
+  {
+    "audio_id": "audio181",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736417568/audio181.wav",
+    "transcript": "भीमसेन देवकोटालाई कृषि विकास बैंकमा ८५०० रुपैयाँ पठा।"
+  },
+  {
+    "audio_id": "audio182",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736417805/audio182.wav",
+    "transcript": "स्थितिलाई ३२११ रुपैयाँ ट्रान्सफर गर।"
+  },
+  {
+    "audio_id": "audio183",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736417807/audio183.wav",
+    "transcript": "मिरा श्रेष्ठलाई प्रभु बैंकबाट १८०० रुपैयाँ पठाउ ।"
+  },
+  {
+    "audio_id": "audio184",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736417811/audio184.wav",
+    "transcript": "सन्दीप पन्तलाई सनराइज बैंकबाट ४००० पैसा पठाउ।"
+  },
+  {
+    "audio_id": "audio185",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736417847/audio185.wav",
+    "transcript": "समिरा पराजुलीलाई राष्ट्रिय वाणिज्य बैंकबाट १४५००० रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio186",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736417882/audio186.wav",
+    "transcript": "महेश जोशीलाई सिद्धार्थ बैंकबाट ७५००० रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio187",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736417895/audio187.wav",
+    "transcript": "मेरो ईसेवामा रु ५०० लोड गर।"
+  },
+  {
+    "audio_id": "audio188",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736417925/audio188.wav",
+    "transcript": "मिरा श्रेष्ठलाई ७५ रुपैयाँ पठा।"
+  },
+  {
+    "audio_id": "audio190",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736418167/audio190.wav",
+    "transcript": "नित्यलाई २१२५ रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio191",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736418193/audio191.wav",
+    "transcript": "मोहिनीलाई ३२०० सेन्ड गर।"
+  },
+  {
+    "audio_id": "audio192",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736418221/audio192.wav",
+    "transcript": "अग्रिनालाई ४६०० ट्रान्सफर गर।"
+  },
+  {
+    "audio_id": "audio193",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736418247/audio193.wav",
+    "transcript": "उजेनीलाई ७३३२ रुपैयाँ डिपोजिट गर।"
+  },
+  {
+    "audio_id": "audio194",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736418268/audio194.wav",
+    "transcript": "मेरो ईसेवामा ५०००० लोड गर।"
+  },
+  {
+    "audio_id": "audio196",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736418322/audio196.wav",
+    "transcript": "वर्षालाई २१२५ रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio197",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736418371/audio197.wav",
+    "transcript": "आकृतिलाई ३२४५ सेन्ड गर ।"
+  },
+  {
+    "audio_id": "audio198",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736500140/audio198.wav",
+    "transcript": "मनोचरणलाई ५१५ रुपैयाँ ट्रान्सफर गर।"
+  },
+  {
+    "audio_id": "audio199",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736500171/audio199.wav",
+    "transcript": "मनोचरणलाई ५०००० रुपैयाँ पठा।"
+  },
+  {
+    "audio_id": "audio200",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736500188/audio200.wav",
+    "transcript": "मनोचरणलाई ५००० रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio202",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736560991/audio202.wav",
+    "transcript": "बिनोद श्रेष्ठसँग सिद्धार्थ बैंकमा ६५००० छ।"
+  },
+  {
+    "audio_id": "audio203",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736561111/audio203.wav",
+    "transcript": "गोविन्द शर्माको नेपाल बैंक लिमिटेडमा २५०० पैसा छ।"
+  },
+  {
+    "audio_id": "audio204",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736561113/audio204.wav",
+    "transcript": "समिरा पराजुलीको राष्ट्रिय वाणिज्य बैंकमा १४५००० छ।"
+  },
+  {
+    "audio_id": "audio205",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736561116/audio205.wav",
+    "transcript": "सुभाष थापाको एनआइसी एसिया बैंकमा ११०००० छ।"
+  },
+  {
+    "audio_id": "audio206",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736773506/audio206.wav",
+    "transcript": "सुरेश चन्दको नेपाल बैंक लिमिटेडमा २५०० जम्मा गर।"
+  },
+  {
+    "audio_id": "audio207",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736773538/audio207.wav",
+    "transcript": "१ २ ३ ४ ५ ६ ७ ८ ९ १०"
+  },
+  {
+    "audio_id": "audio208",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736773559/audio208.wav",
+    "transcript": "१० २० ३० ४० ५० ६० ७० ८० ९० १००"
+  },
+  {
+    "audio_id": "audio209",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736773651/audio209.wav",
+    "transcript": "मेरो नाम विराज सुवेदी हो।"
+  },
+  {
+    "audio_id": "audio210",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736773668/audio210.wav",
+    "transcript": "मेरो उमेर २२ वर्षको भयो।"
+  },
+  {
+    "audio_id": "audio211",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736773684/audio211.wav",
+    "transcript": "मेरो ठेगाना टोखा ७ तापसी हो।"
+  },
+  {
+    "audio_id": "audio212",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736773743/audio212.wav",
+    "transcript": "मेरो फोन नम्बर ९८६३०३४३६६ हो।"
+  },
+  {
+    "audio_id": "audio213",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736773764/audio213.wav",
+    "transcript": "११ १२ १३ १४ १५ १६ १७ १८ १९ २०"
+  },
+  {
+    "audio_id": "audio214",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736773785/audio214.wav",
+    "transcript": "५ १० १५ २० २५ ३० ३५ ४० ४५ ५०"
+  },
+  {
+    "audio_id": "audio215",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736773827/audio215.wav",
+    "transcript": "२० २१ २२ २३ २४ २५ २६ २७ २८ २९ ३०"
+  },
+  {
+    "audio_id": "audio216",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736773848/audio216.wav",
+    "transcript": "३० ३१ ३२ ३३ ३४ ३५ ३६ ३७ ३८ ३९ ४०"
+  },
+  {
+    "audio_id": "audio217",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736773868/audio217.wav",
+    "transcript": "४१४२ ४३ ४४ ४५ ४६ ४७ ४८ ४९ ५०"
+  },
+  {
+    "audio_id": "audio218",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736773890/audio218.wav",
+    "transcript": "१ ११ २१ ३१ ४१"
+  },
+  {
+    "audio_id": "audio219",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736773908/audio219.wav",
+    "transcript": "२ २२ ३२ ४२"
+  },
+  {
+    "audio_id": "audio220",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736773926/audio220.wav",
+    "transcript": "३ १३ ३३"
+  },
+  {
+    "audio_id": "audio221",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736773948/audio221.wav",
+    "transcript": "४ ५ ६ १४ १५ १६ २४ २५ २६"
+  },
+  {
+    "audio_id": "audio222",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736773994/audio222.wav",
+    "transcript": "९८४१३२५६७८"
+  },
+  {
+    "audio_id": "audio223",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736774020/audio223.wav",
+    "transcript": "नबिल बैंक सिद्धार्थ बैंक"
+  },
+  {
+    "audio_id": "audio224",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736779075/audio224.wav",
+    "transcript": "मनिषमार्जनलाई दुई रूपैयाँ पठाइदिनु।"
+  },
+  {
+    "audio_id": "audio225",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736779214/audio225.wav",
+    "transcript": "मेरो ईसेवामा ३५ रुपैयाँ लोड गर।"
+  },
+  {
+    "audio_id": "audio226",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736779275/audio226.wav",
+    "transcript": "मसँग १७०० रुपैयाँ छ।"
+  },
+  {
+    "audio_id": "audio227",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736779298/audio227.wav",
+    "transcript": "म ५० वर्षको भयो।"
+  },
+  {
+    "audio_id": "audio229",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736780261/audio229.wav",
+    "transcript": "राजेश पाण्डे को जनता बैंक नेपालमा ७०००० रुपैयाँ छ।"
+  },
+  {
+    "audio_id": "audio230",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736780280/audio230.wav",
+    "transcript": "म ३६ वर्षको भए ।"
+  },
+  {
+    "audio_id": "audio231",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736780360/audio231.wav",
+    "transcript": "महर्जनले ३८५० जम्मा गरिएको छ।"
+  },
+  {
+    "audio_id": "audio234",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736780425/audio234.wav",
+    "transcript": "सिलु प्रजापतिलाई २४७० रुपैयाँ पठाउ ।"
+  },
+  {
+    "audio_id": "audio235",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736780499/audio235.wav",
+    "transcript": "सिलु सुरेश चन्दलाई २५०० रुपैयाँ पठाइदिनुहोस्।"
+  },
+  {
+    "audio_id": "audio236",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736780566/audio236.wav",
+    "transcript": "विवेक नेपाललाई ५५००० पठा।"
+  },
+  {
+    "audio_id": "audio237",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736780601/audio237.wav",
+    "transcript": "कृष्ण शाहले मेघा बैंक नेपालमा १३०००० जम्मा गरेका छन्।"
+  },
+  {
+    "audio_id": "audio238",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736780609/audio238.wav",
+    "transcript": "अर्जुन बस्नेतको बैंक खातामा ६०००० डिपोजिट गर ।"
+  },
+  {
+    "audio_id": "audio239",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736780631/audio239.wav",
+    "transcript": "शारदा लामिछानेले नेपाल बैंकमा रु ३२५० जम्मा गरेकी छिन्।"
+  },
+  {
+    "audio_id": "audio240",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736780656/audio240.wav",
+    "transcript": "दिपेन्द्र कार्कीले नेपाल इन्भेस्टमेन्ट मेगा बैंकमा १७५००० जम्मा गरेका छन् ।"
+  },
+  {
+    "audio_id": "audio241",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736780710/audio241.wav",
+    "transcript": "गीता थापालाई ७५००० ट्रान्सफर गर।"
+  },
+  {
+    "audio_id": "audio242",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736780723/audio242.wav",
+    "transcript": "प्रकाश खत्रीले कुमारी बैंकमा २००० प्राप्त गरेका छन्।"
+  },
+  {
+    "audio_id": "audio243",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736780765/audio243.wav",
+    "transcript": "अनिल दाहालको खातामा ७७००० डिपोजिट गर।"
+  },
+  {
+    "audio_id": "audio244",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736780787/audio244.wav",
+    "transcript": "रश्मी श्रेष्ठले नेपाल बैंकमा ८००० जम्मा गरेकी छन्।"
+  },
+  {
+    "audio_id": "audio245",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736780857/audio245.wav",
+    "transcript": "विक्रम थापालाई ९५ रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio246",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736780863/audio246.wav",
+    "transcript": "प्रेम गिरीले शिवम बैंकमा रु ६५० प्राप्त गरेका छन्।"
+  },
+  {
+    "audio_id": "audio247",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736780889/audio247.wav",
+    "transcript": "संजय श्रेष्ठले नेपाल इन्फ्रास्ट्रक्चर बैंकमा रु ७२५० प्राप्त गरेका छन्।"
+  },
+  {
+    "audio_id": "audio248",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736780891/audio248.wav",
+    "transcript": "रमेश पोख्रेललाई ९५० ट्रान्सफर गर।"
+  },
+  {
+    "audio_id": "audio249",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736780910/audio249.wav",
+    "transcript": "प्रकाश खत्रीले कुमारी बैंकमा २००० प्राप्त गरेका छन्।"
+  },
+  {
+    "audio_id": "audio250",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736780923/audio250.wav",
+    "transcript": "प्रिय सापकोटालाई ३६७५ सेन्ड गर।"
+  },
+  {
+    "audio_id": "audio251",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736780929/audio251.wav",
+    "transcript": "जित बहादुर थापाले बैंकमा १५०००० प्राप्त गरेका छन्।"
+  },
+  {
+    "audio_id": "audio252",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736780950/audio252.wav",
+    "transcript": "रेणु बस्नेतले लक्ष्मी बैंकमा ४०००० हजार प्राप्त गरेकी छन् ।"
+  },
+  {
+    "audio_id": "audio253",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736780972/audio253.wav",
+    "transcript": "प्रेम गिरीलाई ६५० रुपैयाँ सेन्ड गर ।"
+  },
+  {
+    "audio_id": "audio254",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736780978/audio254.wav",
+    "transcript": "विराज सुवेदीले नेपाल इन्भेस्टमेन्ट मेगा बैंकमा १५०००० प्राप्त गरेका छन्।"
+  },
+  {
+    "audio_id": "audio255",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736781001/audio255.wav",
+    "transcript": "माया गुरुङले नबिल बैंकमा १००० प्राप्त गरेकी छन्।"
+  },
+  {
+    "audio_id": "audio256",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736781006/audio256.wav",
+    "transcript": "म ६६ वर्षको भए।"
+  },
+  {
+    "audio_id": "audio257",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736781022/audio257.wav",
+    "transcript": "अर्चना श्रेष्ठले कुमारी बैंकमा रु ४७५० प्राप्त गरेका छन्।"
+  },
+  {
+    "audio_id": "audio258",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736781032/audio258.wav",
+    "transcript": "म ५३ वर्षको भएँ।"
+  },
+  {
+    "audio_id": "audio259",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736781050/audio259.wav",
+    "transcript": "म ३७ वर्षको भए ।"
+  },
+  {
+    "audio_id": "audio260",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736781061/audio260.wav",
+    "transcript": "राजेश्वर पाण्डेले जनता बैंक नेपालमा ७०००० रूपैयाँ प्राप्त गरेका छन्।"
+  },
+  {
+    "audio_id": "audio261",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736781079/audio261.wav",
+    "transcript": "आरती कार्कीले एनएमबी बैंकमा १८०००० प्राप्त गरेकी छिन्।"
+  },
+  {
+    "audio_id": "audio262",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736781167/audio262.wav",
+    "transcript": "आराधना ओझालाई ९५ रुपैयाँ पठा।"
+  },
+  {
+    "audio_id": "audio263",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736781180/audio263.wav",
+    "transcript": "भीमसेन देवकोटाले कृष्ण विकास बैंकमा ८००० प्राप्त गरेका छन्।"
+  },
+  {
+    "audio_id": "audio264",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736781185/audio264.wav",
+    "transcript": "म ३२ वर्षको भएँ।"
+  },
+  {
+    "audio_id": "audio265",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736781198/audio265.wav",
+    "transcript": "बिनोद श्रेष्ठले सिद्धार्थ बैंकमा ६५००० प्राप्त गरेका छन्।"
+  },
+  {
+    "audio_id": "audio266",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736781203/audio266.wav",
+    "transcript": "म ३३ वर्षको भएँ।"
+  },
+  {
+    "audio_id": "audio267",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736781219/audio267.wav",
+    "transcript": "अर्जुन बस्नेतले सेन्चुरी कमर्सियल बैंकमा ६०० रुपैयाँ प्राप्त गरेका छन् ।"
+  },
+  {
+    "audio_id": "audio268",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736781247/audio268.wav",
+    "transcript": "सुमित्रा अधिकारीले ९५०० प्राप्त गरेकी छे।"
+  },
+  {
+    "audio_id": "audio269",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736781278/audio269.wav",
+    "transcript": "कुञ्जन लम्सालले एलआइसी बैंकमा ५९९९ प्राप्त गरेकी छन्।"
+  },
+  {
+    "audio_id": "audio270",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736781284/audio270.wav",
+    "transcript": "म ३९ वर्षको भए।"
+  },
+  {
+    "audio_id": "audio271",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736781299/audio271.wav",
+    "transcript": "प्रेम सिंहले हिमालयन बैंकमा ९०००० प्राप्त गरेका छन्।"
+  },
+  {
+    "audio_id": "audio272",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736781306/audio272.wav",
+    "transcript": "म ५१ वर्षको भए।"
+  },
+  {
+    "audio_id": "audio273",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736781326/audio273.wav",
+    "transcript": "शारदा लामिछानेले नबिल बैंकमा ३२५० प्राप्त गरेकी छन्।"
+  },
+  {
+    "audio_id": "audio274",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736781337/audio274.wav",
+    "transcript": "साक्षी ओझालाई ९२ रुपैयाँ ट्रान्सफर गर।"
+  },
+  {
+    "audio_id": "audio275",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736781348/audio275.wav",
+    "transcript": "दीपिका पोखरेलले सञ्चय कोष विकास ३७५० प्राप्त गरेकी छिन्।"
+  },
+  {
+    "audio_id": "audio276",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736781360/audio276.wav",
+    "transcript": "माया गुरुङलाई ७८ रुपैयाँ ट्रान्सफर गर।"
+  },
+  {
+    "audio_id": "audio277",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736781396/audio277.wav",
+    "transcript": "राजेश्वर पाण्डेले जनता बैंक नेपालमा ७०००० प्राप्त गरेका छन्।"
+  },
+  {
+    "audio_id": "audio278",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736781418/audio278.wav",
+    "transcript": "प्रेम गिरीलाई ६७ रुपैयाँ ट्रान्सफर गर।"
+  },
+  {
+    "audio_id": "audio279",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736781456/audio279.wav",
+    "transcript": "प्रिया सापकोटालाई ३६७५ रूपैयाँ ट्रान्सफर गर ।"
+  },
+  {
+    "audio_id": "audio280",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736781484/audio280.wav",
+    "transcript": "पुष्पा लामिछानेलाई ७९ रुपैयाँ सेन्ड गर।"
+  },
+  {
+    "audio_id": "audio281",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736781503/audio281.wav",
+    "transcript": "मेरो ईसेवामा ३६७७ छ।"
+  },
+  {
+    "audio_id": "audio282",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736781522/audio282.wav",
+    "transcript": "मेरो ईसेवामा ७९००० छ।"
+  },
+  {
+    "audio_id": "audio283",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736781553/audio283.wav",
+    "transcript": "मेरो ईसेवामा ५२ रुपैयाँ छ।"
+  },
+  {
+    "audio_id": "audio284",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736781574/audio284.wav",
+    "transcript": "मेरो ईसेवामा ५२ रुपैयाँ लोड गर।"
+  },
+  {
+    "audio_id": "audio285",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736781626/audio285.wav",
+    "transcript": "मेरो ईसेवामा ८९ रुपैयाँ राख।"
+  },
+  {
+    "audio_id": "audio287",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736781848/audio287.wav",
+    "transcript": "सुभाष थापाले एनआइसी एसिया बैंकमा ११०००० प्राप्त गरेका छन्।"
+  },
+  {
+    "audio_id": "audio288",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736781866/audio288.wav",
+    "transcript": "प्रेम सिंहले हिमालयन बैंकमा रु ९०००० प्राप्त गरेका छन्।"
+  },
+  {
+    "audio_id": "audio290",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736781918/audio290.wav",
+    "transcript": "सपना ढकालले ग्लोबल आइएमइ बैंकमा रु १८०००० प्राप्त गरेकी छन्।"
+  },
+  {
+    "audio_id": "audio291",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736781975/audio291.wav",
+    "transcript": "राजेश सिटौलाले कुमारी बैंकमा ७२५० प्राप्त गरेका छन्।"
+  },
+  {
+    "audio_id": "audio292",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736782001/audio292.wav",
+    "transcript": "मिरा श्रेष्ठले प्रभु बैंकमा  ९८०० प्राप्त गरेकी छन्।"
+  },
+  {
+    "audio_id": "audio293",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736782024/audio293.wav",
+    "transcript": "शान्ता घिमिरेले सिद्धार्थ बैंक मा ५८०० प्राप्त गरेका छन्।"
+  },
+  {
+    "audio_id": "audio294",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736782049/audio294.wav",
+    "transcript": "रेणु बस्नेतले लक्ष्मी बैंकमा १५०००० प्राप्त गरेकी छिन्"
+  },
+  {
+    "audio_id": "audio295",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736782071/audio295.wav",
+    "transcript": "अनिरा कँडेलले नेपाल एसबिआइ बैंकमा रु ८०० प्राप्त गरेकी छिन्।"
+  },
+  {
+    "audio_id": "audio296",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736782091/audio296.wav",
+    "transcript": "अनिल दाहालले नेपाल बैंक लिमिटेडमा १२०००० प्राप्त गरेका छन्।"
+  },
+  {
+    "audio_id": "audio297",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736782108/audio297.wav",
+    "transcript": "प्रिया चौधरीले जनता बैंकमा ३००० प्राप्त गरेकी छिन्।"
+  },
+  {
+    "audio_id": "audio298",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736783851/audio298.wav",
+    "transcript": "माया गुरुङले नबिल बैंकमा १०००० जम्मा गरेकी छिन्।"
+  },
+  {
+    "audio_id": "audio299",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736783899/audio299.wav",
+    "transcript": "अर्जुन बस्नेतले सेन्चुरी कमर्सियल बैंकमा हिजो आइतबारको दिन ६००० जम्मा गरेका छन्।"
+  },
+  {
+    "audio_id": "audio300",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736783941/audio300.wav",
+    "transcript": "कञ्चन लम्सालले एलआइसी विकास बैंकमा हिजो १०००० जम्मा गरेकी छिन्।"
+  },
+  {
+    "audio_id": "audio301",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736783947/audio301.wav",
+    "transcript": "उसँग २००० छ।"
+  },
+  {
+    "audio_id": "audio302",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736783975/audio302.wav",
+    "transcript": "मैले हरिलाई २५५० रुपैयाँ पठाएको छु।"
+  },
+  {
+    "audio_id": "audio303",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736783998/audio303.wav",
+    "transcript": "हजुरले मलाई इसेवामा ५५०० रुपैयाँ पठाइदिनुहोस्।"
+  },
+  {
+    "audio_id": "audio304",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736784018/audio304.wav",
+    "transcript": "मैले साक्षीलाई ३१२३ रुपैयाँ दिएको छु।"
+  },
+  {
+    "audio_id": "audio305",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736784038/audio305.wav",
+    "transcript": "रिताले मलाई १०१ रुपैयाँ हाल्देकी छिन्।"
+  },
+  {
+    "audio_id": "audio306",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736784069/audio306.wav",
+    "transcript": "रो नाम अंशु बास्कोटा र मेरो बैंकको खाता भएको बैंकको नाम एभरेस्ट बैंक लिमिटेड।"
+  },
+  {
+    "audio_id": "audio307",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736784072/audio307.wav",
+    "transcript": "तिमी मलाई २०२ ट्रान्सफर गर"
+  },
+  {
+    "audio_id": "audio308",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736784097/audio308.wav",
+    "transcript": "मेरो ईसेवामा २९५ रूपैयाँ लोड गर"
+  },
+  {
+    "audio_id": "audio309",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736784101/audio309.wav",
+    "transcript": "रामकृष्ण भट्ट सनराइज बैंकमा गएर ३००० जम्मा गरेर घर फर्किए"
+  },
+  {
+    "audio_id": "audio311",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736784119/audio311.wav",
+    "transcript": "मसँग आज मेरो ईसेवामा ५०० रुपैयाँ मात्र रहेछ।"
+  },
+  {
+    "audio_id": "audio313",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736784135/audio313.wav",
+    "transcript": "म ५० वर्षको भएँ।"
+  },
+  {
+    "audio_id": "audio314",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736784155/audio314.wav",
+    "transcript": "१० २० ३० ४० ५० ६० ७० ८०"
+  },
+  {
+    "audio_id": "audio315",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736784175/audio315.wav",
+    "transcript": "मेरो ईसेवामा ५०० रुपैयाँ पठाउ"
+  },
+  {
+    "audio_id": "audio316",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736784187/audio316.wav",
+    "transcript": "म माया गुरुङ म नबिल बैंकमा काम गर्छु।१००० २००० ३००० ४००० ५०००"
+  },
+  {
+    "audio_id": "audio317",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736784196/audio317.wav",
+    "transcript": "मलाई ५०० रुपैयाँ पठाउ"
+  },
+  {
+    "audio_id": "audio318",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736784206/audio318.wav",
+    "transcript": "आज राति हरिले मलाई २५९१ रुपैयाँ पठाइदिएको रहेछ।"
+  },
+  {
+    "audio_id": "audio319",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736784226/audio319.wav",
+    "transcript": "उसले मलाई १२१० रुपैयाँ  हाल्दि"
+  },
+  {
+    "audio_id": "audio320",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736784230/audio320.wav",
+    "transcript": "५०० रुपैयाँ"
+  },
+  {
+    "audio_id": "audio322",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736784250/audio322.wav",
+    "transcript": "दिपेन्द्र कार्की नेपाल इन्भेस्टमेन्ट मेगा बैंक १७८०००"
+  },
+  {
+    "audio_id": "audio328",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736784358/audio328.wav",
+    "transcript": "कृष्णप्रसाद पौडेल नेपाल बैंक लिमिटेड ०१२३४५६७८९१०"
+  },
+  {
+    "audio_id": "audio330",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736784572/audio330.wav",
+    "transcript": "मेरो उमेर २२ वर्षको भयो।"
+  },
+  {
+    "audio_id": "audio331",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736784577/audio331.wav",
+    "transcript": "रोशनी पौडेल लक्ष्मी बैंक ३८७० आज सोमबार"
+  },
+  {
+    "audio_id": "audio332",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736784592/audio332.wav",
+    "transcript": "सुरज कडेलले नेपाल बैंक लिमिटेडमा ५०००० रुपैयाँ जम्मा गरेका छन्।"
+  },
+  {
+    "audio_id": "audio333",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736784619/audio333.wav",
+    "transcript": "७ १७ २७ ३७"
+  },
+  {
+    "audio_id": "audio334",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736784624/audio334.wav",
+    "transcript": "सञ्जय श्रेष्ठ नेपाल इन्फ्रास्ट्रक्चर बैंक १ २ ७४८"
+  },
+  {
+    "audio_id": "audio335",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736784655/audio335.wav",
+    "transcript": "रामकृष्ण भट्टले सनराइज बैंकमा ११०००० हजार रुपैयाँ जम्मा गरेका छन्।"
+  },
+  {
+    "audio_id": "audio336",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736784682/audio336.wav",
+    "transcript": "जेश्वर पाण्डे जनता बैंक नेपाल १७१८ रुपैयाँ"
+  },
+  {
+    "audio_id": "audio337",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736784689/audio337.wav",
+    "transcript": "रेणु बस्नेतले लक्ष्मी बैंकमा १४०००० हजार जम्मा गरेका छन्।"
+  },
+  {
+    "audio_id": "audio338",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736784749/audio338.wav",
+    "transcript": "चेतबहादुर थापा घलेगाउँ माछापुछ्रे बैंक १२ रुपैयाँ"
+  },
+  {
+    "audio_id": "audio340",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736784783/audio340.wav",
+    "transcript": "सुभाष थापा एनआइसी एसिया बैंक लिमिटेड रातो कलर सेतो फन्ट सेतो अक्षर १ २ ३"
+  },
+  {
+    "audio_id": "audio342",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736784838/audio342.wav",
+    "transcript": "गौतमद्वारा नबिल बैंकमा १३०००० जम्मा गरियो।"
+  },
+  {
+    "audio_id": "audio343",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736784903/audio343.wav",
+    "transcript": "नाम शर्मिला दाहाल बैंक एनआइसी एसिया बैंक खाता नम्बर १ २ ३ ४ ५ रकम ३६४४ मात्र"
+  },
+  {
+    "audio_id": "audio344",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736784951/audio344.wav",
+    "transcript": "समिरा पराजुली वडा नम्बर ४ राष्ट्रिय वाणिज्य बैंक १४२ रुपैयाँ धन्यवाद"
+  },
+  {
+    "audio_id": "audio345",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736785027/audio345.wav",
+    "transcript": "मेरो साथी नवराज पराजुलीद्वारा सांग्रला डेभलपमेन्ट बैंकमा ५०००० रुपैयाँ जम्मा गरियो।"
+  },
+  {
+    "audio_id": "audio346",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736864476/audio346.wav",
+    "transcript": "अभिषेकलाई ३,४४० सेन्ड गर।"
+  },
+  {
+    "audio_id": "audio347",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736864515/audio347.wav",
+    "transcript": "राजेशलाई ५०५० रुपैयाँ ट्रान्सफर गर।"
+  },
+  {
+    "audio_id": "audio348",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736864542/audio348.wav",
+    "transcript": "कोसिसलाई दुई रुपैयाँ सेन्ड गर।"
+  },
+  {
+    "audio_id": "audio349",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736864565/audio349.wav",
+    "transcript": "कृतिकालाई ७००० रुपैयाँ सेन्ड गर।"
+  },
+  {
+    "audio_id": "audio350",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736864584/audio350.wav",
+    "transcript": "हरिबहादुरलाई ५७५ रुपैयाँ सेन्ड गर ।"
+  },
+  {
+    "audio_id": "audio351",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736864626/audio351.wav",
+    "transcript": "बिनोदलाई ५७५२ रुपैयाँ ट्रान्सफर गर।"
+  },
+  {
+    "audio_id": "audio352",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736864659/audio352.wav",
+    "transcript": "गुप्तलाई ७५० रुपैयाँ सेन्ड गर।"
+  },
+  {
+    "audio_id": "audio353",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736864676/audio353.wav",
+    "transcript": "हरिओमलाई १०० रुपैयाँ सेन्ड गर।"
+  },
+  {
+    "audio_id": "audio354",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736864696/audio354.wav",
+    "transcript": "सनी लियोनीलाई १०० रुपैयाँ ट्रान्सफर गर"
+  },
+  {
+    "audio_id": "audio355",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736864732/audio355.wav",
+    "transcript": "जोनी सिंहलाई १००० ट्रान्सफर गर।"
+  },
+  {
+    "audio_id": "audio356",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736864754/audio356.wav",
+    "transcript": "श्री हनुमानजीलाई ५००० ट्रान्सफर गर्नुहोस्।"
+  },
+  {
+    "audio_id": "audio357",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736864771/audio357.wav",
+    "transcript": "निशानलाई ५००००० ट्रान्सफर गर्नुहोस्।"
+  },
+  {
+    "audio_id": "audio358",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736864824/audio358.wav",
+    "transcript": "अभिषेकज्यूलाई रु १५०० ट्रान्सफर गर्नुहोस्।"
+  },
+  {
+    "audio_id": "audio359",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736864843/audio359.wav",
+    "transcript": "गौतम भाइलाई रु २० रुपैयाँ पठाउनुहोस्।"
+  },
+  {
+    "audio_id": "audio360",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736864873/audio360.wav",
+    "transcript": "विवेकज्यूलाई रु ७५ रुपैयाँ सेन्ड गर्नुहोस्।"
+  },
+  {
+    "audio_id": "audio363",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736865275/audio363.wav",
+    "transcript": "सन्तोषलाई १५०००० ट्रान्सफर गरिदिनुहोस्"
+  },
+  {
+    "audio_id": "audio364",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736865291/audio364.wav",
+    "transcript": "सुरजलाई रु. १०० रुपैयाँ पठाउनुस्।"
+  },
+  {
+    "audio_id": "audio366",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736865361/audio366.wav",
+    "transcript": "कमल सापकोटालाई ५००१० रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio367",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736865407/audio367.wav",
+    "transcript": "सन्देशलाई रु २५१ रुपैयाँ ट्रान्सफर"
+  },
+  {
+    "audio_id": "audio368",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736865435/audio368.wav",
+    "transcript": "सचिनलाई रु १००००० ट्रान्सफर गर्देउ।"
+  },
+  {
+    "audio_id": "audio369",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736865584/audio369.wav",
+    "transcript": "सौगात दाईलाई ३००००० रुपैयाँ ट्रान्सफर गर्देउ।"
+  },
+  {
+    "audio_id": "audio370",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736865670/audio370.wav",
+    "transcript": "उज्ज्वललाई २५० पठाइदेउ"
+  },
+  {
+    "audio_id": "audio371",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736865689/audio371.wav",
+    "transcript": "राजलाई रु १०५० रुपैयाँ पठाइदेउ।"
+  },
+  {
+    "audio_id": "audio372",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736865713/audio372.wav",
+    "transcript": "सन्दीपलाई २३०००० हजार पठाइदेउ।"
+  },
+  {
+    "audio_id": "audio373",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736865729/audio373.wav",
+    "transcript": "मञ्जुलाई ५५० रुपैयाँ पठाइदेउ"
+  },
+  {
+    "audio_id": "audio374",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736865746/audio374.wav",
+    "transcript": "रोजिनालाई ४८० ट्रान्सफर गर्देउ"
+  },
+  {
+    "audio_id": "audio376",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736865788/audio376.wav",
+    "transcript": "मान्मी सिंह ऐरलाई १००००० रुपैयाँ ट्रान्सफर गर्देउ"
+  },
+  {
+    "audio_id": "audio377",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736865812/audio377.wav",
+    "transcript": "सागरलाई २० रुपैयाँ पठाइदेउ"
+  },
+  {
+    "audio_id": "audio378",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736865838/audio378.wav",
+    "transcript": "सफल खनाललाई ५५००  यी सेवामा पठाइदेउ।"
+  },
+  {
+    "audio_id": "audio379",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736865869/audio379.wav",
+    "transcript": "छिरिङलाई ३८० ट्रान्सफर गर्देउ।"
+  },
+  {
+    "audio_id": "audio380",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736865893/audio380.wav",
+    "transcript": "अभिषेक दाइलाई ३,४५० सेन्ड गर।"
+  },
+  {
+    "audio_id": "audio381",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736865926/audio381.wav",
+    "transcript": "सौगात सिंह ठकुरीलाई ४०३ रुपैयाँ ट्रान्सफर गर"
+  },
+  {
+    "audio_id": "audio382",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736865949/audio382.wav",
+    "transcript": "विवेक गुप्तालाई ६००० ट्रान्सफर गर्देउ।"
+  },
+  {
+    "audio_id": "audio387",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736866039/audio387.wav",
+    "transcript": "सन्तोष शर्मालाई रु.५०० रुपैयाँ ट्रान्सफर गर्दै"
+  },
+  {
+    "audio_id": "audio388",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736866480/audio388.wav",
+    "transcript": "लखी भास्करको अकाउन्टमा रु.५०० ट्रान्सफर भैजास्"
+  },
+  {
+    "audio_id": "audio389",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736866566/audio389.wav",
+    "transcript": "हरिओमलाई ६००० रुपैयाँ ट्रान्सफर गर्न अनुरोध गर्दछु।"
+  },
+  {
+    "audio_id": "audio391",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736866956/audio391.wav",
+    "transcript": "रुपेशलाई ४३० रुपैयाँ पठाउ।"
+  },
+  {
+    "audio_id": "audio392",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736866986/audio392.wav",
+    "transcript": "दिपेन्द्रलाई ४३० पठाउ"
+  },
+  {
+    "audio_id": "audio393",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736867002/audio393.wav",
+    "transcript": "समिरलाई १०००० पठाउ।"
+  },
+  {
+    "audio_id": "audio394",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736867030/audio394.wav",
+    "transcript": "सीमालाई २०० सेन्ड गर"
+  },
+  {
+    "audio_id": "audio395",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736867063/audio395.wav",
+    "transcript": "सन्दीप लामिछानेलाई ४५५० रुपैयाँ सेन्ड गर"
+  },
+  {
+    "audio_id": "audio396",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736867078/audio396.wav",
+    "transcript": "समिरलाई ३५० पठाउ।"
+  },
+  {
+    "audio_id": "audio397",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736867110/audio397.wav",
+    "transcript": "सन्तोष निरौलालाई ४५० रुपैयाँ ट्रान्सफर गर।"
+  },
+  {
+    "audio_id": "audio398",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736867143/audio398.wav",
+    "transcript": "रितेशलाई ५०० रुपे पठाउ"
+  },
+  {
+    "audio_id": "audio399",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736867170/audio399.wav",
+    "transcript": "रामलाई रु १०००० पठाउ"
+  },
+  {
+    "audio_id": "audio400",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736867183/audio400.wav",
+    "transcript": "हरिलाई रु ५००० पठाउ।"
+  },
+  {
+    "audio_id": "audio401",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736867221/audio401.wav",
+    "transcript": "समिरलाई ५०० सेन्ट गर"
+  },
+  {
+    "audio_id": "audio402",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736867245/audio402.wav",
+    "transcript": "सागरलाई रु ५००० सेन्ड गर।"
+  },
+  {
+    "audio_id": "audio403",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736867261/audio403.wav",
+    "transcript": "अझैलाई रु २०००० सेन्ड गर"
+  },
+  {
+    "audio_id": "audio404",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736867282/audio404.wav",
+    "transcript": "रोनाल्डोलाई रु १००००० सेन्ड गर"
+  },
+  {
+    "audio_id": "audio405",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736867316/audio405.wav",
+    "transcript": "बार्सिलोनालाई रु ३५० ट्रान्सफर गर"
+  },
+  {
+    "audio_id": "audio406",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736867337/audio406.wav",
+    "transcript": "गीतालाई रु १०० सेन्ड गर"
+  },
+  {
+    "audio_id": "audio407",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736867364/audio407.wav",
+    "transcript": "आयुषालाई १० रुपैयाँ पठाउ"
+  },
+  {
+    "audio_id": "audio408",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736867383/audio408.wav",
+    "transcript": "समृद्धिलाई १० रुपैयाँ ट्रान्सफर गर"
+  },
+  {
+    "audio_id": "audio409",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736867401/audio409.wav",
+    "transcript": "सुवासनालाई ६०००  रुपैयाँ ट्रान्सफर गर"
+  },
+  {
+    "audio_id": "audio410",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736867424/audio410.wav",
+    "transcript": "महेन्द्रलाई ५५० ट्रान्सफर गर।"
+  },
+  {
+    "audio_id": "audio411",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736867449/audio411.wav",
+    "transcript": "सर आइजक न्युटनलाई नरिवल किन्नलाई ५५० सेन्ड गर।"
+  },
+  {
+    "audio_id": "audio412",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736867478/audio412.wav",
+    "transcript": "शाहीलाई १०००० रुपे ट्रान्सफर गर"
+  },
+  {
+    "audio_id": "audio414",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736867551/audio414.wav",
+    "transcript": "जुनीलाई ५०० सेन्ड गर"
+  },
+  {
+    "audio_id": "audio415",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736867565/audio415.wav",
+    "transcript": "दिपेन्द्रलाई ५५५५ सेन्ड गर।"
+  },
+  {
+    "audio_id": "audio416",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736867579/audio416.wav",
+    "transcript": "प्रमिसलाई २५३ पैसा सेन्ड गर।"
+  },
+  {
+    "audio_id": "audio417",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736867615/audio417.wav",
+    "transcript": "पूजालाई २३५ ट्रान्सफर गर"
+  },
+  {
+    "audio_id": "audio418",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736867630/audio418.wav",
+    "transcript": "रामबहादुर शाहलाई ५२५ सेन्ड गर"
+  },
+  {
+    "audio_id": "audio419",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736867647/audio419.wav",
+    "transcript": "रचना रिमाललाई १२२५ सेन्ड गर"
+  },
+  {
+    "audio_id": "audio421",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736867686/audio421.wav",
+    "transcript": "आलनलाई ५००० सेन्ड गर"
+  },
+  {
+    "audio_id": "audio423",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736867730/audio423.wav",
+    "transcript": "उड्नलाई ८५००० सेन्ड गर।"
+  },
+  {
+    "audio_id": "audio425",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736867769/audio425.wav",
+    "transcript": "प्राइमलाई ७५००० सेन्ड गर"
+  },
+  {
+    "audio_id": "audio426",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736867800/audio426.wav",
+    "transcript": "डेविडलाई ७५००० सेन्ड गर"
+  },
+  {
+    "audio_id": "audio427",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736867815/audio427.wav",
+    "transcript": "सुशान्त केसीलाई २५००० पठाउ।"
+  },
+  {
+    "audio_id": "audio428",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736867833/audio428.wav",
+    "transcript": "नोरा फतेलाई ५३२२५ पठाउ।"
+  },
+  {
+    "audio_id": "audio429",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736867851/audio429.wav",
+    "transcript": "सुनिललाई २३२२५ पठाउ।"
+  },
+  {
+    "audio_id": "audio430",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736867870/audio430.wav",
+    "transcript": "रोहित शर्मालाई ५७५० पठाउ"
+  },
+  {
+    "audio_id": "audio431",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736867884/audio431.wav",
+    "transcript": "गिललाई २५० पठाउ।"
+  },
+  {
+    "audio_id": "audio433",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736867915/audio433.wav",
+    "transcript": "सन्जु श्यामनालाई ४६४२५ पठाउ।"
+  },
+  {
+    "audio_id": "audio434",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736867937/audio434.wav",
+    "transcript": "बुङ्ग्रालाई १२६२५ पठाउ।"
+  },
+  {
+    "audio_id": "audio435",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736867953/audio435.wav",
+    "transcript": "विराट कोहलीलाई ९९९९ पठाउ"
+  },
+  {
+    "audio_id": "audio436",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736867968/audio436.wav",
+    "transcript": "ऋषभ पन्तलाई २५२८६ पठाउ"
+  },
+  {
+    "audio_id": "audio437",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736867981/audio437.wav",
+    "transcript": "धोनीलाई ७७७७ पठाउ।"
+  },
+  {
+    "audio_id": "audio439",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736868019/audio439.wav",
+    "transcript": "संगीतालाई २२५ पठाउ"
+  },
+  {
+    "audio_id": "audio440",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736868041/audio440.wav",
+    "transcript": "करुणालाई रु. ८६२५ पठाउ"
+  },
+  {
+    "audio_id": "audio441",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736868835/audio441.wav",
+    "transcript": "प्राचीज जोशीलाई यी सेवामा २८५ पठाउ"
+  },
+  {
+    "audio_id": "audio442",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736868911/audio442.wav",
+    "transcript": "हरिओमलाई यी सेवामा २५०० पठाइदिनुहोस्।"
+  },
+  {
+    "audio_id": "audio443",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736868955/audio443.wav",
+    "transcript": "विद्यालाई ई सेवामा २०८० पठाइदिनुहोस्।"
+  },
+  {
+    "audio_id": "audio444",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736868989/audio444.wav",
+    "transcript": "मेरो ईसेवामा ५०० रुपैयाँ अपलोड गर।"
+  },
+  {
+    "audio_id": "audio445",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736869019/audio445.wav",
+    "transcript": "गरिमा भट्टको कुमारी बैंकमा २०१५ रुपैयाँ पठाइदिनुहोस्"
+  },
+  {
+    "audio_id": "audio447",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736869051/audio447.wav",
+    "transcript": "गुप्तालाई २३० रुपैयाँ सेन्ड गर"
+  },
+  {
+    "audio_id": "audio448",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736869058/audio448.wav",
+    "transcript": "म अहिले २३ वर्षको भएँ।"
+  },
+  {
+    "audio_id": "audio449",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736869066/audio449.wav",
+    "transcript": "ए राम तिमीले २०० रुपैयाँ प्राप्त गरेका छौ"
+  },
+  {
+    "audio_id": "audio450",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736869128/audio450.wav",
+    "transcript": "० १ २ ३ ४ ५ ६ ७ ८ ९"
+  },
+  {
+    "audio_id": "audio452",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736869165/audio452.wav",
+    "transcript": "मेरालाई ५०० रुपैयाँ दिन्छु।"
+  },
+  {
+    "audio_id": "audio453",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736869173/audio453.wav",
+    "transcript": "ओइ कपिल भट्टलाई ५०० रुपैयाँ ट्रान्सफर गर"
+  },
+  {
+    "audio_id": "audio454",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736869201/audio454.wav",
+    "transcript": "म प्रज्वललाई ५०० रुपैयाँ दिन्छु।"
+  },
+  {
+    "audio_id": "audio455",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736869235/audio455.wav",
+    "transcript": "मेरोयी सेवाको खातामा ५०५ हाल्दे त भाइ।"
+  },
+  {
+    "audio_id": "audio456",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736869253/audio456.wav",
+    "transcript": "मेरो काकालाई १०१५ हाल्देउ"
+  },
+  {
+    "audio_id": "audio457",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736869262/audio457.wav",
+    "transcript": "विवेक तिमीलाई १००० रुपैयाँ पठाउँछु।"
+  },
+  {
+    "audio_id": "audio458",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736869270/audio458.wav",
+    "transcript": "सीमा भट्टराई ५२० रुपैयाँ ट्रान्सफर गर्दा नेपाल वाणिज्य बैंक"
+  },
+  {
+    "audio_id": "audio459",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736869314/audio459.wav",
+    "transcript": "बसन्तराज पाण्डेकोमा ५०५ हाल्देउ त"
+  },
+  {
+    "audio_id": "audio460",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736869382/audio460.wav",
+    "transcript": "पशुपति भट्टको यी सेवाको खातामा ७५ रुपैयाँ ट्रान्सफर गर"
+  },
+  {
+    "audio_id": "audio461",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736869445/audio461.wav",
+    "transcript": "विवेक कुमार गुप्ताको यी सेवामा ७५ पैसा पठा त"
+  },
+  {
+    "audio_id": "audio462",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736869477/audio462.wav",
+    "transcript": "हरिओम कुमार रौनियारलाई ५०५ रुपैयाँ पठा त"
+  },
+  {
+    "audio_id": "audio463",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1736872000/audio463.wav",
+    "transcript": "टियास दादालाई ५ रुपैयाँ पठा"
+  },
+  {
+    "audio_id": "audio619",
+    "url": "https://res.cloudinary.com/bolanepal/video/upload/v1766895551/audio619.wav",
+    "transcript": "कृतिका पाण्डेलाई ईसेवामा  १००००  पठाउ।"
+  }
+]

@@ -1,0 +1,87 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test-app:
+    name: Test & build Next.js app
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: app/package-lock.json
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run unit tests
+        run: npm test
+
+      - name: Type check
+        run: npx tsc --noEmit
+
+      - name: Build
+        run: npm run build
+        env:
+          # Dummy values so build doesn't fail on missing env vars
+          NEXT_PUBLIC_SUPABASE_URL: https://placeholder.supabase.co
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: placeholder
+          SUPABASE_SERVICE_ROLE_KEY: placeholder
+          JWT_SECRET: placeholder-secret-for-ci-build-only
+          HF_TOKEN: placeholder
+          HF_MODEL_ID: placeholder/placeholder
+
+  lint-training:
+    name: Lint training scripts
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: training
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Syntax check all scripts
+        run: |
+          for f in scripts/*.py; do
+            python -m py_compile "$f"
+          done
+
+  validate-data:
+    name: Validate dataset integrity
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Check dataset JSON is valid and has expected structure
+        run: |
+          python3 -c "
+          import json
+          with open('data/nepfinspeech_dataset.json', encoding='utf-8') as f:
+              data = json.load(f)
+          assert isinstance(data, list), 'Dataset must be a list'
+          assert len(data) > 0, 'Dataset must not be empty'
+          for item in data[:5]:
+              assert 'audio_id' in item
+              assert 'url' in item
+              assert 'transcript' in item
+          print(f'✓ Dataset valid: {len(data)} samples')
+          "

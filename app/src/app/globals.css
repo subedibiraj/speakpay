@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=Noto+Sans+Devanagari:wght@400;500;600&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-display:  'DM Serif Display', serif;
+  --font-body:     'DM Sans', sans-serif;
+  --font-nepali:   'Noto Sans Devanagari', sans-serif;
+  --teal:          #0F7173;
+  --teal-light:    #12969A;
+  --amber:         #E8A838;
+  --ink:           #0D0D0D;
+  --surface:       #F8F9FA;
+  --border:        #E2E8F0;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--surface);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+.nepali { font-family: var(--font-nepali); }
+.display { font-family: var(--font-display); }
+
+/* ── Voice button ring animation ── */
+.voice-ring::before, .voice-ring::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 2px solid var(--teal);
+  animation: pulse_ring 1.4s ease-in-out infinite;
+}
+.voice-ring::after { animation-delay: 0.7s; }
+
+/* ── Waveform bars ── */
+.waveform-bar {
+  width: 3px;
+  border-radius: 2px;
+  background: var(--teal);
+  animation: waveform 0.6s ease-in-out infinite;
+}
+.waveform-bar:nth-child(2) { animation-delay: 0.1s; }
+.waveform-bar:nth-child(3) { animation-delay: 0.2s; }
+.waveform-bar:nth-child(4) { animation-delay: 0.3s; }
+.waveform-bar:nth-child(5) { animation-delay: 0.15s; }
+
+/* ── Card ── */
+.card {
+  background: white;
+  border-radius: 1.25rem;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+  border: 1px solid var(--border);
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }

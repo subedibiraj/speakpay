@@ -1,0 +1,146 @@
+"""
+SpeakPay — Step 4: Benchmark base vs general vs domain-adapted model
+Run: python scripts/04_benchmark.py
+
+Produces benchmark_results.json — the core research result table.
+"""
+import os
+os.environ.setdefault("WANDB_DISABLED", "true")
+
+import json, re
+from pathlib import Path
+
+import torch
+import evaluate
+from transformers import (
+    pipeline,
+    WhisperForConditionalGeneration,
+    WhisperProcessor,
+)
+from peft import PeftModel
+
+from config import BASE_MODEL, LANGUAGE, TASK
+
+ROOT       = Path(__file__).resolve().parent.parent
+TEST_FILE  = ROOT / "data" / "test_split.json"
+FINAL_DIR  = ROOT / "checkpoints" / "final"
+RESULTS_FILE = ROOT / "benchmark_results.json"
+
+NEP_NUM = re.compile(r"[०-९]+")
+wer_metric = evaluate.load("wer")
+cer_metric = evaluate.load("cer")
+
+
+def bench(pipe, paths, refs, name):
+    preds = []
+    for path in paths:
+        out = pipe(path, generate_kwargs={"language": "nepali", "task": "transcribe"})
+        preds.append(out["text"].strip())
+
+    pn = [" ".join(s.lower().split()) for s in preds]
+    rn = [" ".join(s.lower().split()) for s in refs]
+    wer = 100 * wer_metric.compute(predictions=pn, references=rn)
+    cer = 100 * cer_metric.compute(predictions=pn, references=rn)
+
+    tot, hit = 0, 0
+    for p, r in zip(preds, refs):
+        for n in NEP_NUM.findall(r):
+            tot += 1
+            if n in p:
+                hit += 1
+    num_acc = 100 * hit / tot if tot else 0
+
+    print(f"  {name}")
+    print(f"    WER={wer:.2f}%  CER={cer:.2f}%  NumAcc={num_acc:.1f}%")
+    for i in range(min(2, len(preds))):
+        print(f"    REF : {refs[i]}")
+        print(f"    PRED: {preds[i]}")
+
+    return {
+        "model": name,
+        "WER": round(wer, 2),
+        "CER": round(cer, 2),
+        "NumAcc": round(num_acc, 1),
+        "predictions": preds,
+    }
+
+
+def main():
+    if not TEST_FILE.exists():
+        raise SystemExit(f"ERROR: {TEST_FILE} not found. Run scripts/02_prepare_features.py first.")
+    if not FINAL_DIR.exists():
+        raise SystemExit(f"ERROR: {FINAL_DIR} not found. Run scripts/03_train.py first.")
+
+    with open(TEST_FILE, encoding="utf-8") as f:
+        test_data = json.load(f)
+
+    test_paths  = [d["path"] for d in test_data]
+    test_labels = [d["sentence"] for d in test_data]
+    print(f"Benchmarking on {len(test_paths)} held-out test samples\n")
+
+    results = []
+
+    # ── Model A: base Whisper large-v2 (zero-shot) ────────────────────
+    print("[A] Base Whisper large-v2 (zero-shot)...")
+    pipe_a = pipeline(
+        "automatic-speech-recognition",
+        model="openai/whisper-large-v2",
+        device=0,
+        torch_dtype=torch.float16,
+    )
+    results.append(bench(pipe_a, test_paths, test_labels, "Whisper large-v2 (zero-shot)"))
+    del pipe_a
+    torch.cuda.empty_cache()
+
+    # ── Model B: public general Nepali fine-tune ──────────────────────
+    print("\n[B] General Nepali fine-tune...")
+    try:
+        pipe_b = pipeline(
+            "automatic-speech-recognition",
+            model="theainerd/Whisper-large-v2-Nepali",
+            device=0,
+            torch_dtype=torch.float16,
+        )
+        results.append(bench(pipe_b, test_paths, test_labels, "Whisper large-v2 (general Nepali)"))
+        del pipe_b
+        torch.cuda.empty_cache()
+    except Exception as e:
+        print(f"  Could not load general model: {e}")
+        results.append({"model": "Whisper large-v2 (general Nepali)",
+                        "WER": "N/A", "CER": "N/A", "NumAcc": "N/A"})
+
+    # ── Model C: our domain LoRA ───────────────────────────────────────
+    print("\n[C] Domain LoRA (NepFinSpeech — ours)...")
+    base_c = WhisperForConditionalGeneration.from_pretrained(
+        BASE_MODEL, torch_dtype=torch.float16
+    ).to("cuda")
+    our_model = PeftModel.from_pretrained(base_c, str(FINAL_DIR))
+    proc_c = WhisperProcessor.from_pretrained(BASE_MODEL, language=LANGUAGE, task=TASK)
+    pipe_c = pipeline(
+        "automatic-speech-recognition",
+        model=our_model,
+        tokenizer=proc_c.tokenizer,
+        feature_extractor=proc_c.feature_extractor,
+        torch_dtype=torch.float16,
+        device=0,
+    )
+    results.append(bench(pipe_c, test_paths, test_labels, "Whisper + LoRA (NepFinSpeech — ours)"))
+
+    # ── Final table ─────────────────────────────────────────────────
+    print("\n" + "=" * 65)
+    print("BENCHMARK — NepFinSpeech Test Set")
+    print("=" * 65)
+    print(f"{'Model':<42} {'WER%':>6} {'CER%':>6} {'NumAcc%':>8}")
+    print("-" * 65)
+    for r in results:
+        print(f"{r['model']:<42} {str(r['WER']):>6} {str(r['CER']):>6} {str(r['NumAcc']):>8}")
+    print("=" * 65)
+
+    with open(RESULTS_FILE, "w", encoding="utf-8") as f:
+        json.dump(results, f, ensure_ascii=False, indent=2)
+    print(f"\n✓ Saved {RESULTS_FILE}")
+    print("\nNext: python scripts/05_push_to_hub.py")
+
+
+if __name__ == "__main__":
+    main()

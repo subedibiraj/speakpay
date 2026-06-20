@@ -1,0 +1,47 @@
+# ── Node / Next.js (app/) ────────────────────────────────────────────
+app/node_modules/
+app/.next/
+app/out/
+app/.vercel/
+app/*.tsbuildinfo
+app/next-env.d.ts
+app/.env.local
+app/.env*.local
+
+# ── Python / Training (training/) ───────────────────────────────────
+training/venv/
+training/__pycache__/
+training/**/__pycache__/
+training/*.pyc
+training/checkpoints/
+training/data/audio/
+training/data/features/
+training/data/manifest.json
+training/data/test_split.json
+training/benchmark_results.json
+*.egg-info/
+
+# ── LaTeX (paper/) ───────────────────────────────────────────────────
+paper/*.aux
+paper/*.bbl
+paper/*.blg
+paper/*.log
+paper/*.out
+paper/*.synctex.gz
+paper/*.fdb_latexmk
+paper/*.fls
+paper/main.pdf
+
+# ── OS / Editor ──────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# ── Secrets — never commit ───────────────────────────────────────────
+*.env
+.env
+.env.local
+**/secrets.json
+**/*token*.txt
