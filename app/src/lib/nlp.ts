@@ -34,6 +34,20 @@ function extractAmount(text: string): number | null {
   return matches[0] ?? null
 }
 
+export function extractPhoneNumber(text: string): string | null {
+  const normalized = normalizeNumerals(text)
+  // Match any sequence of exactly 10 digits starting with 9
+  const match = normalized.match(/9\d{9}/)
+  return match ? match[0] : null
+}
+
+export function extractPIN(text: string): string | null {
+  const normalized = normalizeNumerals(text)
+  // Match any sequence of exactly 6 digits
+  const match = normalized.match(/\d{6}/)
+  return match ? match[0] : null
+}
+
 function extractRecipient(text: string): string | null {
   const phone = text.match(/9[6-9]\d{8}/)
   if (phone) return phone[0]
