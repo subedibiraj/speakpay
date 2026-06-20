@@ -32,9 +32,11 @@ cer_metric = evaluate.load("cer")
 
 
 def bench(pipe, paths, refs, name):
+    import librosa
     preds = []
     for path in paths:
-        out = pipe(path, generate_kwargs={"language": "nepali", "task": "transcribe"})
+        audio, _ = librosa.load(path, sr=16000)
+        out = pipe(audio, generate_kwargs={"language": "nepali", "task": "transcribe"})
         preds.append(out["text"].strip())
 
     pn = [" ".join(s.lower().split()) for s in preds]

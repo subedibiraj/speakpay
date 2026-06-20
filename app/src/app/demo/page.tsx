@@ -144,9 +144,9 @@ export default function DemoPage() {
               </thead>
               <tbody>
                 {[
-                  { label:'Whisper large-v2 (zero-shot)',    wer:'47.1', cer:'—',   num:'—',   ours:false },
-                  { label:'General Nepali fine-tune',         wer:'TBD',  cer:'TBD', num:'—',   ours:false },
-                  { label:'NepFinSpeech LoRA (ours)',         wer:'TBD',  cer:'TBD', num:'TBD', ours:true  },
+                  { label:'Whisper large-v2 (zero-shot)',    wer:'129.9', cer:'92.3', num:'0.0',   ours:false },
+                  { label:'General Nepali fine-tune',         wer:'N/A',  cer:'N/A',  num:'N/A',   ours:false },
+                  { label:'NepFinSpeech LoRA (ours)',         wer:'42.6', cer:'17.0', num:'73.9',  ours:true  },
                 ].map((row,i) => (
                   <tr key={i} className={`border-t border-white/5 ${row.ours ? 'bg-teal/8' : ''}`}>
                     <td className="px-5 py-3 text-slate-200 text-sm">

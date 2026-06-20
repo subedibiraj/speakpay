@@ -36,8 +36,7 @@ def main():
         print("Not logged in. Run: huggingface-cli login")
         return
 
-    if "birajsubedi" in DATASET_REPO:
-        raise SystemExit("ERROR: Edit scripts/config.py and set HF_USERNAME first.")
+    # Username check removed
 
     # ── Rebuild full dataset with splits ──────────────────────────────
     with open(MANIFEST, encoding="utf-8") as f:

@@ -57,6 +57,7 @@ class SpeechCollator:
         if (labels[:, 0] == self.processor.tokenizer.bos_token_id).all().cpu().item():
             labels = labels[:, 1:]
         inp["labels"] = labels
+        inp["input_features"] = inp["input_features"].to(torch.float16)
         return inp
 
 
@@ -88,6 +89,14 @@ def main():
     model.config.suppress_tokens = []
     model.config.use_cache = False
 
+    # Monkey-patch forward to accept and ignore input_ids/inputs_embeds (PEFT passes them as None)
+    old_forward = model.forward
+    def new_forward(*args, **kwargs):
+        kwargs.pop("input_ids", None)
+        kwargs.pop("inputs_embeds", None)
+        return old_forward(*args, **kwargs)
+    model.forward = new_forward
+
     lora_cfg = LoraConfig(
         r=LORA_R,
         lora_alpha=LORA_ALPHA,
@@ -97,6 +106,8 @@ def main():
         task_type=TaskType.SEQ_2_SEQ_LM,
     )
     model = get_peft_model(model, lora_cfg)
+    if hasattr(model, "enable_input_require_grads"):
+        model.enable_input_require_grads()
     model.print_trainable_parameters()
     model.generation_config.language = LANGUAGE.lower()
     model.generation_config.task = TASK
@@ -136,7 +147,7 @@ def main():
         learning_rate=LEARNING_RATE,
         warmup_steps=WARMUP_STEPS,
         max_steps=MAX_STEPS,
-        gradient_checkpointing=False,
+        gradient_checkpointing=True,
         fp16=True,
         evaluation_strategy="steps",
         predict_with_generate=True,
@@ -154,6 +165,13 @@ def main():
         dataloader_num_workers=2,
         seed=42,
     )
+
+    # Monkey-patch generate to ignore 'labels' passed during evaluation
+    old_generate = model.generate
+    def new_generate(*args, **kwargs):
+        kwargs.pop("labels", None)
+        return old_generate(*args, **kwargs)
+    model.generate = new_generate
 
     trainer = Seq2SeqTrainer(
         args=args,
