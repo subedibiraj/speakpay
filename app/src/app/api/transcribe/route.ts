@@ -11,6 +11,8 @@ const HF_URL       = HF_SPACE_URL
   ? `${HF_SPACE_URL}/transcribe` 
   : `https://api-inference.huggingface.co/models/${HF_MODEL_ID}`
 
+export const maxDuration = 60; // Allow up to 60 seconds on Vercel Pro, or max possible on Hobby
+
 export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData()
