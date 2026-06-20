@@ -4,7 +4,12 @@ import { supabaseAdmin } from '@/lib/supabase'
 
 const HF_TOKEN    = process.env.HF_TOKEN!
 const HF_MODEL_ID = process.env.HF_MODEL_ID!
-const HF_URL      = `https://api-inference.huggingface.co/models/${HF_MODEL_ID}`
+
+// If a dedicated Hugging Face Space is configured, use it. Otherwise, fallback to the generic Free API.
+const HF_SPACE_URL = process.env.HF_SPACE_URL
+const HF_URL       = HF_SPACE_URL 
+  ? `${HF_SPACE_URL}/transcribe` 
+  : `https://api-inference.huggingface.co/models/${HF_MODEL_ID}`
 
 export async function POST(req: NextRequest) {
   try {
