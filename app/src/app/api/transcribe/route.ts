@@ -19,10 +19,22 @@ export async function POST(req: NextRequest) {
 
     const buffer = Buffer.from(await audio.arrayBuffer())
 
+    const headers: any = { Authorization: `Bearer ${HF_TOKEN}` }
+    let body: any;
+
+    if (HF_SPACE_URL) {
+      // Custom FastAPI Space expects multipart/form-data
+      body = formData
+    } else {
+      // Generic HF Inference API expects raw bytes
+      headers['Content-Type'] = 'audio/wav'
+      body = buffer
+    }
+
     const hfRes = await fetch(HF_URL, {
       method:  'POST',
-      headers: { Authorization: `Bearer ${HF_TOKEN}`, 'Content-Type': 'audio/wav' },
-      body:    buffer,
+      headers,
+      body,
     })
 
     if (hfRes.status === 503) {
