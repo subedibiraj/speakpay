@@ -1,6 +1,6 @@
 'use client'
 import { useState, useRef, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { VoiceButton } from '@/components/voice/VoiceButton'
 import { createRecorder, transcribeBlob } from '@/lib/asr'
 import { speak, cancel, preloadVoices } from '@/lib/tts'
@@ -16,6 +16,8 @@ type AuthState =
 
 export default function LoginPage() {
   const [mode, setMode] = useState<'voice' | 'text'>('voice')
+  const [started, setStarted] = useState(false) // Blocks until user taps screen
+  
   const [phone, setPhone] = useState('')
   const [pin,   setPin]   = useState('')
   const [error, setError] = useState('')
@@ -25,36 +27,37 @@ export default function LoginPage() {
   const recorderRef = useRef<ReturnType<typeof createRecorder> | null>(null)
 
   useEffect(() => {
-    if (mode === 'voice') {
-      preloadVoices()
-      speak('आफ्नो खातामा प्रवेश गर्न, बटन थिच्नुहोस् र आफ्नो दश अंकको फोन नम्बर भन्नुहोस्।')
-    } else {
-      cancel()
-    }
+    preloadVoices()
     return () => cancel()
-  }, [mode])
+  }, [])
 
   const startPhoneRecording = async () => {
-    cancel(); setError(''); setAuthState('recording_phone'); speak('सुन्दैछु…')
+    cancel(); setError(''); setAuthState('recording_phone')
     recorderRef.current = createRecorder(async (blob) => {
       setAuthState('processing_phone')
       try {
         const result = await transcribeBlob(blob, { allowFallback: true })
         const extracted = extractPhoneNumber(result.transcript)
         if (extracted) {
-          setPhone(extracted); setAuthState('idle'); speak('अब फेरि बटन थिच्नुहोस् र तपाईंको ६ अंकको PIN भन्नुहोस्।')
+          setPhone(extracted); setAuthState('idle');
+          await speak('अब तपाईंको ६ अंकको PIN भन्नुहोस्।')
+          startPinRecording()
         } else {
-          setError('फोन नम्बर बुझिएन।'); setAuthState('idle'); speak('फोन नम्बर बुझिएन। फेरि भन्नुहोस्।')
+          setError('फोन नम्बर बुझिएन।'); setAuthState('idle');
+          await speak('फोन नम्बर बुझिएन। फेरि भन्नुहोस्।')
+          startPhoneRecording()
         }
       } catch (err) {
-        setError('ASR त्रुटि भयो।'); setAuthState('idle'); speak('त्रुटि भयो।')
+        setError('ASR त्रुटि भयो।'); setAuthState('idle');
+        await speak('त्रुटि भयो। फेरि प्रयास गर्दैछु।')
+        startPhoneRecording()
       }
     })
     try { await recorderRef.current.start() } catch { setError('माइक्रोफोन अस्वीकार।'); setAuthState('idle') }
   }
 
   const startPinRecording = async () => {
-    cancel(); setError(''); setAuthState('recording_pin'); speak('सुन्दैछु…')
+    cancel(); setError(''); setAuthState('recording_pin')
     recorderRef.current = createRecorder(async (blob) => {
       setAuthState('processing_pin')
       try {
@@ -63,19 +66,22 @@ export default function LoginPage() {
         if (extracted) {
           setPin(extracted); authenticate(phone, extracted)
         } else {
-          setError('PIN बुझिएन।'); setAuthState('idle'); speak('PIN बुझिएन। फेरि भन्नुहोस्।')
+          setError('PIN बुझिएन।'); setAuthState('idle');
+          await speak('PIN बुझिएन। फेरि भन्नुहोस्।')
+          startPinRecording()
         }
       } catch (err) {
-        setError('ASR त्रुटि भयो।'); setAuthState('idle'); speak('त्रुटि भयो।')
+        setError('ASR त्रुटि भयो।'); setAuthState('idle');
+        await speak('त्रुटि भयो। फेरि प्रयास गर्दैछु।')
+        startPinRecording()
       }
     })
     try { await recorderRef.current.start() } catch { setError('माइक्रोफोन अस्वीकार।'); setAuthState('idle') }
   }
 
   const authenticate = async (ph: string, p: string) => {
-    setAuthState('authenticating')
-    setLoading(true)
-    if (mode === 'voice') speak('खाता जाँच गर्दैछु…')
+    setAuthState('authenticating'); setLoading(true)
+    if (mode === 'voice') await speak('खाता जाँच गर्दैछु।')
     
     try {
       const r = await fetch('/api/auth/login', {
@@ -86,37 +92,61 @@ export default function LoginPage() {
       const d = await r.json()
       if (r.ok) {
         localStorage.setItem('speakpay_user', JSON.stringify(d.user))
-        if (mode === 'voice') speak('प्रवेश सफल भयो।')
+        if (mode === 'voice') await speak('प्रवेश सफल भयो।')
         setTimeout(() => { window.location.href = '/dashboard' }, 1500)
       } else {
         const msg = d.error === 'Invalid credentials' ? 'गलत फोन नम्बर वा PIN।' : d.error
-        setError(msg)
-        setPhone(''); setPin(''); setAuthState('idle'); setLoading(false)
-        if (mode === 'voice') speak(msg + ' फेरि फोन नम्बर भन्न सुरु गर्नुहोस्।')
+        setError(msg); setPhone(''); setPin(''); setAuthState('idle'); setLoading(false)
+        if (mode === 'voice') {
+          await speak(msg + ' फेरि फोन नम्बर भन्न सुरु गर्नुहोस्।')
+          startPhoneRecording()
+        }
       }
     } catch {
-      setError('सर्भर त्रुटि।')
-      setAuthState('idle'); setLoading(false)
+      setError('सर्भर त्रुटि।'); setAuthState('idle'); setLoading(false)
+      if (mode === 'voice') speak('सर्भर त्रुटि।')
     }
   }
 
-  const handleVoiceAction = () => {
-    if (authState.startsWith('recording_')) recorderRef.current?.stop()
-    else if (!phone) startPhoneRecording()
-    else if (!pin) startPinRecording()
+  const beginVoiceFlow = async () => {
+    setStarted(true)
+    await speak('आफ्नो खातामा प्रवेश गर्न, आफ्नो दश अंकको फोन नम्बर भन्नुहोस्।')
+    startPhoneRecording()
   }
 
   const isRecording = authState.startsWith('recording_')
   const isProcessing = authState.startsWith('processing_') || authState === 'authenticating'
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-center justify-center p-4 relative">
+      
+      {/* Tap Anywhere Overlay for Voice Mode */}
+      <AnimatePresence>
+        {mode === 'voice' && !started && (
+          <motion.div 
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            onClick={beginVoiceFlow}
+            className="fixed inset-0 z-50 bg-slate-900/90 backdrop-blur-md flex flex-col items-center justify-center cursor-pointer"
+          >
+            <div className="w-32 h-32 rounded-full bg-teal/20 animate-pulse flex items-center justify-center mb-6">
+              <span className="text-5xl">👆</span>
+            </div>
+            <h2 className="text-3xl text-white font-semibold mb-2">Tap Anywhere</h2>
+            <p className="nepali text-slate-300 text-lg">आवाज सुरु गर्न स्क्रिनमा थिच्नुहोस्</p>
+            
+            <button onClick={(e) => { e.stopPropagation(); setMode('text') }}
+              className="absolute top-4 right-4 text-xs bg-slate-800 px-3 py-1.5 rounded-full text-slate-300 hover:text-white transition z-50">
+              ⌨️ किबोर्ड प्रयोग गर्नुहोस्
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <motion.div initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }}
         className="card w-full max-w-sm p-8 flex flex-col items-center relative">
         
-        {/* Mode Toggle */}
-        <button onClick={() => setMode(m => m === 'voice' ? 'text' : 'voice')}
-          className="absolute top-4 right-4 text-xs bg-slate-800 px-3 py-1.5 rounded-full text-slate-300 hover:text-white transition">
+        <button onClick={() => { setMode(m => m === 'voice' ? 'text' : 'voice'); cancel() }}
+          className="absolute top-4 right-4 text-xs bg-slate-800 px-3 py-1.5 rounded-full text-slate-300 hover:text-white transition z-40">
           {mode === 'voice' ? '⌨️ किबोर्ड' : '🎤 आवाज'}
         </button>
 
@@ -127,7 +157,7 @@ export default function LoginPage() {
 
         {mode === 'voice' ? (
           <div className="flex flex-col items-center justify-center space-y-8 w-full">
-            <VoiceButton stage={isProcessing ? 'processing' : isRecording ? 'recording' : 'idle'} onStart={handleVoiceAction} onStop={handleVoiceAction} />
+            <VoiceButton stage={isProcessing ? 'processing' : isRecording ? 'recording' : 'idle'} onStart={() => {}} onStop={() => recorderRef.current?.stop()} />
             <div className="text-center w-full">
               <p className="nepali text-lg text-white font-medium min-h-[28px]">
                 {authState === 'idle' && !phone && 'फोन नम्बर भन्नुहोस्'}

@@ -17,18 +17,21 @@ function getNepaliVoice(): SpeechSynthesisVoice | null {
   return _nepaliVoice
 }
 
-export function speak(text: string, rate = 0.88, onEnd?: () => void): void {
-  if (typeof window === 'undefined') return
-  window.speechSynthesis.cancel()
-  const u    = new SpeechSynthesisUtterance(text)
-  const voice = getNepaliVoice()
-  if (voice) u.voice = voice
-  u.lang   = 'ne-NP'
-  u.rate   = rate
-  u.pitch  = 1.0
-  u.volume = 1.0
-  if (onEnd) u.onend = onEnd
-  window.speechSynthesis.speak(u)
+export function speak(text: string, rate = 0.88): Promise<void> {
+  return new Promise((resolve) => {
+    if (typeof window === 'undefined') return resolve()
+    window.speechSynthesis.cancel()
+    const u    = new SpeechSynthesisUtterance(text)
+    const voice = getNepaliVoice()
+    if (voice) u.voice = voice
+    u.lang   = 'ne-NP'
+    u.rate   = rate
+    u.pitch  = 1.0
+    u.volume = 1.0
+    u.onend  = () => resolve()
+    u.onerror = () => resolve() // resolve anyway to unblock flow
+    window.speechSynthesis.speak(u)
+  })
 }
 
 export function cancel(): void {

@@ -21,6 +21,9 @@ from peft import PeftModel
 
 from config import BASE_MODEL, LANGUAGE, TASK
 
+DEV = 0 if torch.cuda.is_available() else -1
+DEV_STR = "cuda" if torch.cuda.is_available() else "cpu"
+
 ROOT       = Path(__file__).resolve().parent.parent
 TEST_FILE  = ROOT / "data" / "test_split.json"
 FINAL_DIR  = ROOT / "checkpoints" / "final"
@@ -87,8 +90,8 @@ def main():
     pipe_a = pipeline(
         "automatic-speech-recognition",
         model="openai/whisper-large-v2",
-        device=0,
-        torch_dtype=torch.float16,
+        device=DEV,
+        torch_dtype=torch.float16 if DEV == 0 else torch.float32,
     )
     results.append(bench(pipe_a, test_paths, test_labels, "Whisper large-v2 (zero-shot)"))
     del pipe_a
@@ -100,8 +103,8 @@ def main():
         pipe_b = pipeline(
             "automatic-speech-recognition",
             model="theainerd/Whisper-large-v2-Nepali",
-            device=0,
-            torch_dtype=torch.float16,
+            device=DEV,
+            torch_dtype=torch.float16 if DEV == 0 else torch.float32,
         )
         results.append(bench(pipe_b, test_paths, test_labels, "Whisper large-v2 (general Nepali)"))
         del pipe_b
@@ -114,8 +117,8 @@ def main():
     # ── Model C: our domain LoRA ───────────────────────────────────────
     print("\n[C] Domain LoRA (NepFinSpeech — ours)...")
     base_c = WhisperForConditionalGeneration.from_pretrained(
-        BASE_MODEL, torch_dtype=torch.float16
-    ).to("cuda")
+        BASE_MODEL, torch_dtype=torch.float16 if DEV == 0 else torch.float32
+    ).to(DEV_STR)
     our_model = PeftModel.from_pretrained(base_c, str(FINAL_DIR))
     proc_c = WhisperProcessor.from_pretrained(BASE_MODEL, language=LANGUAGE, task=TASK)
     pipe_c = pipeline(
@@ -123,8 +126,8 @@ def main():
         model=our_model,
         tokenizer=proc_c.tokenizer,
         feature_extractor=proc_c.feature_extractor,
-        torch_dtype=torch.float16,
-        device=0,
+        torch_dtype=torch.float16 if DEV == 0 else torch.float32,
+        device=DEV,
     )
     results.append(bench(pipe_c, test_paths, test_labels, "Whisper + LoRA (NepFinSpeech — ours)"))
 

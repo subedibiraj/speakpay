@@ -1,6 +1,6 @@
 'use client'
 import { useState, useRef, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { VoiceButton } from '@/components/voice/VoiceButton'
 import { createRecorder, transcribeBlob } from '@/lib/asr'
 import { speak, cancel, preloadVoices } from '@/lib/tts'
@@ -20,6 +20,8 @@ type RegState =
 
 export default function RegisterPage() {
   const [mode, setMode] = useState<'voice' | 'text'>('voice')
+  const [started, setStarted] = useState(false) // Blocks until tap
+  
   const [fullName, setFullName] = useState('')
   const [phone, setPhone] = useState('')
   const [pin1, setPin1] = useState('')
@@ -31,14 +33,9 @@ export default function RegisterPage() {
   const recorderRef = useRef<ReturnType<typeof createRecorder> | null>(null)
 
   useEffect(() => {
-    if (mode === 'voice') {
-      preloadVoices()
-      speak('नयाँ खाता बनाउन, बटन थिच्नुहोस् र तपाईंको पूरा नाम भन्नुहोस्।')
-    } else {
-      cancel()
-    }
+    preloadVoices()
     return () => cancel()
-  }, [mode])
+  }, [])
 
   const handleTranscribe = async (blob: Blob) => {
     const result = await transcribeBlob(blob, { allowFallback: true })
@@ -46,63 +43,75 @@ export default function RegisterPage() {
   }
 
   const startName = async () => {
-    cancel(); setError(''); setRegState('recording_name'); speak('सुन्दैछु…')
+    cancel(); setError(''); setRegState('recording_name')
     recorderRef.current = createRecorder(async (blob) => {
       setRegState('processing_name')
       try {
         const text = await handleTranscribe(blob)
         if (text.length > 2) {
-          setFullName(text); setRegState('idle'); speak('धन्यवाद। अब फेरि बटन थिच्नुहोस् र आफ्नो दश अंकको फोन नम्बर भन्नुहोस्।')
+          setFullName(text); setRegState('idle'); 
+          await speak('धन्यवाद। अब आफ्नो दश अंकको फोन नम्बर भन्नुहोस्।')
+          startPhone()
         } else {
           throw new Error()
         }
       } catch {
-        setError('नाम बुझिएन।'); setRegState('idle'); speak('नाम बुझिएन। फेरि भन्नुहोस्।')
+        setError('नाम बुझिएन।'); setRegState('idle'); 
+        await speak('नाम बुझिएन। फेरि भन्नुहोस्।')
+        startName()
       }
     })
     try { await recorderRef.current.start() } catch { setError('माइक्रोफोन अस्वीकार।'); setRegState('idle') }
   }
 
   const startPhone = async () => {
-    cancel(); setError(''); setRegState('recording_phone'); speak('सुन्दैछु…')
+    cancel(); setError(''); setRegState('recording_phone')
     recorderRef.current = createRecorder(async (blob) => {
       setRegState('processing_phone')
       try {
         const text = await handleTranscribe(blob)
         const extracted = extractPhoneNumber(text)
         if (extracted) {
-          setPhone(extracted); setRegState('idle'); speak('अब तपाईंको ६ अंकको गोप्य PIN भन्नुहोस्।')
+          setPhone(extracted); setRegState('idle'); 
+          await speak('अब तपाईंको ६ अंकको गोप्य PIN भन्नुहोस्।')
+          startPin1()
         } else {
           throw new Error()
         }
       } catch {
-        setError('फोन नम्बर बुझिएन।'); setRegState('idle'); speak('फोन नम्बर बुझिएन। फेरि भन्नुहोस्।')
+        setError('फोन नम्बर बुझिएन।'); setRegState('idle'); 
+        await speak('फोन नम्बर बुझिएन। फेरि भन्नुहोस्।')
+        startPhone()
       }
     })
     try { await recorderRef.current.start() } catch { setError('माइक्रोफोन अस्वीकार।'); setRegState('idle') }
   }
 
   const startPin1 = async () => {
-    cancel(); setError(''); setRegState('recording_pin1'); speak('सुन्दैछु…')
+    cancel(); setError(''); setRegState('recording_pin1')
     recorderRef.current = createRecorder(async (blob) => {
       setRegState('processing_pin1')
       try {
         const text = await handleTranscribe(blob)
         const extracted = extractPIN(text)
         if (extracted) {
-          setPin1(extracted); setRegState('idle'); speak('पुष्टिको लागि त्यही PIN फेरि भन्नुहोस्।')
+          setPin1(extracted); setRegState('idle'); 
+          await speak('पुष्टिको लागि त्यही PIN फेरि भन्नुहोस्।')
+          startPin2()
         } else {
           throw new Error()
         }
       } catch {
-        setError('PIN बुझिएन।'); setRegState('idle'); speak('PIN बुझिएन। फेरि भन्नुहोस्।')
+        setError('PIN बुझिएन।'); setRegState('idle'); 
+        await speak('PIN बुझिएन। फेरि भन्नुहोस्।')
+        startPin1()
       }
     })
     try { await recorderRef.current.start() } catch { setError('माइक्रोफोन अस्वीकार।'); setRegState('idle') }
   }
 
   const startPin2 = async () => {
-    cancel(); setError(''); setRegState('recording_pin2'); speak('सुन्दैछु…')
+    cancel(); setError(''); setRegState('recording_pin2')
     recorderRef.current = createRecorder(async (blob) => {
       setRegState('processing_pin2')
       try {
@@ -111,7 +120,9 @@ export default function RegisterPage() {
         if (extracted) {
           setPin2(extracted)
           if (extracted !== pin1) {
-            setError('PIN मेल खाएन।'); setPin1(''); setPin2(''); setRegState('idle'); speak('तपाईंले भनेको PIN मेल खाएन। सुरुदेखि PIN भन्नुहोस्।')
+            setError('PIN मेल खाएन।'); setPin1(''); setPin2(''); setRegState('idle'); 
+            await speak('तपाईंले भनेको PIN मेल खाएन। सुरुदेखि PIN भन्नुहोस्।')
+            startPin1()
           } else {
             register(fullName, phone, pin1)
           }
@@ -119,16 +130,17 @@ export default function RegisterPage() {
           throw new Error()
         }
       } catch {
-        setError('PIN बुझिएन।'); setRegState('idle'); speak('PIN बुझिएन। फेरि भन्नुहोस्।')
+        setError('PIN बुझिएन।'); setRegState('idle'); 
+        await speak('PIN बुझिएन। फेरि भन्नुहोस्।')
+        startPin2()
       }
     })
     try { await recorderRef.current.start() } catch { setError('माइक्रोफोन अस्वीकार।'); setRegState('idle') }
   }
 
   const register = async (name: string, ph: string, p: string) => {
-    setRegState('registering')
-    setLoading(true)
-    if (mode === 'voice') speak('खाता दर्ता गर्दैछु…')
+    setRegState('registering'); setLoading(true)
+    if (mode === 'voice') await speak('खाता दर्ता गर्दैछु।')
     
     try {
       const r = await fetch('/api/auth/register', {
@@ -139,39 +151,57 @@ export default function RegisterPage() {
       const d = await r.json()
       if (r.ok) {
         localStorage.setItem('speakpay_user', JSON.stringify(d.user))
-        if (mode === 'voice') speak('खाता सफलतापूर्वक दर्ता भयो।')
+        if (mode === 'voice') await speak('खाता सफलतापूर्वक दर्ता भयो।')
         setTimeout(() => { window.location.href = '/dashboard' }, 2000)
       } else {
         const msg = d.error === 'Phone already registered' ? 'यो फोन नम्बर पहिले नै दर्ता छ।' : d.error
-        setError(msg)
-        setRegState('idle'); setLoading(false)
-        if (mode === 'voice') speak(msg)
+        setError(msg); setRegState('idle'); setLoading(false)
+        if (mode === 'voice') await speak(msg)
       }
     } catch {
-      setError('सर्भर त्रुटि।')
-      setRegState('idle'); setLoading(false)
+      setError('सर्भर त्रुटि।'); setRegState('idle'); setLoading(false)
     }
   }
 
-  const handleVoiceAction = () => {
-    if (regState.startsWith('recording_')) recorderRef.current?.stop()
-    else if (!fullName) startName()
-    else if (!phone) startPhone()
-    else if (!pin1) startPin1()
-    else if (!pin2) startPin2()
+  const beginVoiceFlow = async () => {
+    setStarted(true)
+    await speak('नयाँ खाता बनाउन, तपाईंको पूरा नाम भन्नुहोस्।')
+    startName()
   }
 
   const isRecording = regState.startsWith('recording_')
   const isProcessing = regState.startsWith('processing_') || regState === 'registering'
 
   return (
-    <div className="min-h-screen bg-teal flex items-center justify-center p-4">
+    <div className="min-h-screen bg-teal flex items-center justify-center p-4 relative">
+      
+      {/* Tap Anywhere Overlay for Voice Mode */}
+      <AnimatePresence>
+        {mode === 'voice' && !started && (
+          <motion.div 
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            onClick={beginVoiceFlow}
+            className="fixed inset-0 z-50 bg-slate-900/90 backdrop-blur-md flex flex-col items-center justify-center cursor-pointer"
+          >
+            <div className="w-32 h-32 rounded-full bg-teal/20 animate-pulse flex items-center justify-center mb-6">
+              <span className="text-5xl">👆</span>
+            </div>
+            <h2 className="text-3xl text-white font-semibold mb-2">Tap Anywhere</h2>
+            <p className="nepali text-slate-300 text-lg">आवाज सुरु गर्न स्क्रिनमा थिच्नुहोस्</p>
+            
+            <button onClick={(e) => { e.stopPropagation(); setMode('text') }}
+              className="absolute top-4 right-4 text-xs bg-slate-800 px-3 py-1.5 rounded-full text-slate-300 hover:text-white transition z-50">
+              ⌨️ किबोर्ड प्रयोग गर्नुहोस्
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <motion.div initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }}
         className="card w-full max-w-sm p-8 flex flex-col items-center relative">
         
-        {/* Mode Toggle */}
-        <button onClick={() => setMode(m => m === 'voice' ? 'text' : 'voice')}
-          className="absolute top-4 right-4 text-xs bg-slate-800/20 px-3 py-1.5 rounded-full text-slate-100 hover:text-white hover:bg-slate-800/40 transition">
+        <button onClick={() => { setMode(m => m === 'voice' ? 'text' : 'voice'); cancel() }}
+          className="absolute top-4 right-4 text-xs bg-slate-800/20 px-3 py-1.5 rounded-full text-slate-100 hover:text-white hover:bg-slate-800/40 transition z-40">
           {mode === 'voice' ? '⌨️ किबोर्ड' : '🎤 आवाज'}
         </button>
 
@@ -182,7 +212,7 @@ export default function RegisterPage() {
 
         {mode === 'voice' ? (
           <div className="flex flex-col items-center justify-center space-y-8 w-full">
-            <VoiceButton stage={isProcessing ? 'processing' : isRecording ? 'recording' : 'idle'} onStart={handleVoiceAction} onStop={handleVoiceAction} />
+            <VoiceButton stage={isProcessing ? 'processing' : isRecording ? 'recording' : 'idle'} onStart={() => {}} onStop={() => recorderRef.current?.stop()} />
             <div className="text-center w-full">
               <p className="nepali text-lg text-white font-medium min-h-[28px]">
                 {regState === 'idle' && !fullName && 'तपाईंको पूरा नाम भन्नुहोस्'}
