@@ -36,7 +36,10 @@ export async function POST(req: NextRequest) {
       transcript,
       model_used:  'domain_lora',
       intent:      intent.action,
-    }).then(() => {}).catch(() => {})
+    }).then(
+      () => {},
+      () => {}
+    )
 
     return NextResponse.json({ transcript, intent })
   } catch (err) {
