@@ -4,7 +4,7 @@ Edit HF_USERNAME before running any scripts.
 """
 
 # ── Hugging Face ─────────────────────────────────────────────────────
-HF_USERNAME  = "YOUR_HF_USERNAME"   # ← CHANGE THIS
+HF_USERNAME  = "birajsubedi"   # ← CHANGE THIS
 DATASET_REPO = f"{HF_USERNAME}/NepFinSpeech"
 MODEL_REPO   = f"{HF_USERNAME}/whisper-large-v2-nepali-financial"
 

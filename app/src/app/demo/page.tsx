@@ -95,7 +95,7 @@ export default function DemoPage() {
             <span className="bg-teal/20 text-teal-light text-xs font-medium px-3 py-1 rounded-full border border-teal/20">
               Live Research Demo
             </span>
-            <a href="https://github.com/YOUR_USERNAME/speakpay" target="_blank"
+            <a href="https://github.com/subedibiraj/speakpay" target="_blank"
               className="flex items-center gap-1.5 text-slate-400 hover:text-white text-xs transition">
               <Github size={14}/> Code
             </a>
@@ -117,7 +117,7 @@ export default function DemoPage() {
             {[
               { href: '/dataset',  icon: <BookOpen size={12}/>, label: 'Browse Dataset'    },
               { href: '/analysis', icon: <BarChart2 size={12}/>, label: 'Error Analysis'    },
-              { href: 'https://huggingface.co/datasets/YOUR_USERNAME/NepFinSpeech',
+              { href: 'https://huggingface.co/datasets/birajsubedi/NepFinSpeech',
                 icon: null, label: '🤗 HuggingFace', external: true },
             ].map(l => (
               <a key={l.label} href={l.href} target={l.external ? '_blank' : undefined}

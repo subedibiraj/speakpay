@@ -3,10 +3,10 @@
 **AI-assisted voice-first eWallet for visually impaired individuals**
 *Research project — Tribhuvan University / Advanced College of Engineering and Management, 2025*
 
-[![CI](https://github.com/YOUR_USERNAME/speakpay/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR_USERNAME/speakpay/actions)
+[![CI](https://github.com/subedibiraj/speakpay/actions/workflows/ci.yml/badge.svg)](https://github.com/subedibiraj/speakpay/actions)
 [![Live Demo](https://img.shields.io/badge/Live_Demo-speakpay.vercel.app-0F7173)](https://speakpay.vercel.app)
-[![Dataset](https://img.shields.io/badge/🤗_Dataset-NepFinSpeech-yellow)](https://huggingface.co/datasets/YOUR_USERNAME/NepFinSpeech)
-[![Model](https://img.shields.io/badge/🤗_Model-Whisper_LoRA-yellow)](https://huggingface.co/YOUR_USERNAME/whisper-large-v2-nepali-financial)
+[![Dataset](https://img.shields.io/badge/🤗_Dataset-NepFinSpeech-yellow)](https://huggingface.co/datasets/birajsubedi/NepFinSpeech)
+[![Model](https://img.shields.io/badge/🤗_Model-Whisper_LoRA-yellow)](https://huggingface.co/birajsubedi/whisper-large-v2-nepali-financial)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 ---
@@ -66,7 +66,7 @@ Start here, then drill into whichever part you need:
 ## Quick start
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/speakpay
+git clone https://github.com/subedibiraj/speakpay
 cd speakpay/app
 cp .env.local.example .env.local   # fill in Supabase + HF credentials
 npm install
@@ -84,7 +84,7 @@ commands, 61 balance queries, 56 load commands, 93 other financial
 utterances, spanning 237 unique Nepali numerals.
 
 Source data and full reproducibility pipeline in [`data/`](data/).
-Published dataset: [huggingface.co/datasets/YOUR_USERNAME/NepFinSpeech](https://huggingface.co/datasets/YOUR_USERNAME/NepFinSpeech)
+Published dataset: [huggingface.co/datasets/birajsubedi/NepFinSpeech](https://huggingface.co/datasets/birajsubedi/NepFinSpeech)
 
 ## Citation
 
@@ -92,9 +92,9 @@ Published dataset: [huggingface.co/datasets/YOUR_USERNAME/NepFinSpeech](https://
 @misc{speakpay2025,
   title   = {SpeakPay: Domain-Adaptive LoRA Fine-Tuning of Whisper for
              Low-Resource Nepali Financial Speech Recognition},
-  author  = {YOUR NAME},
+  author  = {Biraj Subedi},
   year    = {2025},
-  url     = {https://github.com/YOUR_USERNAME/speakpay}
+  url     = {https://github.com/subedibiraj/speakpay}
 }
 ```
 

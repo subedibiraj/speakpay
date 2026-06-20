@@ -82,7 +82,7 @@ export default function DatasetPage() {
               403 transcribed Nepali financial voice commands
             </p>
           </div>
-          <a href="https://huggingface.co/datasets/YOUR_USERNAME/NepFinSpeech"
+          <a href="https://huggingface.co/datasets/birajsubedi/NepFinSpeech"
             target="_blank" rel="noreferrer"
             className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-white border border-white/10 rounded-lg px-3 py-2 transition">
             <ExternalLink size={12}/> Full dataset on HF

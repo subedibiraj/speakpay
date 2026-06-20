@@ -176,9 +176,9 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col">
+    <div className="min-h-screen flex flex-col relative z-0">
       {/* ── Header ── */}
-      <header className="bg-teal text-white px-6 py-4 flex items-center justify-between shadow-float">
+      <header className="bg-glass border-b border-glass-border px-6 py-4 flex items-center justify-between shadow-float">
         <div>
           <p className="text-teal-light text-sm font-medium nepali">नमस्ते,</p>
           <h1 className="display text-xl font-semibold">{userName}</h1>
@@ -275,9 +275,9 @@ export default function Dashboard() {
           {/* Transcript display */}
           {transcript && (
             <motion.div initial={{ opacity:0 }} animate={{ opacity:1 }}
-              className="w-full bg-slate-50 rounded-xl p-3 border border-slate-200">
+              className="w-full bg-glass border border-glass-border rounded-xl p-3">
               <p className="text-xs text-slate-400 mb-1">तपाईंले भन्नुभयो:</p>
-              <p className="nepali text-sm text-slate-700">{transcript}</p>
+              <p className="nepali text-sm text-slate-200">{transcript}</p>
             </motion.div>
           )}
 
@@ -298,7 +298,7 @@ export default function Dashboard() {
                   हो, पुष्टि गर्नुहोस्
                 </button>
                 <button onClick={reset}
-                  className="flex-1 bg-slate-100 text-slate-600 rounded-xl py-3 font-medium nepali hover:bg-slate-200 transition">
+                  className="flex-1 bg-ink-800 text-slate-300 rounded-xl py-3 font-medium nepali hover:bg-ink-900 transition border border-glass-border">
                   रद्द गर्नुहोस्
                 </button>
               </div>
@@ -322,7 +322,7 @@ export default function Dashboard() {
                   'खातामा १०००  रुपैयाँ लोड गर',
                   'मेरो ब्यालेन्स कति छ',
                 ].map(ex => (
-                  <p key={ex} className="nepali text-xs text-slate-500 bg-slate-50 rounded-lg px-3 py-2 border border-slate-100">
+                  <p key={ex} className="nepali text-xs text-slate-400 bg-glass rounded-lg px-3 py-2 border border-glass-border">
                     "{ex}"
                   </p>
                 ))}
@@ -334,22 +334,22 @@ export default function Dashboard() {
         {/* ── Recent transactions ── */}
         <motion.div initial={{ opacity:0, y:12 }} animate={{ opacity:1, y:0, transition:{ delay:0.2 }}}
           className="card overflow-hidden">
-          <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100">
-            <h2 className="font-medium text-slate-800 nepali">भर्खरका लेनदेन</h2>
+          <div className="flex items-center justify-between px-5 py-4 border-b border-glass-border">
+            <h2 className="font-medium text-white nepali">भर्खरका लेनदेन</h2>
             <button onClick={() => setShowHistory(!showHistory)}
               className="text-teal text-sm nepali flex items-center gap-1">
               <History size={14}/> सबै
             </button>
           </div>
           {txs.slice(0, showHistory ? 20 : 5).map(tx => (
-            <div key={tx.id} className="flex items-center justify-between px-5 py-3 border-b border-slate-50 last:border-0">
+            <div key={tx.id} className="flex items-center justify-between px-5 py-3 border-b border-glass-border last:border-0">
               <div className="flex items-center gap-3">
                 <div className={`w-9 h-9 rounded-full flex items-center justify-center text-white text-xs font-bold
                   ${tx.type === 'receive' || tx.type === 'load' ? 'bg-teal' : 'bg-slate-400'}`}>
                   {tx.type === 'receive' ? '↓' : tx.type === 'load' ? '+' : '↑'}
                 </div>
                 <div>
-                  <p className="nepali text-sm text-slate-700 capitalize">
+                  <p className="nepali text-sm text-slate-200 capitalize">
                     {tx.type === 'send' ? 'पठाइयो' : tx.type === 'receive' ? 'प्राप्त' : 'लोड'}
                   </p>
                   <p className="text-xs text-slate-400">
@@ -358,7 +358,7 @@ export default function Dashboard() {
                 </div>
               </div>
               <div className="text-right">
-                <p className={`font-semibold text-sm ${tx.type === 'send' ? 'text-slate-700' : 'text-teal'}`}>
+                <p className={`font-semibold text-sm ${tx.type === 'send' ? 'text-slate-200' : 'text-teal-light'}`}>
                   {tx.type === 'send' ? '-' : '+'}रु {tx.amount}
                 </p>
                 <p className="text-xs text-slate-400">रु {tx.balance_after}</p>
@@ -374,7 +374,7 @@ export default function Dashboard() {
         <motion.a href="/demo" initial={{ opacity:0 }} animate={{ opacity:1, transition:{ delay:0.3 }}}
           className="card p-4 flex items-center justify-between hover:border-teal/40 transition group">
           <div>
-            <p className="font-medium text-slate-800 text-sm">ASR बेन्चमार्क डेमो</p>
+            <p className="font-medium text-white text-sm">ASR बेन्चमार्क डेमो</p>
             <p className="text-xs text-slate-400 mt-0.5">तीन मोडेलको तुलना गर्नुहोस्</p>
           </div>
           <span className="text-teal group-hover:translate-x-1 transition-transform">→</span>

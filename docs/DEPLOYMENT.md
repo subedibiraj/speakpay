@@ -30,7 +30,7 @@ python 05_push_to_hub.py
 ```
 
 At the end you'll have a model live at:
-`https://huggingface.co/YOUR_USERNAME/whisper-large-v2-nepali-financial`
+`https://huggingface.co/birajsubedi/whisper-large-v2-nepali-financial`
 
 **Verify it's accessible**: visit the model page and confirm it shows
 "Inference API" as available (not "cold" forever — first request
@@ -56,7 +56,7 @@ cp .env.local.example .env.local
 #   SUPABASE_SERVICE_ROLE_KEY
 #   JWT_SECRET          (generate: openssl rand -base64 32)
 #   HF_TOKEN             (your HF token, Read permission is enough here)
-#   HF_MODEL_ID           YOUR_USERNAME/whisper-large-v2-nepali-financial
+#   HF_MODEL_ID           birajsubedi/whisper-large-v2-nepali-financial
 
 npm install
 npm test         # confirm NLP parser tests pass

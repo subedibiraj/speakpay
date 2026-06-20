@@ -56,7 +56,7 @@ it just means pip is checking compatibility, not reinstalling it.
 Open `scripts/config.py` and change line 1:
 
 ```python
-HF_USERNAME = "YOUR_HF_USERNAME"   # ← your actual Hugging Face username
+HF_USERNAME = "birajsubedi"   # ← your actual Hugging Face username
 ```
 
 Then log in to Hugging Face (only needed for step 5, but do it now):
@@ -109,8 +109,8 @@ GRAD_ACCUM       = 8   # was 4  (keeps effective batch = 16)
 
 - `checkpoints/final/` — your trained LoRA adapter (~60MB)
 - `benchmark_results.json` — WER/CER/NumAcc for all 3 models
-- A public model on Hugging Face: `huggingface.co/YOUR_USERNAME/whisper-large-v2-nepali-financial`
-- A public dataset on Hugging Face: `huggingface.co/datasets/YOUR_USERNAME/NepFinSpeech`
+- A public model on Hugging Face: `huggingface.co/birajsubedi/whisper-large-v2-nepali-financial`
+- A public dataset on Hugging Face: `huggingface.co/datasets/birajsubedi/NepFinSpeech`
 
 ## Troubleshooting
 

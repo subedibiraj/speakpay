@@ -52,7 +52,7 @@ applications.
 
 ```python
 from datasets import load_dataset
-ds = load_dataset("YOUR_USERNAME/NepFinSpeech")
+ds = load_dataset("birajsubedi/NepFinSpeech")
 # { 'audio': Audio, 'sentence': str }
 ```
 
@@ -73,9 +73,9 @@ transcription spreadsheet.
 ```bibtex
 @misc{nepfinspeech2025,
   title   = {NepFinSpeech: A Domain-Specific Nepali Financial Speech Dataset},
-  author  = {YOUR NAME},
+  author  = {Biraj Subedi},
   year    = {2025},
-  url     = {https://huggingface.co/datasets/YOUR_USERNAME/NepFinSpeech},
+  url     = {https://huggingface.co/datasets/birajsubedi/NepFinSpeech},
   license = {cc-by-4.0}
 }
 ```

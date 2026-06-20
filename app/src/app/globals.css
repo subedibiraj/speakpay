@@ -7,12 +7,13 @@
   --font-display:  'DM Serif Display', serif;
   --font-body:     'DM Sans', sans-serif;
   --font-nepali:   'Noto Sans Devanagari', sans-serif;
-  --teal:          #0F7173;
-  --teal-light:    #12969A;
-  --amber:         #E8A838;
-  --ink:           #0D0D0D;
-  --surface:       #F8F9FA;
-  --border:        #E2E8F0;
+  --teal:          #14b8a6;
+  --teal-light:    #2dd4bf;
+  --amber:         #f59e0b;
+  --ink:           #09090b;
+  --surface:       #09090b;
+  --border:        #27272a;
+  --text-main:     #f8fafc;
 }
 
 * { box-sizing: border-box; }
@@ -20,8 +21,10 @@
 body {
   font-family: var(--font-body);
   background: var(--surface);
-  color: var(--ink);
+  color: var(--text-main);
   -webkit-font-smoothing: antialiased;
+  background-image: radial-gradient(circle at 50% 0%, rgba(20, 184, 166, 0.15), transparent 60%);
+  background-attachment: fixed;
 }
 
 .nepali { font-family: var(--font-nepali); }
@@ -52,10 +55,12 @@ body {
 
 /* ── Card ── */
 .card {
-  background: white;
-  border-radius: 1.25rem;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
-  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 /* ── Scrollbar ── */

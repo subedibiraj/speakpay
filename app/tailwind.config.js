@@ -9,16 +9,17 @@ module.exports = {
         nepali:  ['var(--font-nepali)'],
       },
       colors: {
-        ink:   { DEFAULT: '#0D0D0D', 50: '#F5F5F0' },
-        teal:  { DEFAULT: '#0F7173', light: '#12969A', dark: '#094E50' },
-        amber: { DEFAULT: '#E8A838', light: '#F2C46D' },
-        slate: { 50: '#F8F9FA', 100: '#EEF0F2', 200: '#D8DDE3',
-                 400: '#8D99A6', 600: '#4A5568', 800: '#1A202C' },
+        ink:   { DEFAULT: '#09090b', 50: '#27272a', 800: '#18181b', 900: '#121214' },
+        teal:  { DEFAULT: '#14b8a6', light: '#2dd4bf', dark: '#0f766e' },
+        amber: { DEFAULT: '#f59e0b', light: '#fbbf24' },
+        slate: { 50: '#f8fafc', 100: '#f1f5f9', 200: '#e2e8f0',
+                 400: '#94a3b8', 600: '#475569', 800: '#1e293b' },
+        glass: { DEFAULT: 'rgba(255, 255, 255, 0.03)', border: 'rgba(255, 255, 255, 0.08)' }
       },
       borderRadius: { '2xl': '1rem', '3xl': '1.5rem' },
       boxShadow: {
-        'card':  '0 2px 16px rgba(0,0,0,0.06)',
-        'float': '0 8px 32px rgba(15,113,115,0.18)',
+        'card':  '0 8px 32px rgba(0,0,0,0.4)',
+        'float': '0 8px 32px rgba(20,184,166,0.18)',
       },
       keyframes: {
         pulse_ring: {

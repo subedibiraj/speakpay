@@ -56,7 +56,7 @@ export default function AnalysisPage() {
 
   // Try to load real data from HF
   useEffect(() => {
-    fetch('https://huggingface.co/YOUR_USERNAME/whisper-large-v2-nepali-financial/resolve/main/error_analysis.json')
+    fetch('https://huggingface.co/birajsubedi/whisper-large-v2-nepali-financial/resolve/main/error_analysis.json')
       .then(r => r.ok ? r.json() : null)
       .then(d => { if (d?.samples) setSamples(d.samples) })
       .catch(() => {})

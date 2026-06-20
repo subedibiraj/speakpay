@@ -27,12 +27,12 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-teal flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-center justify-center p-4">
       <motion.div initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }}
         className="card w-full max-w-sm p-8">
         <div className="text-center mb-8">
           <h1 className="display text-3xl text-teal font-semibold">SpeakPay</h1>
-          <p className="nepali text-slate-500 text-sm mt-1">आफ्नो खातामा प्रवेश गर्नुहोस्</p>
+          <p className="nepali text-slate-400 text-sm mt-1">आफ्नो खातामा प्रवेश गर्नुहोस्</p>
         </div>
 
         <div className="space-y-4">
@@ -42,7 +42,7 @@ export default function LoginPage() {
             </label>
             <input type="tel" value={phone} onChange={e => setPhone(e.target.value)}
               placeholder="98XXXXXXXX"
-              className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
+              className="w-full bg-glass border border-glass-border rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
             />
           </div>
           <div>
@@ -51,7 +51,7 @@ export default function LoginPage() {
             </label>
             <input type="password" value={pin} onChange={e => setPin(e.target.value)}
               maxLength={6} placeholder="••••••"
-              className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
+              className="w-full bg-glass border border-glass-border rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:ring-2 focus:ring-teal/30 focus:border-teal"
             />
           </div>
 
