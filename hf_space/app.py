@@ -1,15 +1,13 @@
 import os
 import io
 import torch
-import librosa
-from fastapi import FastAPI, UploadFile, File, HTTPException
+from fastapi import FastAPI, Request, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from transformers import WhisperForConditionalGeneration, WhisperProcessor, pipeline
 from peft import PeftModel
 
 app = FastAPI(title="SpeakPay ASR Model API")
 
-# Allow Vercel to hit this if needed directly, though we proxy via route.ts
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -50,15 +48,20 @@ asr_pipeline = pipeline(
 print("Startup complete. Ready for inference!")
 
 @app.post("/transcribe")
-async def transcribe(audio: UploadFile = File(...)):
+async def transcribe(request: Request):
+    """Accept raw audio bytes via POST body. No FormData needed."""
     try:
-        content = await audio.read()
+        content = await request.body()
+        if not content or len(content) < 100:
+            raise HTTPException(status_code=400, detail="No audio data received")
         
-        # The transformers pipeline natively decodes webm/ogg/wav bytes using ffmpeg
+        # Pipeline accepts raw bytes and uses ffmpeg internally to decode any format
         result = asr_pipeline(content, generate_kwargs={"language": LANGUAGE, "task": TASK})
         text = result.get("text", "").strip()
         
         return {"text": text}
+    except HTTPException:
+        raise
     except Exception as e:
         print("Transcription Error:", e)
         raise HTTPException(status_code=500, detail=str(e))

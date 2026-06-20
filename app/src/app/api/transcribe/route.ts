@@ -19,24 +19,14 @@ export async function POST(req: NextRequest) {
 
     const buffer = Buffer.from(await audio.arrayBuffer())
 
-    let hfRes: Response;
-
-    if (HF_SPACE_URL) {
-      // Custom FastAPI Space expects multipart/form-data with field name "audio"
-      const spaceForm = new FormData()
-      spaceForm.append('audio', new Blob([buffer], { type: audio.type || 'audio/webm' }), audio.name || 'audio.webm')
-      hfRes = await fetch(HF_URL, {
-        method: 'POST',
-        body: spaceForm,
-      })
-    } else {
-      // Generic HF Inference API expects raw bytes
-      hfRes = await fetch(HF_URL, {
-        method: 'POST',
-        headers: { Authorization: `Bearer ${HF_TOKEN}`, 'Content-Type': 'audio/wav' },
-        body: buffer,
-      })
-    }
+    const hfRes = await fetch(HF_URL, {
+      method: 'POST',
+      headers: { 
+        Authorization: `Bearer ${HF_TOKEN}`, 
+        'Content-Type': audio.type || 'audio/webm' 
+      },
+      body: buffer,
+    })
 
     if (hfRes.status === 503) {
       return NextResponse.json({ error: 'model_loading', retryAfter: 20 }, { status: 503 })
