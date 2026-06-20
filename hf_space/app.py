@@ -42,6 +42,7 @@ asr_pipeline = pipeline(
     model=model,
     tokenizer=processor.tokenizer,
     feature_extractor=processor.feature_extractor,
+    chunk_length_s=30,
     torch_dtype=torch_dtype,
     device=0 if device == "cuda" else -1,
 )

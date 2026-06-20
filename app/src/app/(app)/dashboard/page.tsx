@@ -23,6 +23,7 @@ export default function Dashboard() {
   const [message,    setMessage]    = useState('')
   const [txs,        setTxs]        = useState<Tx[]>([])
   const [showHistory,setShowHistory]= useState(false)
+  const [toast,      setToast]      = useState<{title:string, body:string} | null>(null)
 
   const mediaRef    = useRef<MediaRecorder | null>(null)
   const chunksRef   = useRef<Blob[]>([])
@@ -144,6 +145,10 @@ export default function Dashboard() {
         speak(`रु ${intent.amount} सफलतापूर्वक पठाइयो।`)
         setStage('done')
         fetchTxs()
+        
+        // Simulated SMS Toast
+        setToast({ title: 'SpeakPay Alert', body: `तपाईंको खाताबाट रु ${intent.amount} ${d.recipient} लाई पठाइयो। नयाँ ब्यालेन्स रु ${d.newBalance} छ।` })
+        setTimeout(() => setToast(null), 5000)
       } else {
         const errMsg = d.error === 'insufficient_funds'
           ? 'अपर्याप्त ब्यालेन्स।'
@@ -165,6 +170,10 @@ export default function Dashboard() {
         speak(`रु ${intent.amount} सफलतापूर्वक लोड भयो।`)
         setStage('done')
         fetchTxs()
+        
+        // Simulated SMS Toast
+        setToast({ title: 'SpeakPay Alert', body: `तपाईंको खातामा रु ${intent.amount} लोड गरियो। नयाँ ब्यालेन्स रु ${d.newBalance} छ।` })
+        setTimeout(() => setToast(null), 5000)
       } else {
         setMessage('लोड असफल भयो।'); setStage('error')
       }
@@ -177,6 +186,23 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen flex flex-col relative z-0">
+      
+      {/* ── Simulated SMS Toast ── */}
+      <AnimatePresence>
+        {toast && (
+          <motion.div initial={{ opacity: 0, y: -50, x: '-50%' }} animate={{ opacity: 1, y: 0, x: '-50%' }} exit={{ opacity: 0, y: -50, x: '-50%' }}
+            className="fixed top-6 left-1/2 z-50 w-[90%] max-w-sm bg-white rounded-2xl shadow-xl p-4 flex gap-3 items-start">
+            <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center shrink-0">
+              <span className="text-green-600">💬</span>
+            </div>
+            <div>
+              <p className="font-semibold text-slate-800 text-sm">{toast.title}</p>
+              <p className="text-slate-600 text-xs mt-0.5 leading-relaxed nepali">{toast.body}</p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* ── Header ── */}
       <header className="bg-glass border-b border-glass-border px-6 py-4 flex items-center justify-between shadow-float">
         <div>

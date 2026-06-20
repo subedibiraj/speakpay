@@ -24,12 +24,26 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'insufficient_funds' }, { status: 400 })
   }
 
-  // Get recipient
-  const { data: recipient } = await supabaseAdmin
-    .from('users')
-    .select('id, full_name')
-    .eq('phone', recipientPhone)
-    .single()
+  // Get recipient (try exact phone match first, then fuzzy name match)
+  let recipient = null;
+  
+  if (recipientPhone.match(/^\d+$/)) {
+    const { data } = await supabaseAdmin
+      .from('users')
+      .select('id, full_name')
+      .eq('phone', recipientPhone)
+      .single()
+    recipient = data
+  } else {
+    // It's a name like "राम" or "सिता", do a partial search
+    const { data } = await supabaseAdmin
+      .from('users')
+      .select('id, full_name')
+      .ilike('full_name', `%${recipientPhone}%`)
+      .limit(1)
+      .single()
+    recipient = data
+  }
 
   if (!recipient) return NextResponse.json({ error: 'recipient_not_found' }, { status: 404 })
 
