@@ -56,9 +56,30 @@ export async function transcribeBlob(
   opts?: {
     onRetry?:    (attempt: number, waitMs: number) => void
     allowFallback?: boolean
+    forceBrowserASR?: boolean
   }
 ): Promise<ASRResult> {
   const t0 = Date.now()
+
+  // Use browser ASR if forced, or as a fallback
+  const runBrowserFallback = async () => {
+    const transcript = await browserFallback()
+    const { parseIntent } = await import('./nlp')
+    return {
+      transcript,
+      intent:    parseIntent(transcript),
+      latencyMs: Date.now() - t0,
+      source:    'browser_fallback' as const,
+    }
+  }
+
+  if (opts?.forceBrowserASR) {
+    try {
+      return await runBrowserFallback()
+    } catch {
+      // If forced browser ASR fails (e.g. no mic permission), try the model anyway
+    }
+  }
 
   try {
     const res = await callTranscribeAPI(blob, opts?.onRetry)
@@ -71,17 +92,9 @@ export async function transcribeBlob(
       source:     'model',
     }
   } catch (err) {
-    if (opts?.allowFallback) {
-      // Try browser ASR as last resort
+    if (opts?.allowFallback && !opts?.forceBrowserASR) {
       try {
-        const transcript = await browserFallback()
-        const { parseIntent } = await import('./nlp')
-        return {
-          transcript,
-          intent:    parseIntent(transcript),
-          latencyMs: Date.now() - t0,
-          source:    'browser_fallback',
-        }
+        return await runBrowserFallback()
       } catch { /* fall through */ }
     }
     throw err

@@ -12,7 +12,10 @@ interface Intent {
   raw: string
 }
 
-type Stage = 'idle' | 'recording' | 'processing' | 'confirm' | 'executing' | 'done' | 'error'
+import { createRecorder, transcribeBlob } from '@/lib/asr'
+import { extractPIN } from '@/lib/nlp'
+
+type Stage = 'idle' | 'recording_command' | 'processing_command' | 'confirm' | 'recording_pin' | 'processing_pin' | 'executing' | 'done' | 'error'
 
 export default function Dashboard() {
   const [balance,    setBalance]    = useState<number | null>(null)
@@ -25,9 +28,7 @@ export default function Dashboard() {
   const [showHistory,setShowHistory]= useState(false)
   const [toast,      setToast]      = useState<{title:string, body:string} | null>(null)
 
-  const mediaRef    = useRef<MediaRecorder | null>(null)
-  const chunksRef   = useRef<Blob[]>([])
-  const audioRef    = useRef<HTMLAudioElement | null>(null)
+  const recorderRef = useRef<{ start:()=>void, stop:()=>void } | null>(null)
 
   // ── Fetch balance ────────────────────────────────────────────
   const fetchBalance = useCallback(async () => {
@@ -48,13 +49,16 @@ export default function Dashboard() {
   }, [fetchBalance, fetchTxs])
 
   // ── Text-to-speech ───────────────────────────────────────────
-  const speak = (text: string) => {
-    if (typeof window === 'undefined') return
-    const u = new SpeechSynthesisUtterance(text)
-    u.lang  = 'ne-NP'
-    u.rate  = 0.9
-    window.speechSynthesis.cancel()
-    window.speechSynthesis.speak(u)
+  const speak = (text: string): Promise<void> => {
+    return new Promise((resolve) => {
+      if (typeof window === 'undefined') return resolve()
+      const u = new SpeechSynthesisUtterance(text)
+      u.lang  = 'ne-NP'
+      u.rate  = 0.9
+      u.onend = () => resolve()
+      window.speechSynthesis.cancel()
+      window.speechSynthesis.speak(u)
+    })
   }
 
   // ── Announce balance ─────────────────────────────────────────
@@ -63,119 +67,123 @@ export default function Dashboard() {
   }
 
   // ── Start recording ──────────────────────────────────────────
-  const startRecording = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
-      const mr = new MediaRecorder(stream, { mimeType: 'audio/webm' })
-      chunksRef.current = []
-      mr.ondataavailable = e => { if (e.data.size > 0) chunksRef.current.push(e.data) }
-      mr.onstop = () => { stream.getTracks().forEach(t => t.stop()); processAudio() }
-      mediaRef.current = mr
-      mr.start()
-      setStage('recording')
-      speak('सुन्दैछु…')
-    } catch {
-      setMessage('माइक्रोफोन पहुँच अस्वीकार।')
-      setStage('error')
-    }
+  const startRecordingCommand = async () => {
+    setStage('recording_command')
+    await speak('सुन्दैछु…')
+    recorderRef.current = createRecorder(async (blob) => {
+      setStage('processing_command')
+      try {
+        const result = await transcribeBlob(blob, { allowFallback: true })
+        setTranscript(result.transcript)
+        setIntent(result.intent)
+        
+        if (result.intent.action === 'balance') {
+          await fetchBalance()
+          setStage('done')
+          setMessage(`ब्यालेन्स: रु ${balance}`)
+          speak(`तपाईंको ब्यालेन्स रुपैयाँ ${balance} छ।`)
+        } else if (result.intent.action === 'unknown') {
+          setMessage('माफ गर्नुस्, फेरि भन्नुहोस्।')
+          setStage('error')
+          speak('माफ गर्नुस्, फेरि भन्नुहोस्।')
+        } else {
+          setStage('confirm')
+          const msg = result.intent.action === 'send'
+            ? `${result.intent.recipient}लाई रु ${result.intent.amount} पठाउने हो? पुष्टि गर्न आफ्नो ६ अंकको PIN भन्नुहोस्।`
+            : `खातामा रु ${result.intent.amount} लोड गर्ने हो? पुष्टि गर्न आफ्नो ६ अंकको PIN भन्नुहोस्।`
+          await speak(msg)
+          startRecordingPin(result.intent, result.transcript)
+        }
+      } catch {
+        setMessage('त्रुटि भयो। फेरि प्रयास गर्नुहोस्।')
+        setStage('error')
+      }
+    })
+    recorderRef.current.start()
+  }
+
+  const startRecordingPin = (currentIntent: Intent, currentTranscript: string) => {
+    setStage('recording_pin')
+    recorderRef.current = createRecorder(async (blob) => {
+      setStage('processing_pin')
+      try {
+        const result = await transcribeBlob(blob, { forceBrowserASR: true, allowFallback: true })
+        const pin = extractPIN(result.transcript)
+        if (pin) {
+          executeIntent(currentIntent, currentTranscript, pin)
+        } else {
+          setMessage('PIN बुझिएन। फेरि प्रयास गर्नुहोस्।')
+          setStage('error')
+          speak('PIN बुझिएन। फेरि प्रयास गर्नुहोस्।')
+        }
+      } catch {
+        setMessage('त्रुटि भयो। फेरि प्रयास गर्नुहोस्।')
+        setStage('error')
+      }
+    })
+    recorderRef.current.start()
   }
 
   const stopRecording = () => {
-    mediaRef.current?.stop()
-    setStage('processing')
-  }
-
-  // ── Process audio via /api/transcribe ────────────────────────
-  const processAudio = async () => {
-    const blob = new Blob(chunksRef.current, { type: 'audio/webm' })
-    const fd   = new FormData()
-    fd.append('audio', blob, 'command.wav')
-
-    try {
-      const r = await fetch('/api/transcribe', { method: 'POST', body: fd })
-      if (r.status === 503) {
-        setMessage('मोडेल लोड हुँदैछ, कृपया २० सेकेन्ड पछि फेरि प्रयास गर्नुहोस्।')
-        setStage('error'); return
-      }
-      const d = await r.json()
-      setTranscript(d.transcript)
-      setIntent(d.intent)
-
-      if (d.intent.action === 'balance') {
-        await fetchBalance()
-        setStage('done')
-        setMessage(`ब्यालेन्स: रु ${balance}`)
-        speak(`तपाईंको ब्यालेन्स रुपैयाँ ${balance} छ।`)
-      } else if (d.intent.action === 'unknown') {
-        setMessage('माफ गर्नुस्, फेरि भन्नुहोस्।')
-        setStage('error')
-        speak('माफ गर्नुस्, फेरि भन्नुहोस्।')
-      } else {
-        setStage('confirm')
-        const msg = d.intent.action === 'send'
-          ? `${d.intent.recipient}लाई रु ${d.intent.amount} पठाउने हो?`
-          : `खातामा रु ${d.intent.amount} लोड गर्ने हो?`
-        speak(msg)
-      }
-    } catch {
-      setMessage('त्रुटि भयो। फेरि प्रयास गर्नुहोस्।')
-      setStage('error')
-    }
+    recorderRef.current?.stop()
   }
 
   // ── Execute confirmed intent ─────────────────────────────────
-  const executeIntent = async () => {
-    if (!intent) return
+  const executeIntent = async (intentToExec: Intent, voiceCmd: string, pin: string) => {
     setStage('executing')
 
-    if (intent.action === 'send') {
+    if (intentToExec.action === 'send') {
       const r = await fetch('/api/wallet/send', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          recipientPhone: intent.recipient,
-          amount: intent.amount,
-          voiceCommand: transcript,
+          recipientPhone: intentToExec.recipient,
+          amount: intentToExec.amount,
+          voiceCommand: voiceCmd,
+          pin,
         }),
       })
       const d = await r.json()
       if (r.ok) {
         setBalance(d.newBalance)
-        setMessage(`रु ${intent.amount} ${d.recipient}लाई सफलतापूर्वक पठाइयो।`)
-        speak(`रु ${intent.amount} सफलतापूर्वक पठाइयो।`)
+        setMessage(`रु ${intentToExec.amount} ${d.recipient}लाई सफलतापूर्वक पठाइयो।`)
+        speak(`रु ${intentToExec.amount} सफलतापूर्वक पठाइयो।`)
         setStage('done')
         fetchTxs()
         
         // Simulated SMS Toast
-        setToast({ title: 'SpeakPay Alert', body: `तपाईंको खाताबाट रु ${intent.amount} ${d.recipient} लाई पठाइयो। नयाँ ब्यालेन्स रु ${d.newBalance} छ।` })
+        setToast({ title: 'SpeakPay Alert', body: `तपाईंको खाताबाट रु ${intentToExec.amount} ${d.recipient} लाई पठाइयो। नयाँ ब्यालेन्स रु ${d.newBalance} छ।` })
         setTimeout(() => setToast(null), 5000)
       } else {
         const errMsg = d.error === 'insufficient_funds'
           ? 'अपर्याप्त ब्यालेन्स।'
           : d.error === 'recipient_not_found'
           ? 'प्राप्तकर्ता फेला परेन।'
+          : d.error === 'Invalid PIN'
+          ? 'गलत PIN।'
           : 'पठाउन असफल भयो।'
         setMessage(errMsg); speak(errMsg); setStage('error')
       }
-    } else if (intent.action === 'load') {
+    } else if (intentToExec.action === 'load') {
       const r = await fetch('/api/wallet/load', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: intent.amount, voiceCommand: transcript }),
+        body: JSON.stringify({ amount: intentToExec.amount, voiceCommand: voiceCmd, pin }),
       })
       const d = await r.json()
       if (r.ok) {
         setBalance(d.newBalance)
-        setMessage(`रु ${intent.amount} सफलतापूर्वक लोड भयो।`)
-        speak(`रु ${intent.amount} सफलतापूर्वक लोड भयो।`)
+        setMessage(`रु ${intentToExec.amount} सफलतापूर्वक लोड भयो।`)
+        speak(`रु ${intentToExec.amount} सफलतापूर्वक लोड भयो।`)
         setStage('done')
         fetchTxs()
         
         // Simulated SMS Toast
-        setToast({ title: 'SpeakPay Alert', body: `तपाईंको खातामा रु ${intent.amount} लोड गरियो। नयाँ ब्यालेन्स रु ${d.newBalance} छ।` })
+        setToast({ title: 'SpeakPay Alert', body: `तपाईंको खातामा रु ${intentToExec.amount} लोड गरियो। नयाँ ब्यालेन्स रु ${d.newBalance} छ।` })
         setTimeout(() => setToast(null), 5000)
       } else {
-        setMessage('लोड असफल भयो।'); setStage('error')
+        const errMsg = d.error === 'Invalid PIN' ? 'गलत PIN।' : 'लोड असफल भयो।'
+        setMessage(errMsg); speak(errMsg); setStage('error')
       }
     }
   }
@@ -253,7 +261,7 @@ export default function Dashboard() {
 
           {/* Main voice button */}
           <div className="relative flex items-center justify-center">
-            {stage === 'recording' && (
+            {(stage === 'recording_command' || stage === 'recording_pin') && (
               <>
                 <span className="absolute inset-0 rounded-full bg-teal/20 animate-ping" />
                 <span className="absolute inset-[-12px] rounded-full border-2 border-teal/30 animate-pulse" />
@@ -261,21 +269,21 @@ export default function Dashboard() {
             )}
             <button
               onClick={stage === 'idle' || stage === 'done' || stage === 'error'
-                ? startRecording
-                : stage === 'recording' ? stopRecording : undefined}
-              disabled={stage === 'processing' || stage === 'executing'}
-              aria-label={stage === 'recording' ? 'रोक्नुहोस्' : 'बोल्न सुरु गर्नुहोस्'}
+                ? startRecordingCommand
+                : (stage === 'recording_command' || stage === 'recording_pin') ? stopRecording : undefined}
+              disabled={stage === 'processing_command' || stage === 'processing_pin' || stage === 'executing' || stage === 'confirm'}
+              aria-label={(stage === 'recording_command' || stage === 'recording_pin') ? 'रोक्नुहोस्' : 'बोल्न सुरु गर्नुहोस्'}
               className={`relative z-10 w-20 h-20 rounded-full flex items-center justify-center shadow-float transition-all
-                ${stage === 'recording'
+                ${(stage === 'recording_command' || stage === 'recording_pin')
                   ? 'bg-red-500 hover:bg-red-600 scale-110'
                   : 'bg-teal hover:bg-teal-light'
                 } text-white disabled:opacity-50`}>
-              {stage === 'recording' ? <MicOff size={28}/> : <Mic size={28}/>}
+              {(stage === 'recording_command' || stage === 'recording_pin') ? <MicOff size={28}/> : <Mic size={28}/>}
             </button>
           </div>
 
           {/* Waveform during recording */}
-          {stage === 'recording' && (
+          {(stage === 'recording_command' || stage === 'recording_pin') && (
             <div className="flex items-center gap-1 h-8">
               {[1,2,3,4,5].map(i => (
                 <div key={i} className="waveform-bar h-full"
@@ -290,8 +298,10 @@ export default function Dashboard() {
               initial={{ opacity:0, y:4 }} animate={{ opacity:1, y:0 }} exit={{ opacity:0 }}
               className="text-sm text-slate-500 text-center nepali min-h-[1.5rem]">
               {stage === 'idle'       && 'माइक थिच्नुहोस् र नेपालीमा बोल्नुहोस्'}
-              {stage === 'recording'  && 'सुन्दैछु… रोक्न फेरि थिच्नुहोस्'}
-              {stage === 'processing' && 'विश्लेषण गर्दैछु…'}
+              {stage === 'recording_command'  && 'आदेश सुन्दैछु…'}
+              {stage === 'recording_pin'      && 'PIN सुन्दैछु…'}
+              {(stage === 'processing_command' || stage === 'processing_pin') && 'विश्लेषण गर्दैछु…'}
+              {stage === 'confirm'    && 'पुष्टि गर्दै…'}
               {stage === 'executing'  && 'कार्यान्वयन गर्दैछु…'}
               {stage === 'error'      && message}
               {stage === 'done'       && message}
@@ -304,30 +314,6 @@ export default function Dashboard() {
               className="w-full bg-glass border border-glass-border rounded-xl p-3">
               <p className="text-xs text-slate-400 mb-1">तपाईंले भन्नुभयो:</p>
               <p className="nepali text-sm text-slate-200">{transcript}</p>
-            </motion.div>
-          )}
-
-          {/* Confirmation prompt */}
-          {stage === 'confirm' && intent && (
-            <motion.div initial={{ opacity:0, scale:0.96 }} animate={{ opacity:1, scale:1 }}
-              className="w-full space-y-3">
-              <div className="bg-amber/10 border border-amber/30 rounded-xl p-3 text-center">
-                <p className="nepali text-sm font-medium text-amber-800">
-                  {intent.action === 'send'
-                    ? `${intent.recipient}लाई रु ${intent.amount} पठाउने हो?`
-                    : `खातामा रु ${intent.amount} लोड गर्ने हो?`}
-                </p>
-              </div>
-              <div className="flex gap-2">
-                <button onClick={executeIntent}
-                  className="flex-1 bg-teal text-white rounded-xl py-3 font-medium nepali hover:bg-teal-light transition">
-                  हो, पुष्टि गर्नुहोस्
-                </button>
-                <button onClick={reset}
-                  className="flex-1 bg-ink-800 text-slate-300 rounded-xl py-3 font-medium nepali hover:bg-ink-900 transition border border-glass-border">
-                  रद्द गर्नुहोस्
-                </button>
-              </div>
             </motion.div>
           )}
 

@@ -38,7 +38,7 @@ export default function LoginPage() {
     recorderRef.current = createRecorder(async (blob) => {
       setAuthState('processing_phone')
       try {
-        const result = await transcribeBlob(blob, { allowFallback: true })
+        const result = await transcribeBlob(blob, { forceBrowserASR: true, allowFallback: true })
         const extracted = extractPhoneNumber(result.transcript)
         if (extracted) {
           setPhone(extracted); setAuthState('idle');
@@ -63,7 +63,7 @@ export default function LoginPage() {
     recorderRef.current = createRecorder(async (blob) => {
       setAuthState('processing_pin')
       try {
-        const result = await transcribeBlob(blob, { allowFallback: true })
+        const result = await transcribeBlob(blob, { forceBrowserASR: true, allowFallback: true })
         const extracted = extractPIN(result.transcript)
         if (extracted) {
           setPin(extracted); authenticate(phoneRef.current, extracted)
@@ -133,8 +133,9 @@ export default function LoginPage() {
             <div className="w-32 h-32 rounded-full bg-teal/20 animate-pulse flex items-center justify-center mb-6">
               <span className="text-5xl">👆</span>
             </div>
-            <h2 className="text-3xl text-white font-semibold mb-2">Tap Anywhere</h2>
-            <p className="nepali text-slate-300 text-lg">आवाज सुरु गर्न स्क्रिनमा थिच्नुहोस्</p>
+            <h2 className="text-3xl text-white font-semibold mb-2">Tap to Start</h2>
+            <p className="nepali text-slate-300 text-lg">थिचेपछि आफ्नो नम्बर भन्नुहोस्।</p>
+            <p className="nepali text-slate-400 text-sm mt-2">(बोल्न छोडेपछि आफै रोकिन्छ)</p>
             
             <button onClick={(e) => { e.stopPropagation(); setMode('text') }}
               className="absolute top-4 right-4 text-xs bg-slate-800 px-3 py-1.5 rounded-full text-slate-300 hover:text-white transition z-50">

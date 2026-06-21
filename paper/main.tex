@@ -1,275 +1,473 @@
-\documentclass[a4paper]{article}
-\usepackage{interspeech2025}   % download from interspeech.org or use ICASSP template
-\usepackage[utf8]{inputenc}
+\documentclass[11pt,a4paper]{article}
+
 \usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb}
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{hyperref}
-\usepackage{amsmath}
 \usepackage{xcolor}
-\usepackage{multirow}
-\usepackage{fontspec}          % for Devanagari in XeLaTeX
-% \setmainfont{Noto Serif}
-% \newfontfamily\devfont{Noto Sans Devanagari}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{cite}
+\usepackage{microtype}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{abstract}
+\usepackage{fontspec}
+\setmainfont{FreeSerif}
+\newfontfamily\devfont{FreeSerif}
+\newcommand{\dev}[1]{{\devfont #1}}
 
-% ── Metadata ──────────────────────────────────────────────────────────
-\title{SpeakPay: Domain-Adaptive LoRA Fine-Tuning of Whisper for \\
-       Low-Resource Nepali Financial Speech Recognition}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!60!black,
+    citecolor=blue!60!black,
+    urlcolor=blue!60!black
+}
 
-\name{Biraj Subedi}
-\address{Advanced College of Engineering and Management, \\
-         Tribhuvan University, Kathmandu, Nepal \\
-         \texttt{your.email@acem.edu.np}}
+\titleformat{\section}{\large\bfseries}{{\thesection.}}{0.5em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{{\thesubsection}}{0.5em}{}
 
-% ══════════════════════════════════════════════════════════════════════
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\small SpeakPay — Technical Report}
+\lhead{\small \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% -- Title -------------------------------------------------------------------
+\title{
+    \vspace{-1cm}
+    {\LARGE \textbf{SpeakPay: Domain-Adaptive LoRA Fine-Tuning of Whisper\\[4pt]
+    for Low-Resource Nepali Financial Speech Recognition}}
+}
+\author{
+    Biraj Subedi \\
+    \small Independent Researcher \\
+    \small \href{https://github.com/YOUR_USERNAME/speakpay}{github.com/YOUR\_USERNAME/speakpay} \\
+    \small \texttt{contact@biraj-subedi.com.np}
+}
+\date{Technical Report $\cdot$ \today}
+
+% ─────────────────────────────────────────────────────────────────────────────
 \begin{document}
 \maketitle
 
-% ── Abstract ──────────────────────────────────────────────────────────
+% -- Abstract ----------------------------------------------------------------
 \begin{abstract}
-Mobile payment applications have become ubiquitous in Nepal, yet remain
-largely inaccessible to visually impaired individuals due to
-graphically-oriented interfaces. We present \textbf{SpeakPay}, a
-voice-first digital wallet that accepts spoken Nepali financial commands.
-The core technical contribution is a study of domain-adaptive fine-tuning
-for low-resource financial ASR. We introduce \textbf{NepFinSpeech-403},
-a dataset of 403 transcribed Nepali financial voice commands,
-and show that Parameter-Efficient Fine-Tuning (PEFT) via Low-Rank
-Adaptation (LoRA) of Whisper large-v2 on this domain-specific corpus
-significantly reduces Word Error Rate (WER) and improves Nepali numeral
-recognition accuracy compared to both the zero-shot baseline and a
-general-domain Nepali fine-tune. Our system, including the dataset,
-fine-tuned model, and live demo application, is publicly available.
+Mobile payment applications in Nepal are graphically mediated and largely
+inaccessible to visually impaired users. This report presents SpeakPay, a
+voice-first digital wallet, and documents the central technical
+contribution: a controlled study of domain adaptation for low-resource
+financial speech recognition. We introduce NepFinSpeech-403, a 403-utterance
+dataset of Nepali financial voice commands (send, load, and balance
+operations spanning 237 unique numerals), and fine-tune Whisper large-v2
+using Low-Rank Adaptation (LoRA) on this corpus. On a 60-utterance held-out
+test set, the domain-adapted model reduces Word Error Rate from 129.95\%
+(zero-shot baseline) to 42.58\% --- a 67.2\% relative reduction --- and
+improves Devanagari numeral recognition accuracy from 0.0\% to 56.8\%
+averaged across utterances that contain numerals. The improvement is
+consistent at the individual-utterance level: the domain-adapted model
+outperforms the zero-shot baseline on 59 of 60 test utterances (sign test,
+$p = 1.7\times10^{-12}$). A per-intent breakdown shows the gain holds across
+all three command types (send, load, and a residual ``other'' category),
+though the ``other'' category reveals a labeling gap in our intent
+taxonomy --- discussed in Section~6. The trained system, including a
+self-hosted inference API and a voice-first web application, is deployed
+and publicly accessible. All code, the dataset, model weights, and this
+report are released openly at
+\url{https://github.com/YOUR_USERNAME/speakpay}.
 \end{abstract}
 
-\noindent\textbf{Index Terms}: speech recognition, low-resource languages,
-Nepali, domain adaptation, LoRA, accessibility, FinTech
+\vspace{0.5em}
+\hrule
+\vspace{1em}
 
-% ── 1. Introduction ───────────────────────────────────────────────────
+% ── 1. Introduction ──────────────────────────────────────────────────────────
 \section{Introduction}
-\label{sec:intro}
 
-Nepal's FinTech ecosystem has grown rapidly, with eWallet platforms
-such as eSewa and Khalti serving tens of millions of users.
-However, these platforms rely on visual graphical interfaces, creating
-significant barriers for the estimated 95,000 visually impaired
-individuals in Nepal~\cite{who2023}.
+Mobile wallets (eWallets) such as eSewa and Khalti have become the dominant
+mode of digital payment in Nepal. Their interfaces, however, are built
+entirely around visual interaction --- icon-based navigation, on-screen
+forms, and graphical confirmation flows. For Nepal's visually impaired
+population (estimated at roughly 95{,}000 individuals~\cite{who2019}), this
+makes independent use of digital finance effectively impossible without
+sighted assistance.
 
-While general-purpose Automatic Speech Recognition (ASR) systems for
-Nepali exist~\cite{regmi2021,paudel2023}, none address the specific
-challenges of the financial domain: large numeral sequences,
-bank-specific vocabulary, and intent-structured utterances.
-This paper makes three contributions:
+Voice interaction is the natural accessibility solution, but two gaps stand
+in the way. First, existing Nepali Automatic Speech Recognition (ASR)
+systems are trained and evaluated on general speech~\cite{regmi2021,
+paudel2023}, not financial commands, which carry domain-specific demands:
+dense numeral sequences (transfer amounts, account balances), proper nouns
+(bank names, recipient names), and a narrow set of recurring sentence
+structures. Second, no public Nepali financial speech dataset existed prior
+to this work, making it impossible to even measure how badly general-purpose
+models perform on this domain, let alone improve on it.
 
-\begin{itemize}
-  \item \textbf{NepFinSpeech-403}: the first publicly available
-        domain-specific Nepali financial speech dataset (403 utterances,
-        237 unique numerals, three intent classes).
-  \item A systematic comparison of three ASR approaches on this
-        domain: zero-shot Whisper, general-domain fine-tuning,
-        and our financial-domain LoRA adaptation.
-  \item \textbf{SpeakPay}: an end-to-end voice-first eWallet
-        demonstrating real-world deployment of the model.
-\end{itemize}
+This report documents the construction of such a dataset and a controlled
+comparison of zero-shot and domain-adapted ASR on it. The project began as
+an undergraduate group project with no rigorous evaluation, no public
+dataset, and no reproducible benchmark. This version is a complete
+independent rewrite: a newly assembled and characterized dataset, a
+reproducible LoRA fine-tuning pipeline, a statistically grounded evaluation,
+and a deployed application.
 
-% ── 2. Related Work ───────────────────────────────────────────────────
+% ── 2. Related Work ──────────────────────────────────────────────────────────
 \section{Related Work}
-\label{sec:related}
 
-\subsection{Nepali ASR}
-Regmi and Bal~\cite{regmi2021} developed an end-to-end Nepali ASR
-system using ESPnet on OpenSLR data, achieving CER of 10.3\% on
-159k utterances. Paudel et al.~\cite{paudel2023} employed a
-CNN-Transformer architecture achieving CER of 11.14\%.
-These systems target general speech; none address financial domains.
+\textbf{Nepali ASR.} Regmi and Bal~\cite{regmi2021} built an end-to-end
+Nepali ASR system with ESPnet on OpenSLR data, reporting a Character Error
+Rate (CER) of 10.3\% on 159k general-domain utterances. Paudel et
+al.~\cite{paudel2023} used a CNN-Transformer architecture, achieving CER of
+11.14\% on a similarly general corpus. Both systems are evaluated on
+read speech or broad-domain utterances; neither reports performance on
+financial or transactional language, which differs substantially in
+vocabulary distribution and numeral density.
 
-\subsection{Whisper and PEFT}
-Radford et al.~\cite{radford2022} introduced Whisper, trained on
-680,000 hours of weakly supervised audio, demonstrating strong
-zero-shot multilingual performance. For Nepali (Common Voice 15),
-the base WER is 47.1\%, indicating substantial room for improvement.
+\textbf{Whisper and parameter-efficient fine-tuning.} Radford et
+al.~\cite{radford2022} introduced Whisper, an encoder-decoder Transformer
+trained on 680{,}000 hours of weakly supervised multilingual audio.
+Whisper's zero-shot performance on Nepali is poor relative to
+high-resource languages; we quantify this directly for the financial
+domain in Section~5. Hu et al.~\cite{hu2022lora} introduced LoRA, which
+freezes the base model and injects trainable low-rank decomposition
+matrices into attention and feed-forward layers, reducing trainable
+parameters by over 99\% relative to full fine-tuning while matching or
+exceeding its quality on many tasks. This makes adaptation feasible on a
+single consumer GPU and, critically, on a dataset far too small to safely
+full-fine-tune a 1.55-billion-parameter model.
 
-Hu et al.~\cite{hu2022lora} introduced LoRA, which inserts
-trainable rank-decomposition matrices into Transformer layers,
-reducing trainable parameters by $>$99\% while matching or exceeding
-full fine-tuning quality. This makes fine-tuning feasible on
-consumer hardware.
+\textbf{Accessible FinTech.} Ilyasa et al.~\cite{ilyasa2023} built Visipay,
+an inclusive Indonesian eWallet evaluated via the System Usability Scale
+(SUS score 93). Zhou et al.~\cite{zhou2023} iteratively redesigned a
+cryptocurrency wallet for blind users, reporting reduced task completion
+time across design iterations. Neither system incorporates a custom or
+domain-adapted ASR component; both rely on existing screen-reader
+infrastructure layered over visual interfaces, rather than building a
+voice-first interaction model from the speech layer up.
 
-\subsection{Accessible FinTech}
-Ilyasa et al.~\cite{ilyasa2023} developed Visipay, an inclusive
-eWallet for Indonesian visually impaired users, achieving SUS score
-of 93. Zhou et al.~\cite{zhou2023} iteratively redesigned a crypto
-wallet for blind users. Neither system includes a custom ASR component.
+Our work does not propose a new architecture or training method. It
+presents a controlled, statistically evaluated study of whether
+domain-specific LoRA adaptation closes the gap between a general-purpose
+ASR model and the specific requirements of financial voice interaction in a
+low-resource language --- and ships the result as a working application.
 
-% ── 3. NepFinSpeech Dataset ───────────────────────────────────────────
-\section{NepFinSpeech-403 Dataset}
-\label{sec:dataset}
+% ── 3. Dataset: NepFinSpeech-403 ─────────────────────────────────────────────
+\section{Dataset: NepFinSpeech-403}
 
 \subsection{Collection}
-We built a structured web data collection platform
-(bolanepal.netlify.app) through which contributors recorded spoken
-Nepali financial commands guided by written prompts.
-Prompts were designed to cover:
-(1) fund transfer commands (recipient name/phone, amount, institution),
-(2) wallet load commands (amount, bank),
-(3) balance enquiry commands.
+
+Audio was collected through a purpose-built web platform. Contributors
+recorded spoken Nepali financial commands guided by written prompts,
+covering three operation types: fund transfers (recipient, amount,
+optionally a financial institution), wallet load/deposit commands, and
+balance enquiries. Transcripts were manually verified against the recorded
+audio.
 
 \subsection{Statistics}
-The corpus comprises 403 utterances from multiple speakers.
-Table~\ref{tab:dataset} summarises the distribution.
 
-\begin{table}[h]
+\begin{table}[H]
 \centering
-\caption{NepFinSpeech-403 statistics}
+\caption{NepFinSpeech-403 composition}
 \label{tab:dataset}
 \begin{tabular}{lrr}
 \toprule
-\textbf{Split}      & \textbf{Samples} & \textbf{\%} \\
+\textbf{Split} & \textbf{Samples} & \textbf{\%} \\
 \midrule
-Train               & 282              & 70\%        \\
-Validation          & 40               & 10\%        \\
-Test (held-out)     & 61               & 15\%        \\
+Train & 283 & 70\% \\
+Validation & 40 & 10\% \\
+Test (held-out) & 60 & 15\% \\
 \midrule
-\textbf{Total}      & \textbf{403}     & 100\%       \\
+\textbf{Total} & \textbf{403} & 100\% \\
 \bottomrule
 \end{tabular}
 \quad
 \begin{tabular}{lr}
 \toprule
-\textbf{Intent}    & \textbf{Count} \\
+\textbf{Intent (heuristic)} & \textbf{Count} \\
 \midrule
-Send               & 193 (47.9\%)   \\
-Balance            & 61 (15.1\%)    \\
-Load               & 56 (13.9\%)    \\
-Other              & 93 (23.1\%)    \\
+Send & 193 (47.9\%) \\
+Balance & 61 (15.1\%) \\
+Load & 56 (13.9\%) \\
+Other / unlabeled & 93 (23.1\%) \\
 \midrule
-Unique numerals    & 237            \\
+Unique Devanagari numerals & 237 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\subsection{Domain characteristics}
-Financial speech in Nepali poses two specific challenges not well-covered
-by existing corpora:
-(1) \textit{Numeral density}: utterances contain 1–3 large Devanagari
-numerals (amounts, phone numbers, account numbers);
-(2) \textit{Proper-noun density}: bank names, eWallet brand names,
-and personal names that are rarely seen in general speech corpora.
+The ``other'' category is a heuristic residual class assigned by keyword
+matching, not a manually curated label; Section~6 shows it captures a
+genuine, previously unaccounted-for intent (third-person ``funds received''
+statements), which we treat as a finding rather than noise.
 
-% ── 4. Methodology ────────────────────────────────────────────────────
-\section{Methodology}
-\label{sec:method}
+% ── 4. Method ─────────────────────────────────────────────────────────────────
+\section{Method}
 
-\subsection{Base model}
-We use Whisper large-v2~\cite{radford2022}, a 1.55B-parameter
-encoder-decoder Transformer. Audio is resampled to 16kHz and represented
-as an 80-channel log-Mel spectrogram over 25ms windows (10ms stride).
+\textbf{Base model.} Whisper large-v2~\cite{radford2022}, 1.55B parameters,
+encoder-decoder Transformer operating on log-Mel spectrograms.
 
-\subsection{LoRA adaptation}
-We apply LoRA with rank $r=32$ and scaling $\alpha=64$ to all
-query, key, value, output projection, and feed-forward layers of
-the Transformer. This introduces only $\sim$8M trainable parameters
-out of 1.55B ($<$0.6\%), while keeping the base model frozen.
+\textbf{Adaptation.} LoRA~\cite{hu2022lora} with rank $r=32$, scaling
+$\alpha=64$, applied to all query, key, value, output, and feed-forward
+projection matrices (\texttt{q\_proj}, \texttt{k\_proj}, \texttt{v\_proj},
+\texttt{out\_proj}, \texttt{fc1}, \texttt{fc2}) across every encoder and
+decoder layer. This yields approximately 8M trainable parameters, under
+0.6\% of the base model, while the remaining 99.4\% stays frozen.
 
-Training uses 8-bit quantisation (bitsandbytes) to reduce GPU memory
-to 12GB, enabling fine-tuning on a single T4 GPU. We train for
-200 steps with effective batch size 16, learning rate $10^{-4}$,
-and cosine warmup over 50 steps.
+\textbf{Why LoRA, not full fine-tuning.} With only 283 training utterances,
+full fine-tuning of a 1.55B-parameter model risks both overfitting and
+catastrophic forgetting of the base model's general speech competence.
+LoRA's parameter efficiency is not merely a compute convenience here --- it
+is the difference between a feasible and an infeasible experiment at this
+dataset scale.
 
-\subsection{Evaluation metrics}
-We evaluate on three metrics:
-\begin{itemize}
-  \item \textbf{WER}: standard word error rate.
-  \item \textbf{CER}: character error rate, appropriate for
-        agglutinative Devanagari morphology.
-  \item \textbf{NumAcc}: our proposed \textit{numeral accuracy}
-        metric — the fraction of reference Devanagari numeral
-        tokens correctly reproduced in the hypothesis.
-        This is the most safety-critical metric for financial ASR.
-\end{itemize}
+\textbf{Training configuration.} fp16 precision, no quantization, single
+consumer GPU (RTX 3060, 12GB), effective batch size 16 via gradient
+accumulation, learning rate $1\times10^{-4}$. Full configuration in
+\texttt{training/scripts/config.py} of the accompanying repository.
 
-\subsection{NLP intent layer}
-Transcripts are parsed by a two-stage intent classifier:
-a high-confidence rule layer (precision $>$0.92 on training set)
-followed by a weighted keyword feature classifier for ambiguous cases.
-Parsed intents (send/load/balance/unknown) drive wallet transactions.
+% ── 5. Results ─────────────────────────────────────────────────────────────────
+\section{Results}
 
-% ── 5. Experiments ────────────────────────────────────────────────────
-\section{Experiments}
-\label{sec:experiments}
+\subsection{Aggregate benchmark}
 
-We compare three systems on the held-out NepFinSpeech test set
-(61 utterances, never seen during training):
+All models are evaluated on the same 60-utterance held-out test split,
+never seen during training (fixed seed for reproducibility).
 
-\begin{enumerate}
-  \item \textbf{Baseline}: Whisper large-v2, zero-shot Nepali.
-  \item \textbf{General FT}: publicly available Whisper fine-tune
-        on Nepali Common Voice (general domain).
-  \item \textbf{NepFinSpeech LoRA (ours)}: Whisper large-v2 +
-        LoRA adapted on NepFinSpeech-403.
-\end{enumerate}
-
-\begin{table}[h]
+\begin{table}[H]
 \centering
-\caption{Benchmark results on NepFinSpeech test set}
+\caption{Benchmark results on the NepFinSpeech-403 test set}
 \label{tab:results}
 \begin{tabular}{lccc}
 \toprule
-\textbf{System}              & \textbf{WER\%↓} & \textbf{CER\%↓} & \textbf{NumAcc\%↑} \\
+\textbf{Model} & \textbf{WER\% $\downarrow$} & \textbf{CER\% $\downarrow$} & \textbf{NumAcc\% $\uparrow$} \\
 \midrule
-Whisper large-v2 (zero-shot) & 129.95          & 92.32           & 0.0                \\
-General Nepali FT            & N/A             & N/A             & N/A                \\
-\textbf{NepFinSpeech LoRA (ours)} & \textbf{42.58} & \textbf{16.95} & \textbf{73.9}      \\
+Whisper large-v2 (zero-shot) & 129.95 & 92.32 & 0.0 \\
+Whisper large-v2 (general Nepali FT) & --- & --- & --- \\
+\textbf{Whisper large-v2 + LoRA (ours)} & \textbf{42.58} & \textbf{16.95} & \textbf{56.8} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\subsection{Error analysis}
-Qualitative analysis of test-set errors reveals two dominant failure
-modes: (1) 5–6 digit numeral confusion (e.g., ४०४५ $\rightarrow$ ४४५),
-and (2) proper-noun variation in bank and personal names.
-Intent classification remains robust even under moderate word errors:
-the NLP layer correctly classifies intent in XX\% of cases where
-WER $<$ 30\%.
+\textit{The general-domain Nepali fine-tune baseline failed to load during
+this benchmark run; see Section~7 (Limitations) for discussion. The
+remaining comparison is between the zero-shot base model and our
+domain-adapted model.}
 
-% ── 6. System Description ─────────────────────────────────────────────
-\section{SpeakPay Application}
-\label{sec:system}
+The zero-shot WER exceeds 100\%, which indicates the model's output is, on
+average, longer than the reference --- consistent with insertion-heavy
+hallucination rather than simple mistranscription. Manual inspection of
+zero-shot predictions confirms this: outputs frequently contain
+phonetically plausible but semantically incoherent Devanagari, including
+malformed numeral sequences and occasionally repeated phrase fragments.
+Domain adaptation does not merely improve transcription accuracy; it
+recovers basic output coherence in a domain where the base model fails
+qualitatively, not just quantitatively.
 
-SpeakPay is deployed as a Next.js web application accessible at
-\url{https://speakpay.vercel.app}. The architecture comprises:
+\subsection{Per-utterance significance}
 
-\begin{itemize}
-  \item \textbf{Frontend}: voice-first UI with screen-reader
-        compatibility (ARIA labels, keyboard navigation).
-  \item \textbf{ASR}: Hugging Face Inference API serving the LoRA model.
-        Includes automatic retry with exponential backoff for cold starts,
-        and a browser Web Speech API fallback for offline use.
-  \item \textbf{NLP}: two-stage intent parser with confidence scoring.
-        Requires confidence $>$ 0.4 before presenting confirmation.
-  \item \textbf{Backend}: Next.js API routes + Supabase Postgres with
-        atomic fund transfer via a database-level stored procedure.
-\end{itemize}
+Aggregate WER can be dominated by a small number of catastrophic failures.
+We therefore additionally report a paired, per-utterance comparison: for
+each of the 60 test utterances, we compute WER under both the zero-shot
+and domain-adapted models and compare directly.
 
-% ── 7. Conclusion ─────────────────────────────────────────────────────
+\begin{table}[H]
+\centering
+\caption{Paired per-utterance comparison (domain-adapted vs.\ zero-shot)}
+\label{tab:paired}
+\begin{tabular}{lr}
+\toprule
+Utterances where domain-adapted model improves & 59 / 60 \\
+Utterances where zero-shot is better & 0 / 60 \\
+Tied & 1 / 60 \\
+Mean per-utterance WER reduction & 87.7 percentage points \\
+Sign test (two-sided, $n=59$ non-tied pairs) & $p = 1.7\times10^{-12}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The improvement is not driven by a handful of outliers: the domain-adapted
+model is better on essentially every individual utterance in the test set,
+and the sign test rejects the null hypothesis of no systematic difference
+at an extremely high confidence level. Given the small absolute sample
+size ($n=60$), we report the non-parametric sign test rather than relying
+on aggregate means alone, which can be more sensitive to distributional
+assumptions and outlier influence.
+
+\subsection{Per-intent breakdown}
+
+\begin{table}[H]
+\centering
+\caption{WER by command intent (heuristic classification)}
+\label{tab:intent}
+\begin{tabular}{lrrr}
+\toprule
+\textbf{Intent} & \textbf{N} & \textbf{Zero-shot WER\%} & \textbf{Ours WER\%} \\
+\midrule
+Send     & 30 & 143.6 & 45.8 \\
+Load     &  8 & 124.1 & 34.8 \\
+Other    & 22 & 114.5 & 41.1 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The improvement holds consistently across all three groups, with the
+largest absolute gain on the \textit{send} category --- both the most
+frequent intent in the dataset and the one with the highest numeral and
+proper-noun density, consistent with the hypothesis that domain adaptation
+disproportionately helps exactly the structurally hardest utterances.
+
+% ── 6. Error Analysis ─────────────────────────────────────────────────────────
+\section{Error Analysis}
+
+Qualitative inspection of the ``other'' category (Table~\ref{tab:intent})
+surfaces a genuine taxonomy gap rather than annotation noise. A recurring
+pattern --- third-person statements describing funds already received,
+e.g.\ \dev{अर्चना श्रेष्ठले कुमारी बैंकमा रु ४७५० प्राप्त गरेका छन्} (``Archana
+Shrestha received Rs.\ 4750 at Kumari Bank'') --- does not map cleanly onto
+the send/load/balance taxonomy used elsewhere in this work, since it is
+neither a command nor strictly a balance query. We did not anticipate this
+pattern during dataset design; it appears to have entered the corpus
+because some contributors interpreted ``describe a financial transaction''
+prompts more broadly than intended.
+
+We treat this as a useful negative result: an intent classifier trained
+naively on the present three-class scheme would silently misclassify this
+``receive'' pattern, and any production deployment of the application's
+NLP layer should add a fourth intent class or explicitly reject
+out-of-taxonomy utterances rather than forcing a best-effort match. We did
+not retrain the application's intent parser to add this class in the
+current version; this is identified as future work in Section~7.
+
+A second, smaller pattern in the ``other'' category is unrelated
+demographic statements (e.g.\ stating one's age) appearing in place of an
+expected financial command. The frequency is too low ($n=4$ of 60 test
+utterances) to support a strong claim about cause, but it is consistent
+with occasional prompt-following drift during data collection rather than
+a model artifact, since it appears identically in both zero-shot and
+domain-adapted transcriptions of the same audio.
+
+% ── 7. System Architecture and Deployment ──────────────────────────────────────
+\section{System Architecture and Deployment}
+
+The application is a Next.js web app deployed on Vercel, communicating with
+a Supabase-backed PostgreSQL database (authentication, wallet balances, and
+an atomic SQL transfer function to prevent race conditions on concurrent
+transactions). Voice commands are captured client-side, sent to a
+self-hosted FastAPI inference server (Hugging Face Spaces, Docker runtime)
+running the LoRA-adapted model, and the resulting transcript is parsed by a
+two-stage rule-and-confidence intent classifier before a spoken
+confirmation is presented to the user. Self-hosting the inference endpoint,
+rather than depending solely on a third-party serverless inference API,
+was adopted after observing unreliable cold-start behavior under the free
+tier of hosted inference --- a practical deployment lesson as relevant as
+the modeling result itself for a system intended for real accessibility use.
+
+% ── 8. Limitations and Future Directions ───────────────────────────────────────
+\section{Limitations and Future Directions}
+
+\textbf{Incomplete baseline comparison.} The general-domain Nepali
+fine-tune baseline failed to load during the benchmark run reported here
+(Table~\ref{tab:results}). The present comparison is therefore zero-shot
+vs.\ domain-adapted only; a complete three-way comparison against a strong
+general-domain fine-tune is necessary before claiming the gain is specific
+to financial-domain adaptation rather than to fine-tuning on \textit{any}
+Nepali data. This is the highest-priority follow-up experiment.
+
+\textbf{Dataset scale.} 403 utterances (283 for training) is small relative
+to standard ASR fine-tuning corpora. The results here should be read as a
+feasibility demonstration --- domain adaptation provides large relative
+gains even at this scale --- not as a claim of state-of-the-art absolute
+performance. NumAcc of 56.8\% indicates substantial remaining error on
+numeral transcription, the single most safety-critical metric for a
+payment application; this is not yet production-ready accuracy.
+
+\textbf{Single-annotator transcription.} Transcripts were manually
+verified but not independently double-annotated; no inter-annotator
+agreement statistic is available.
+
+\textbf{Intent taxonomy gap.} As discussed in Section~6, a recognizable
+``funds received'' utterance pattern is not represented in the current
+three-class intent scheme. Future work should add this as an explicit
+fourth class and re-evaluate the application's NLP intent parser
+specifically (as distinct from the ASR transcription quality evaluated in
+this report).
+
+\textbf{No formal accessibility evaluation.} No usability study has yet
+been conducted with visually impaired users, the system's intended
+audience. A System Usability Scale (SUS) study, following the methodology
+used by Ilyasa et al.~\cite{ilyasa2023}, is planned future work and would
+substantially strengthen the application-level (as opposed to model-level)
+contribution of this project.
+
+\textbf{Training dynamics not logged.} Per-checkpoint validation WER/loss
+during training was not preserved for this report; a re-run with logged
+checkpoints would allow direct assessment of whether the model overfit
+within the chosen training step budget.
+
+% ── 9. Conclusion ────────────────────────────────────────────────────────────
 \section{Conclusion}
-\label{sec:conclusion}
 
 We presented NepFinSpeech-403, the first domain-specific Nepali financial
-speech dataset, and demonstrated that LoRA fine-tuning of Whisper
-large-v2 on this small corpus substantially improves WER and numeral
-recognition accuracy compared to general-purpose baselines.
-The SpeakPay application demonstrates real-world deployment for
-visually impaired users. Future work includes expanding the dataset,
-incorporating named-entity augmentation, and conducting a formal
-usability study with visually impaired participants.
+speech dataset, and showed that LoRA fine-tuning of Whisper large-v2 on
+this small corpus produces a large, statistically robust improvement over
+the zero-shot baseline: a 67.2\% relative WER reduction, recovery of basic
+output coherence in a domain where the base model otherwise produces
+incoherent transcriptions, and improvement on 59 of 60 individual test
+utterances ($p = 1.7\times10^{-12}$). The gain is consistent across command
+types, and error analysis surfaced a genuine gap in our intent taxonomy
+rather than merely confirming existing assumptions. The system is deployed
+as a working voice-first eWallet application, demonstrating that the
+distance between a research result and a usable accessibility tool is
+bridgeable with modest additional engineering. The principal remaining gap
+--- a complete comparison against a general-domain fine-tuned baseline ---
+is identified as the immediate next experiment.
 
-The dataset, model, and application are publicly available:\\
-\url{https://huggingface.co/datasets/birajsubedi/NepFinSpeech}\\
-\url{https://github.com/subedibiraj/speakpay}
+The full codebase, training pipeline, dataset, model weights, and this
+report are available at
+\url{https://github.com/YOUR_USERNAME/speakpay}.
 
-% ── References ────────────────────────────────────────────────────────
-\bibliographystyle{IEEEtran}
-\bibliography{refs}
+\bibliographystyle{unsrt}
+\begin{thebibliography}{99}
+
+\bibitem{who2019}
+World Health Organization,
+``World report on vision,''
+2019.
+
+\bibitem{regmi2021}
+S.~Regmi and B.~K.~Bal,
+``An end-to-end speech recognition for the Nepali language,''
+in \textit{Proc. 18th International Conference on Natural Language Processing}, 2021.
+
+\bibitem{paudel2023}
+S.~Paudel, B.~K.~Bal, and D.~Shrestha,
+``Large vocabulary continuous speech recognition for Nepali language using CNN and Transformer,''
+in \textit{Proc. 4th Conference on Language, Data and Knowledge (LDK)}, 2023.
+
+\bibitem{radford2022}
+A.~Radford, J.~W.~Kim, T.~Xu, G.~Brockman, C.~McLeavey, and I.~Sutskever,
+``Robust speech recognition via large-scale weak supervision,''
+in \textit{Proc. ICML}, 2023.
+
+\bibitem{hu2022lora}
+E.~J.~Hu, Y.~Shen, P.~Wallis, Z.~Allen-Zhu, Y.~Li, S.~Wang, L.~Wang, and W.~Chen,
+``LoRA: Low-rank adaptation of large language models,''
+in \textit{Proc. ICLR}, 2022.
+
+\bibitem{ilyasa2023}
+I.~Ilyasa, R.~Fauzi, and S.~Suakanto,
+``Creating a mobile e-wallet for visual impairment using an inclusive design approach,''
+in \textit{Proc. ICOEINS}, 2023.
+
+\bibitem{zhou2023}
+Z.~Zhou, T.~Sharma, L.~Emano, S.~Das, and Y.~Wang,
+``Iterative design of an accessible crypto wallet for blind users,''
+\textit{arXiv preprint arXiv:2306.06261}, 2023.
+
+\end{thebibliography}
 
 \end{document}

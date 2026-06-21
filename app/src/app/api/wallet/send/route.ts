@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import bcrypt from 'bcryptjs'
 import { supabaseAdmin } from '@/lib/supabase'
 import { getSession } from '@/lib/auth'
 
@@ -6,10 +7,24 @@ export async function POST(req: NextRequest) {
   const session = await getSession()
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-  const { recipientPhone, amount, voiceCommand } = await req.json()
+  const { recipientPhone, amount, voiceCommand, pin } = await req.json()
 
-  if (!recipientPhone || !amount || amount <= 0) {
+  if (!recipientPhone || !amount || amount <= 0 || !pin) {
     return NextResponse.json({ error: 'Invalid input' }, { status: 400 })
+  }
+
+  // Get sender user and wallet
+  const { data: senderUser } = await supabaseAdmin
+    .from('users')
+    .select('id, pin_hash')
+    .eq('id', session.userId)
+    .single()
+
+  if (!senderUser) return NextResponse.json({ error: 'User not found' }, { status: 404 })
+
+  const validPin = await bcrypt.compare(pin, senderUser.pin_hash)
+  if (!validPin) {
+    return NextResponse.json({ error: 'Invalid PIN' }, { status: 401 })
   }
 
   // Get sender wallet

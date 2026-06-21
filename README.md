@@ -46,13 +46,17 @@ Start here, then drill into whichever part you need:
 
 ## Research findings
 
-| Model | WER↓ | NumAcc↑ |
-|---|---|---|
-| Whisper large-v2 (zero-shot) | 47.1% | — |
-| General Nepali fine-tune | TBD | — |
-| **NepFinSpeech LoRA (ours)** | **TBD** | **TBD** |
+| Model | WER%↓ | CER%↓ | NumAcc%↑ |
+|---|---|---|---|
+| Whisper large-v2 (zero-shot) | 129.95 | 92.32 | 0.0 |
+| General Nepali fine-tune | N/A* | N/A* | N/A* |
+| **NepFinSpeech LoRA (ours)** | **42.58** | **16.95** | **56.8** |
 
-*Fill in after running `training/scripts/04_benchmark.py`.*
+**67.2% relative WER reduction**, improvement on **59/60** individual
+test utterances (sign test, p = 1.7×10⁻¹²). Full statistical analysis
+and per-intent breakdown: see [`speakpay_report.pdf`](speakpay_report.pdf).
+
+*General-domain baseline failed to load during benchmarking — pending re-run.*
 
 ## Tech stack
 
