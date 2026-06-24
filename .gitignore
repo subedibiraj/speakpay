@@ -21,16 +21,15 @@ training/data/test_split.json
 training/benchmark_results.json
 *.egg-info/
 
-# ── LaTeX (paper/) ───────────────────────────────────────────────────
-paper/*.aux
-paper/*.bbl
-paper/*.blg
-paper/*.log
-paper/*.out
-paper/*.synctex.gz
-paper/*.fdb_latexmk
-paper/*.fls
-paper/main.pdf
+# ── LaTeX (report/) ──────────────────────────────────────────────────
+report/*.aux
+report/*.bbl
+report/*.blg
+report/*.log
+report/*.out
+report/*.synctex.gz
+report/*.fdb_latexmk
+report/*.fls
 
 # ── OS / Editor ──────────────────────────────────────────────────────
 .DS_Store

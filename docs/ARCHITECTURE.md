@@ -14,7 +14,7 @@ data/           — the dataset (source of truth)
    └──→ app/        — the production web application
                        (consumes the model, not the raw data)
 
-paper/          — documents both training/ and app/ for academic use
+report/         — technical report documenting both training/ and app/
 ```
 
 ## Data flow at runtime

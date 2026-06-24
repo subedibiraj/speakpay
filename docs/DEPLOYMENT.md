@@ -90,7 +90,7 @@ vercel
 - [ ] Visit your live URL, register a test account
 - [ ] Test voice command end-to-end (send, load, balance)
 - [ ] Visit `/report` — confirm research data and benchmark table renders
-- [x] Update placeholder URLs in `README.md`, `paper/main.tex`, `speakpay.tex`
+- [x] Update placeholder URLs in `README.md` and `report/speakpay_report.tex`
 - [x] Update benchmark numbers using `training/benchmark_results.json`
 
 ## Common issues
