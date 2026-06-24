@@ -91,8 +91,8 @@ export default function ReportPage() {
               <tbody className="divide-y divide-glass-border">
                 <tr className="bg-ink-800 text-slate-300">
                   <td className="px-5 py-4 font-medium">Whisper large-v2 (zero-shot)</td>
-                  <td className="px-5 py-4 text-right">129.95%</td>
-                  <td className="px-5 py-4 text-right">92.32%</td>
+                  <td className="px-5 py-4 text-right">131.04%</td>
+                  <td className="px-5 py-4 text-right">78.09%</td>
                   <td className="px-5 py-4 text-right">0.0%</td>
                 </tr>
                 <tr className="bg-teal/10 text-white font-medium relative">
@@ -101,7 +101,7 @@ export default function ReportPage() {
                   </td>
                   <td className="px-5 py-4 text-right text-teal-light">42.58%</td>
                   <td className="px-5 py-4 text-right text-teal-light">16.95%</td>
-                  <td className="px-5 py-4 text-right text-teal-light">56.8%</td>
+                  <td className="px-5 py-4 text-right text-teal-light">73.9%</td>
                 </tr>
               </tbody>
             </table>
@@ -114,7 +114,7 @@ export default function ReportPage() {
           <div className="flex items-start gap-3">
             <TrendingDown size={24} className="text-teal shrink-0 mt-0.5" />
             <div>
-              <p className="text-white font-semibold mb-1">67.2% Relative WER Reduction</p>
+              <p className="text-white font-semibold mb-1">67.5% Relative WER Reduction</p>
               <p className="text-sm text-slate-300 leading-relaxed">
                 The LoRA fine-tuning resulted in an improvement on 59 out of 60 individual test utterances. The model demonstrates unprecedented numerical accuracy for spoken Nepali financial sums.
               </p>

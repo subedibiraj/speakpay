@@ -46,8 +46,8 @@
 }
 \author{
     Biraj Subedi \\
-    \small Advanced College of Engineering and Management, Tribhuvan University \\
-    \small \href{https://github.com/subedibiraj/speakpay}{github.com/subedibiraj/speakpay} \\
+    \small Independent Researcher \\
+    \small \href{https://github.com/YOUR_USERNAME/speakpay}{github.com/YOUR\_USERNAME/speakpay} \\
     \small \texttt{contact@biraj-subedi.com.np}
 }
 \date{Technical Report $\cdot$ \today}
@@ -66,9 +66,9 @@ financial speech recognition. We introduce NepFinSpeech-403, a 403-utterance
 dataset of Nepali financial voice commands (send, load, and balance
 operations spanning 237 unique numerals), and fine-tune Whisper large-v2
 using Low-Rank Adaptation (LoRA) on this corpus. On a 60-utterance held-out
-test set, the domain-adapted model reduces Word Error Rate from 131.04\%
-(zero-shot baseline) to 42.58\% --- a 67.5\% relative reduction --- and
-improves Devanagari numeral recognition accuracy from 0.0\% to 73.9\%
+test set, the domain-adapted model reduces Word Error Rate from 129.95\%
+(zero-shot baseline) to 42.58\% --- a 67.2\% relative reduction --- and
+improves Devanagari numeral recognition accuracy from 0.0\% to 56.8\%
 averaged across utterances that contain numerals. The improvement is
 consistent at the individual-utterance level: the domain-adapted model
 outperforms the zero-shot baseline on 59 of 60 test utterances (sign test,
@@ -79,7 +79,7 @@ taxonomy --- discussed in Section~6. The trained system, including a
 self-hosted inference API and a voice-first web application, is deployed
 and publicly accessible. All code, the dataset, model weights, and this
 report are released openly at
-\url{https://github.com/subedibiraj/speakpay}.
+\url{https://github.com/YOUR_USERNAME/speakpay}.
 \end{abstract}
 
 \vspace{0.5em}
@@ -245,9 +245,9 @@ never seen during training (fixed seed for reproducibility).
 \toprule
 \textbf{Model} & \textbf{WER\% $\downarrow$} & \textbf{CER\% $\downarrow$} & \textbf{NumAcc\% $\uparrow$} \\
 \midrule
-Whisper large-v2 (zero-shot) & 131.04 & 78.09 & 0.0 \\
-Whisper large-v3-turbo (general Nepali) & --- & --- & --- \\
-\textbf{Whisper large-v2 + LoRA (ours)} & \textbf{42.58} & \textbf{16.95} & \textbf{73.9} \\
+Whisper large-v2 (zero-shot) & 129.95 & 92.32 & 0.0 \\
+Whisper large-v2 (general Nepali FT) & --- & --- & --- \\
+\textbf{Whisper large-v2 + LoRA (ours)} & \textbf{42.58} & \textbf{16.95} & \textbf{56.8} \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -366,6 +366,43 @@ was adopted after observing unreliable cold-start behavior under the free
 tier of hosted inference --- a practical deployment lesson as relevant as
 the modeling result itself for a system intended for real accessibility use.
 
+\subsection{Informal Usability Observations}
+
+Prior to the current LoRA-adapted model and voice-interaction redesign
+described in this report, an early prototype of the application was
+informally tested with 3--5 sighted volunteers using blindfolds to
+simulate visual impairment. No formal protocol, timing instrumentation,
+or written consent process was used at this stage --- this was
+exploratory, not a controlled study, and we report it as such rather
+than overstating its rigor.
+
+Results were mixed: testers were able to complete some voice-driven
+tasks, but encountered friction at several points in the interaction
+flow, consistent with the prototype's reliance on the zero-shot base
+ASR model (Table~\ref{tab:results}) and a less structured confirmation
+flow than the current version. We do not have preserved logs or timing
+data from these sessions and do not report quantitative metrics from
+them.
+
+This informal round directly motivated three subsequent design changes
+documented elsewhere in this report: (1) the move to a domain-adapted
+ASR model rather than the zero-shot base, given the qualitative
+incoherence observed in early transcriptions (Section~5); (2) the
+explicit voice-confirmation step before any financial action is
+executed, added after testers expressed uncertainty about whether a
+command had been correctly understood before it was acted on; and (3)
+the self-hosted inference deployment described above, motivated by
+unreliable response latency observed during testing under the
+previous hosted-inference setup.
+
+A structured usability evaluation --- ideally with visually impaired
+participants rather than blindfolded sighted volunteers, following a
+protocol such as the System Usability Scale used by Ilyasa et
+al.~\cite{ilyasa2023} --- on the current version of the system remains
+important future work and is the most significant remaining gap
+between this report's model-level contribution and a complete
+accessibility evaluation of the deployed application.
+
 % ── 8. Limitations and Future Directions ───────────────────────────────────────
 \section{Limitations and Future Directions}
 
@@ -378,10 +415,10 @@ to financial-domain adaptation rather than to fine-tuning on \textit{any}
 Nepali data. This is the highest-priority follow-up experiment.
 
 \textbf{Dataset scale.} 403 utterances (283 for training) is small relative
-to standard ASR fine-tuning corpora. The results should be read as a
+to standard ASR fine-tuning corpora. The results here should be read as a
 feasibility demonstration --- domain adaptation provides large relative
 gains even at this scale --- not as a claim of state-of-the-art absolute
-performance. NumAcc of 73.9\% indicates meaningful remaining error on
+performance. NumAcc of 56.8\% indicates substantial remaining error on
 numeral transcription, the single most safety-critical metric for a
 payment application; this is not yet production-ready accuracy.
 
@@ -414,7 +451,7 @@ within the chosen training step budget.
 We presented NepFinSpeech-403, the first domain-specific Nepali financial
 speech dataset, and showed that LoRA fine-tuning of Whisper large-v2 on
 this small corpus produces a large, statistically robust improvement over
-the zero-shot baseline: a 67.5\% relative WER reduction, recovery of basic
+the zero-shot baseline: a 67.2\% relative WER reduction, recovery of basic
 output coherence in a domain where the base model otherwise produces
 incoherent transcriptions, and improvement on 59 of 60 individual test
 utterances ($p = 1.7\times10^{-12}$). The gain is consistent across command
@@ -428,7 +465,7 @@ is identified as the immediate next experiment.
 
 The full codebase, training pipeline, dataset, model weights, and this
 report are available at
-\url{https://github.com/subedibiraj/speakpay}.
+\url{https://github.com/YOUR_USERNAME/speakpay}.
 
 \bibliographystyle{unsrt}
 \begin{thebibliography}{99}
