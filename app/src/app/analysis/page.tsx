@@ -3,15 +3,7 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { computeWER, numberAccuracy, normalizeNumerals } from '@/lib/nlp'
 
-// ══════════════════════════════════════════════════════════════════════
-// Error Analysis Page
-// Loads benchmark_results.json (uploaded to HF after training) and
-// visualises WHERE the model fails — by number range, by intent type,
-// by utterance length.
-//
-// Why this matters: most projects show a WER number and stop.
-// Showing the error distribution is what a researcher does.
-// ══════════════════════════════════════════════════════════════════════
+// Error analysis page — per-utterance WER breakdown by intent, number range, and length.
 
 interface Sample {
   reference:  string

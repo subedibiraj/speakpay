@@ -1,7 +1,4 @@
-// ══════════════════════════════════════════════════════════════════════
-// SpeakPay TTS Engine
-// Tries Nepali voice → falls back to best available → silent fallback
-// ══════════════════════════════════════════════════════════════════════
+// Text-to-speech helper for Nepali voice output.
 
 let _nepaliVoice: SpeechSynthesisVoice | null | undefined = undefined
 

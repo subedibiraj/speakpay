@@ -30,7 +30,7 @@ correct CUDA version for your driver).
 ## 1. Set up a virtual environment (recommended)
 
 ```bash
-cd speakpay_local_train
+cd training
 python -m venv venv
 
 # Windows:

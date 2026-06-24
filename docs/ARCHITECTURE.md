@@ -47,7 +47,7 @@ ParsedIntent { action, amount, recipient, confidence }
 Confirmation prompt (TTS speaks it back)
         │
         ▼
-User confirms (voice or tap)
+User confirms via spoken PIN
         │
         ▼
 POST /api/wallet/send | /api/wallet/load

@@ -1,6 +1,4 @@
-// ══════════════════════════════════════════════════════════════════════
-// useVoiceCommand — core hook for the entire voice interaction loop
-// ══════════════════════════════════════════════════════════════════════
+// Voice interaction state machine hook.
 'use client'
 import { useState, useRef, useCallback, useEffect } from 'react'
 import { createRecorder, transcribeBlob, ASRResult } from '@/lib/asr'
