@@ -17,10 +17,20 @@
 \usepackage{fancyhdr}
 \usepackage{enumitem}
 \usepackage{abstract}
-\usepackage{fontspec}
-\setmainfont{FreeSerif}
-\newfontfamily\devfont{FreeSerif}
-\newcommand{\dev}[1]{{\devfont #1}}
+\usepackage{iftex}
+\ifXeTeX
+  \usepackage{fontspec}
+  \setmainfont{FreeSerif}
+  \newfontfamily\devfont{FreeSerif}
+  \newcommand{\dev}[1]{{\devfont #1}}
+\else\ifLuaTeX
+  \usepackage{fontspec}
+  \setmainfont{FreeSerif}
+  \newfontfamily\devfont{FreeSerif}
+  \newcommand{\dev}[1]{{\devfont #1}}
+\else
+  \newcommand{\dev}[1]{#1}
+\fi\fi
 
 \hypersetup{
     colorlinks=true,
