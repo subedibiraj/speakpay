@@ -366,6 +366,43 @@ was adopted after observing unreliable cold-start behavior under the free
 tier of hosted inference --- a practical deployment lesson as relevant as
 the modeling result itself for a system intended for real accessibility use.
 
+\subsection{Informal Usability Observations}
+
+Prior to the current LoRA-adapted model and voice-interaction redesign
+described in this report, an early prototype of the application was
+informally tested with 3--5 sighted volunteers using blindfolds to
+simulate visual impairment. No formal protocol, timing instrumentation,
+or written consent process was used at this stage --- this was
+exploratory, not a controlled study, and we report it as such rather
+than overstating its rigor.
+
+Results were mixed: testers were able to complete some voice-driven
+tasks, but encountered friction at several points in the interaction
+flow, consistent with the prototype's reliance on the zero-shot base
+ASR model (Table~\ref{tab:results}) and a less structured confirmation
+flow than the current version. We do not have preserved logs or timing
+data from these sessions and do not report quantitative metrics from
+them.
+
+This informal round directly motivated three subsequent design changes
+documented elsewhere in this report: (1) the move to a domain-adapted
+ASR model rather than the zero-shot base, given the qualitative
+incoherence observed in early transcriptions (Section~5); (2) the
+explicit voice-confirmation step before any financial action is
+executed, added after testers expressed uncertainty about whether a
+command had been correctly understood before it was acted on; and (3)
+the self-hosted inference deployment described above, motivated by
+unreliable response latency observed during testing under the
+previous hosted-inference setup.
+
+A structured usability evaluation --- ideally with visually impaired
+participants rather than blindfolded sighted volunteers, following a
+protocol such as the System Usability Scale used by Ilyasa et
+al.~\cite{ilyasa2023} --- on the current version of the system remains
+important future work and is the most significant remaining gap
+between this report's model-level contribution and a complete
+accessibility evaluation of the deployed application.
+
 % ── 8. Limitations and Future Directions ───────────────────────────────────────
 \section{Limitations and Future Directions}
 
