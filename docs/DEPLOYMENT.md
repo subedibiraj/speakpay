@@ -89,16 +89,9 @@ vercel
 
 - [ ] Visit your live URL, register a test account
 - [ ] Test voice command end-to-end (send, load, balance)
-- [ ] Visit `/demo` — confirm live transcription works
-- [ ] Visit `/dataset` — confirm sample audio playback works
-- [ ] Visit `/analysis` — confirm error analysis page renders
-- [ ] Update placeholder URLs (`YOUR_USERNAME`, `YOUR_HF_USERNAME`) in:
-  - `app/src/app/demo/page.tsx`
-  - `app/src/app/dataset/page.tsx`
-  - `app/src/app/analysis/page.tsx`
-  - `README.md`
-  - `paper/main.tex`
-- [ ] Update benchmark numbers (currently `TBD`) in `/demo` page and paper, using your actual `training/benchmark_results.json`
+- [ ] Visit `/report` — confirm research data and benchmark table renders
+- [x] Update placeholder URLs in `README.md`, `paper/main.tex`, `speakpay.tex`
+- [x] Update benchmark numbers using `training/benchmark_results.json`
 
 ## Common issues
 
