@@ -29,10 +29,13 @@ at it directly.
 
 ## Data provenance
 
-Audio was collected through a purpose-built web data-collection
-platform. Contributors read prompted financial phrases aloud; audio
-was uploaded to Cloudinary, and transcripts were manually verified
-and recorded in a spreadsheet (the `.xlsb` file).
+Audio was collected from undergraduate students and staff at Advanced
+College of Engineering and Management (Tribhuvan University) through a
+purpose-built web platform
+([bolanepal.netlify.app](https://bolanepal.netlify.app)). Contributors
+read prompted financial phrases aloud; audio was uploaded to Cloudinary,
+and transcripts were manually verified and recorded in a spreadsheet
+(the `.xlsb` file).
 
 ## License
 
