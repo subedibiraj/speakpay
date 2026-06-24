@@ -42,7 +42,6 @@ Start here, then drill into whichever part you need:
 | Reproduce the model training | [`training/README.md`](training/README.md) |
 | Inspect/rebuild the dataset | [`data/README.md`](data/README.md) |
 | Read the research paper | [`paper/main.tex`](paper/main.tex) |
-| Read the research paper (root copy) | [`speakpay.tex`](speakpay.tex) |
 | See benchmark results | [`docs/DATASET_CARD.md`](docs/DATASET_CARD.md) |
 
 ## Research findings
@@ -55,7 +54,7 @@ Start here, then drill into whichever part you need:
 
 **67.5% relative WER reduction**, improvement on **59/60** individual
 test utterances (sign test, p = 1.7×10⁻¹²). Full statistical analysis
-and per-intent breakdown in the paper ([`speakpay.tex`](speakpay.tex)).
+and per-intent breakdown in the paper ([`paper/main.tex`](paper/main.tex)).
 
 *General-domain baseline failed to load during benchmarking — pending re-run.*
 
