@@ -4,7 +4,7 @@
 *Research project — Tribhuvan University / Advanced College of Engineering and Management, 2025*
 
 [![CI](https://github.com/subedibiraj/speakpay/actions/workflows/ci.yml/badge.svg)](https://github.com/subedibiraj/speakpay/actions)
-[![Live Demo](https://img.shields.io/badge/Live_Demo-speakpay.vercel.app-0F7173)](https://speakpay.vercel.app)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-speakpay.biraj--subedi.com.np-0F7173)](https://speakpay.biraj-subedi.com.np)
 [![Dataset](https://img.shields.io/badge/🤗_Dataset-NepFinSpeech-yellow)](https://huggingface.co/datasets/birajsubedi/NepFinSpeech)
 [![Model](https://img.shields.io/badge/🤗_Model-Whisper_LoRA-yellow)](https://huggingface.co/birajsubedi/whisper-large-v2-nepali-financial)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
@@ -36,7 +36,7 @@ Start here, then drill into whichever part you need:
 
 | I want to... | Go to |
 |---|---|
-| Run the live app | [speakpay.vercel.app](https://speakpay.vercel.app) |
+| Run the live app | [speakpay.biraj-subedi.com.np](https://speakpay.biraj-subedi.com.np) |
 | Understand the system design | [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) |
 | Deploy my own instance | [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) |
 | Reproduce the model training | [`training/README.md`](training/README.md) |
