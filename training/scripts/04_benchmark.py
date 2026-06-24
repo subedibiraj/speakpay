@@ -102,16 +102,16 @@ def main():
     try:
         pipe_b = pipeline(
             "automatic-speech-recognition",
-            model="theainerd/Whisper-large-v2-Nepali",
+            model="amitpant7/Nepali-Automatic-Speech-Recognition",
             device=DEV,
             torch_dtype=torch.float16 if DEV == 0 else torch.float32,
         )
-        results.append(bench(pipe_b, test_paths, test_labels, "Whisper large-v2 (general Nepali)"))
+        results.append(bench(pipe_b, test_paths, test_labels, "Whisper small (general Nepali, amitpant7)"))
         del pipe_b
         torch.cuda.empty_cache()
     except Exception as e:
         print(f"  Could not load general model: {e}")
-        results.append({"model": "Whisper large-v2 (general Nepali)",
+        results.append({"model": "Whisper small (general Nepali, amitpant7)",
                         "WER": "N/A", "CER": "N/A", "NumAcc": "N/A"})
 
     # ── Model C: our domain LoRA ───────────────────────────────────────

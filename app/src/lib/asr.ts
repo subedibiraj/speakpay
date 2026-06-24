@@ -1,7 +1,5 @@
-// ══════════════════════════════════════════════════════════════════════
-// SpeakPay ASR Client
-// Handles recording, cold-start retries, offline fallback
-// ══════════════════════════════════════════════════════════════════════
+// ASR Client
+// Handles audio recording and Whisper API integration.
 
 export type ASRResult = {
   transcript: string
@@ -34,7 +32,7 @@ async function callTranscribeAPI(
   throw new Error('model_unavailable')
 }
 
-// Browser Web Speech API fallback (English-biased but better than nothing)
+// Browser Web Speech API fallback
 function browserFallback(): Promise<string> {
   return new Promise((resolve, reject) => {
     const SpeechRecognition =

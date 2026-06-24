@@ -1,9 +1,6 @@
-// ══════════════════════════════════════════════════════════════════════
-// SpeakPay NLP Engine v2
-// Two-stage pipeline:
-//   Stage 1 — Fast rule-based pre-filter (catches ~80% of commands)
-//   Stage 2 — Weighted feature classifier with confidence scoring
-// ══════════════════════════════════════════════════════════════════════
+// NLP Intent Parser
+// Converts Nepali ASR transcripts into structured financial intents
+// using a rule-based pre-filter and a lightweight feature classifier.
 
 export type IntentAction = 'send' | 'load' | 'balance' | 'unknown'
 

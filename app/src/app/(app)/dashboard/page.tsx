@@ -151,7 +151,7 @@ export default function Dashboard() {
         setStage('done')
         fetchTxs()
         
-        // Simulated SMS Toast
+        // System Notification
         setToast({ title: 'SpeakPay Alert', body: `तपाईंको खाताबाट रु ${intentToExec.amount} ${d.recipient} लाई पठाइयो। नयाँ ब्यालेन्स रु ${d.newBalance} छ।` })
         setTimeout(() => setToast(null), 5000)
       } else {
@@ -178,7 +178,7 @@ export default function Dashboard() {
         setStage('done')
         fetchTxs()
         
-        // Simulated SMS Toast
+        // System Notification
         setToast({ title: 'SpeakPay Alert', body: `तपाईंको खातामा रु ${intentToExec.amount} लोड गरियो। नयाँ ब्यालेन्स रु ${d.newBalance} छ।` })
         setTimeout(() => setToast(null), 5000)
       } else {
@@ -195,7 +195,7 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen flex flex-col relative z-0">
       
-      {/* ── Simulated SMS Toast ── */}
+      {/* ── System Notification ── */}
       <AnimatePresence>
         {toast && (
           <motion.div initial={{ opacity: 0, y: -50, x: '-50%' }} animate={{ opacity: 1, y: 0, x: '-50%' }} exit={{ opacity: 0, y: -50, x: '-50%' }}
@@ -382,12 +382,12 @@ export default function Dashboard() {
           )}
         </motion.div>
 
-        {/* ── Research demo link ── */}
-        <motion.a href="/demo" initial={{ opacity:0 }} animate={{ opacity:1, transition:{ delay:0.3 }}}
+        {/* ── Research Data Link ── */}
+        <motion.a href="/report" initial={{ opacity:0 }} animate={{ opacity:1, transition:{ delay:0.3 }}}
           className="card p-4 flex items-center justify-between hover:border-teal/40 transition group">
           <div>
-            <p className="font-medium text-white text-sm">ASR बेन्चमार्क डेमो</p>
-            <p className="text-xs text-slate-400 mt-0.5">तीन मोडेलको तुलना गर्नुहोस्</p>
+            <p className="font-medium text-white text-sm">अनुसन्धान डाटा र रिपोर्ट</p>
+            <p className="text-xs text-slate-400 mt-0.5">तथ्याङ्क र बेन्चमार्क हेर्नुहोस्</p>
           </div>
           <span className="text-teal group-hover:translate-x-1 transition-transform">→</span>
         </motion.a>
