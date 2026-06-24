@@ -44,4 +44,4 @@ at `docs/DATASET_CARD.md` for the full citation and usage terms.
 - 403 transcribed utterances
 - 4 intent categories: send (47.9%), balance (15.1%), load (13.9%), other (23.1%)
 - 237 unique Nepali numerals
-- ~70/10/15 train/val/test split (set in `training/scripts/config.py`)
+- ~75/10/15 train/val/test split (set in `training/scripts/config.py`)

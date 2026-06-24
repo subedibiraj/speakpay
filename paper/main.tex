@@ -177,7 +177,7 @@ audio.
 \toprule
 \textbf{Split} & \textbf{Samples} & \textbf{\%} \\
 \midrule
-Train & 283 & 70\% \\
+Train & 303 & 75\% \\
 Validation & 40 & 10\% \\
 Test (held-out) & 60 & 15\% \\
 \midrule
@@ -217,7 +217,7 @@ projection matrices (\texttt{q\_proj}, \texttt{k\_proj}, \texttt{v\_proj},
 decoder layer. This yields approximately 8M trainable parameters, under
 0.6\% of the base model, while the remaining 99.4\% stays frozen.
 
-\textbf{Why LoRA, not full fine-tuning.} With only 283 training utterances,
+\textbf{Why LoRA, not full fine-tuning.} With only 303 training utterances,
 full fine-tuning of a 1.55B-parameter model risks both overfitting and
 catastrophic forgetting of the base model's general speech competence.
 LoRA's parameter efficiency is not merely a compute convenience here --- it
@@ -414,7 +414,7 @@ general-domain fine-tune is necessary before claiming the gain is specific
 to financial-domain adaptation rather than to fine-tuning on \textit{any}
 Nepali data. This is the highest-priority follow-up experiment.
 
-\textbf{Dataset scale.} 403 utterances (283 for training) is small relative
+\textbf{Dataset scale.} 403 utterances (303 for training) is small relative
 to standard ASR fine-tuning corpora. The results should be read as a
 feasibility demonstration --- domain adaptation provides large relative
 gains even at this scale --- not as a claim of state-of-the-art absolute

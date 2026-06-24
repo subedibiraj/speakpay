@@ -33,9 +33,9 @@ applications.
 
 | Split | Samples | % |
 |---|---|---|
-| Train | 282 | 70% |
+| Train | 303 | 75% |
 | Validation | 40 | 10% |
-| Test | 61 | 15% |
+| Test | 60 | 15% |
 | **Total** | **403** | **100%** |
 
 | Intent | Count | % |
