@@ -97,21 +97,42 @@ def main():
     del pipe_a
     torch.cuda.empty_cache()
 
-    # ── Model B: public general Nepali fine-tune ──────────────────────
-    print("\n[B] General Nepali fine-tune...")
+    # ── Model B: general Nepali fine-tune (small) ──────────────────────
+    # Whisper small fine-tuned on OpenSLR54 (~154h general Nepali speech)
+    print("\n[B] General Nepali fine-tune (small)...")
     try:
         pipe_b = pipeline(
             "automatic-speech-recognition",
-            model="amitpant7/Nepali-Automatic-Speech-Recognition",
+            model="fnawaraj/whisper-small-nepali-openslr",
             device=DEV,
             torch_dtype=torch.float16 if DEV == 0 else torch.float32,
         )
-        results.append(bench(pipe_b, test_paths, test_labels, "Whisper small (general Nepali, amitpant7)"))
+        results.append(bench(pipe_b, test_paths, test_labels,
+                             "Whisper small (general Nepali FT)"))
         del pipe_b
         torch.cuda.empty_cache()
     except Exception as e:
-        print(f"  Could not load general model: {e}")
-        results.append({"model": "Whisper small (general Nepali, amitpant7)",
+        print(f"  Could not load model: {e}")
+        results.append({"model": "Whisper small (general Nepali FT)",
+                        "WER": "N/A", "CER": "N/A", "NumAcc": "N/A"})
+
+    # ── Model B2: general Nepali fine-tune (large) ────────────────────
+    # Whisper large-v3 fine-tuned on OpenSLR54 (~154h general Nepali speech)
+    print("\n[B2] General Nepali fine-tune (large-v3)...")
+    try:
+        pipe_b2 = pipeline(
+            "automatic-speech-recognition",
+            model="Dragneel/whisper-large-v3-nepali-openslr",
+            device=DEV,
+            torch_dtype=torch.float16 if DEV == 0 else torch.float32,
+        )
+        results.append(bench(pipe_b2, test_paths, test_labels,
+                             "Whisper large-v3 (general Nepali FT)"))
+        del pipe_b2
+        torch.cuda.empty_cache()
+    except Exception as e:
+        print(f"  Could not load model: {e}")
+        results.append({"model": "Whisper large-v3 (general Nepali FT)",
                         "WER": "N/A", "CER": "N/A", "NumAcc": "N/A"})
 
     # ── Model C: our domain LoRA ───────────────────────────────────────
