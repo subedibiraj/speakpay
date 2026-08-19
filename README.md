@@ -1,44 +1,104 @@
-# SpeakPay — Research Strengthening Bundle
+# SpeakPay
 
-Start with `MASTER_CHECKLIST.md` — it's the ordered task list (Tier 0
-through Tier 4) that everything else in this bundle supports.
+**Voice-first eWallet for visually impaired individuals**
+*Research project — Tribhuvan University / Advanced College of Engineering and Management, 2025*
 
-## How to use this with the SpeakPay repo
+[![CI](https://github.com/subedibiraj/speakpay/actions/workflows/ci.yml/badge.svg)](https://github.com/subedibiraj/speakpay/actions)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-speakpay.biraj--subedi.com.np-0F7173)](https://speakpay.biraj-subedi.com.np)
+[![Dataset](https://img.shields.io/badge/🤗_Dataset-NepFinSpeech-yellow)](https://huggingface.co/datasets/birajsubedi/NepFinSpeech)
+[![Model](https://img.shields.io/badge/🤗_Model-Whisper_LoRA-yellow)](https://huggingface.co/birajsubedi/whisper-large-v2-nepali-financial)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-Unzip this alongside (or merge into) the `speakpay-master` repo root. The
-folder structure mirrors it:
+---
+
+SpeakPay lets visually impaired users manage a digital wallet entirely
+through spoken Nepali — no screen reading, no visual navigation
+required. The research contribution is **NepFinSpeech-403**, the first
+domain-specific Nepali financial speech dataset, and a LoRA fine-tune
+of Whisper large-v2 that significantly improves number recognition
+accuracy on financial utterances over both the zero-shot baseline and
+general-domain fine-tunes.
+
+## Repository structure
 
 ```
-analysis/                       ← new, doesn't exist in repo yet
-  paired_stats.py
-  slot_eval.py
-  iaa_agreement.py
-  noise_robustness.py
-data/
-  speaker_disjoint_split.py     ← new
-  check_duplicate_leakage.py    ← new
-training/scripts/
-  05_data_efficiency_sweep.py   ← new, follows 04_benchmark.py
-report/
-  new_refs_to_add.bib           ← merge into existing report/refs.bib
-  REPOSITIONING_NOTES.md        ← read before editing report intro/related-work
-docs/
-  USER_STUDY_PROTOCOL.md        ← new
-ethics_statement_draft.md       ← fill in and fold into report/speakpay_report.tex
-MASTER_CHECKLIST.md             ← the actual task list, read this first
+speakpay/
+├── app/         Next.js web application (frontend + API + Supabase schema)
+├── training/    LoRA fine-tuning pipeline (5 sequential Python scripts)
+├── data/        NepFinSpeech-403 dataset + reproducibility scripts
+├── report/      Technical report (LaTeX source + compiled PDF)
+├── docs/        Architecture, deployment guide, dataset card
+└── .github/     CI workflow
 ```
 
-## Suggested agent instructions
+Each top-level folder has its own README with detailed instructions.
+Start here, then drill into whichever part you need:
 
-If you're handing this to an autonomous coding agent (e.g. to execute
-Tier 0/1 items), a reasonable prompt is:
+| I want to... | Go to |
+|---|---|
+| Run the live app | [speakpay.biraj-subedi.com.np](https://speakpay.biraj-subedi.com.np) |
+| Understand the system design | [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) |
+| Deploy my own instance | [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) |
+| Reproduce the model training | [`training/README.md`](training/README.md) |
+| Inspect/rebuild the dataset | [`data/README.md`](data/README.md) |
+| Read the technical report | [`report/speakpay_report.pdf`](report/speakpay_report.pdf) |
+| See benchmark results | [`docs/DATASET_CARD.md`](docs/DATASET_CARD.md) |
 
-> Work through MASTER_CHECKLIST.md in order, starting at Tier 0. For each
-> Python script, read its docstring for exact usage before running it —
-> several depend on outputs of earlier steps (e.g. paired_stats.py and
-> slot_eval.py both need benchmark_results.json from a working
-> 04_benchmark.py run first). Do not skip Tier 0 (speaker-leakage check)
-> even though it's not code you write — it determines whether Tier 1's
-> results are valid. Flag anywhere a script's assumptions (file names,
-> JSON field names) don't match the actual repo state rather than silently
-> guessing.
+## Research findings
+
+| Model | WER%↓ | CER%↓ | NumAcc%↑ |
+|---|---|---|---|
+| Whisper large-v2 (zero-shot) | 131.04 | 78.09 | 0.0 |
+| Whisper large-v3-turbo (general Nepali FT) | 129.28 | 79.52 | 0.0 |
+| Whisper small (general Nepali FT) | 71.39 | 28.51 | 18.3 |
+| **NepFinSpeech LoRA (ours)** | **42.58** | **16.95** | **73.9** |
+
+**67.5% relative WER reduction**, improvement on **59/60** individual test utterances (sign test, $p = 3.5 \times 10^{-18}$). Transaction Success Rate improved from 1.67% to 33.33% (~1900% relative improvement). Model remains robust under GSM phone band-limiting (46.70% WER). Full statistical, acoustic, and error analysis in the report ([`report/speakpay_report.pdf`](report/speakpay_report.pdf)) and the `analysis/` directory.
+
+## Tech stack
+
+- **Frontend / Backend**: Next.js 14 (App Router) on Vercel
+- **Database + Auth**: Supabase (Postgres + Row Level Security)
+- **ASR**: Whisper large-v2 + LoRA, served via HF Inference API
+- **NLP**: Two-stage rule + confidence-scored intent parser (no
+  separate trained classifier — see `docs/ARCHITECTURE.md` for why)
+- **Training**: PyTorch + 🤗 PEFT, runs on a single consumer GPU (RTX 3060 / Colab T4)
+
+## Quick start
+
+```bash
+git clone https://github.com/subedibiraj/speakpay
+cd speakpay/app
+cp .env.local.example .env.local   # fill in Supabase + HF credentials
+npm install
+npm test                            # run NLP parser unit tests
+npm run dev                         # http://localhost:3000
+```
+
+Full deployment instructions (Supabase setup, model training, Vercel
+deploy): see [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md).
+
+## Dataset: NepFinSpeech-403
+
+403 transcribed Nepali financial voice commands — 193 send-money
+commands, 61 balance queries, 56 load commands, 93 other financial
+utterances, spanning 237 unique Nepali numerals.
+
+Source data and full reproducibility pipeline in [`data/`](data/).
+Published dataset: [huggingface.co/datasets/birajsubedi/NepFinSpeech](https://huggingface.co/datasets/birajsubedi/NepFinSpeech)
+
+## Citation
+
+```bibtex
+@misc{speakpay2025,
+  title   = {SpeakPay: Domain-Adaptive LoRA Fine-Tuning of Whisper for
+             Low-Resource Nepali Financial Speech Recognition},
+  author  = {Biraj Subedi},
+  year    = {2025},
+  url     = {https://github.com/subedibiraj/speakpay}
+}
+```
+
+## License
+
+Code: [MIT](LICENSE). Dataset: CC-BY 4.0 (see [`data/README.md`](data/README.md)).
