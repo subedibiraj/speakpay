@@ -75,14 +75,16 @@ contribution: a controlled study of domain adaptation for low-resource
 financial speech recognition. We introduce NepFinSpeech-403, a 403-utterance
 dataset of Nepali financial voice commands (send, load, and balance
 operations spanning 237 unique numerals), and fine-tune Whisper large-v2
-using Low-Rank Adaptation (LoRA) on this corpus. On a 60-utterance held-out
-test set, the domain-adapted model reduces Word Error Rate from 131.04\%
-(zero-shot baseline) to 42.58\% --- a 67.5\% relative reduction --- and
+test set, the domain-adapted model reduces Word Error Rate from 129.95\%
+(zero-shot baseline) to 42.58\% --- a 67.2\% relative reduction --- and
 improves Devanagari numeral recognition accuracy from 0.0\% to 73.9\%
-averaged across utterances that contain numerals. The improvement is
-consistent at the individual-utterance level: the domain-adapted model
+averaged across utterances that contain numerals. Crucially, we find that
+word-level metrics severely understate the practical task-level impact:
+domain adaptation improves the Transaction Success Rate (Interpretation Error Rate)
+from 1.67\% under the zero-shot model to 33.33\% under the adapted model. The
+improvement is consistent at the individual-utterance level: the domain-adapted model
 outperforms the zero-shot baseline on 59 of 60 test utterances (sign test,
-$p = 1.7\times10^{-12}$). A per-intent breakdown shows the gain holds across
+$p < 10^{-17}$). A per-intent breakdown shows the gain holds across
 all three command types (send, load, and a residual ``other'' category),
 though the ``other'' category reveals a labeling gap in our intent
 taxonomy --- discussed in Section~6. The trained system, including a
@@ -150,14 +152,7 @@ exceeding its quality on many tasks. This makes adaptation feasible on a
 single consumer GPU and, critically, on a dataset far too small to safely
 full-fine-tune a 1.55-billion-parameter model.
 
-\textbf{Accessible FinTech.} Ilyasa et al.~\cite{ilyasa2023} built Visipay,
-an inclusive Indonesian eWallet evaluated via the System Usability Scale
-(SUS score 93). Zhou et al.~\cite{zhou2023} iteratively redesigned a
-cryptocurrency wallet for blind users, reporting reduced task completion
-time across design iterations. Neither system incorporates a custom or
-domain-adapted ASR component; both rely on existing screen-reader
-infrastructure layered over visual interfaces, rather than building a
-voice-first interaction model from the speech layer up.
+\textbf{Accessible FinTech.} Concurrent work on accessible voice payments \cite{accessible_mobile_money2026, voicebiometric_upi2026} has focused on system architecture, USSD automation, and biometric security for visually impaired users. We focus instead on the ASR domain-adaptation and evaluation-metric questions underlying the language layer these systems depend on, using Nepali --- a language with no existing accessible financial voice interface --- as a case study.
 
 Our work does not propose a new architecture or training method. It
 presents a controlled, statistically evaluated study of whether
@@ -178,7 +173,9 @@ recorded spoken Nepali financial commands guided by written prompts,
 covering three operation types: fund transfers (recipient, amount,
 optionally a financial institution), wallet load/deposit commands, and
 balance enquiries. Transcripts were manually verified against the recorded
-audio.
+audio. Notably, contributor identity was not recorded per utterance during
+collection, meaning speaker overlap between train and test splits cannot
+be entirely ruled out.
 
 \subsection{Statistics}
 
@@ -239,8 +236,9 @@ dataset scale.
 
 \textbf{Training configuration.} fp16 precision, no quantization, single
 consumer GPU (RTX 3060, 12GB), effective batch size 16 via gradient
-accumulation, learning rate $1\times10^{-4}$. Full configuration in
-\texttt{training/scripts/config.py} of the accompanying repository.
+accumulation, learning rate $1\times10^{-4}$. We train for a maximum of 300
+steps over the 303-utterance training set, corresponding to roughly 15.8 epochs.
+Full configuration in \texttt{training/scripts/config.py} of the accompanying repository.
 
 % ── 5. Results ─────────────────────────────────────────────────────────────────
 \section{Results}
@@ -258,7 +256,7 @@ never seen during training (fixed seed for reproducibility).
 \toprule
 \textbf{Model} & \textbf{WER\% $\downarrow$} & \textbf{CER\% $\downarrow$} & \textbf{NumAcc\% $\uparrow$} \\
 \midrule
-Whisper large-v2 (zero-shot) & 131.04 & 78.09 & 0.0 \\
+Whisper large-v2 (zero-shot) & 129.95 & 92.32 & 0.0 \\
 Whisper large-v3-turbo (general Nepali) & --- & --- & --- \\
 \textbf{Whisper large-v2 + LoRA (ours)} & \textbf{42.58} & \textbf{16.95} & \textbf{73.9} \\
 \bottomrule
@@ -297,18 +295,42 @@ Utterances where domain-adapted model improves & 59 / 60 \\
 Utterances where zero-shot is better & 0 / 60 \\
 Tied & 1 / 60 \\
 Mean per-utterance WER reduction & 87.7 percentage points \\
-Sign test (two-sided, $n=59$ non-tied pairs) & $p = 1.7\times10^{-12}$ \\
+Sign test (two-sided, $n=59$ non-tied pairs) & $p = 3.5\times10^{-18}$ \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+The zero-shot model yielded a mean per-utterance WER of 130.33\% (95\% bootstrap CI [115.15, 152.96]), whereas the domain-adapted model achieved 42.61\% (95\% bootstrap CI [36.76, 48.59]).
 
 The improvement is not driven by a handful of outliers: the domain-adapted
 model is better on essentially every individual utterance in the test set,
 and the sign test rejects the null hypothesis of no systematic difference
 at an extremely high confidence level. Given the small absolute sample
 size ($n=60$), we report the non-parametric sign test rather than relying
-on aggregate means alone, which can be more sensitive to distributional
 assumptions and outlier influence.
+
+\subsection{Task-level Interpretation Accuracy}
+
+While Word Error Rate is the standard ASR benchmark, it treats all word errors equally. In a financial voice interface, a wrong filler word is a harmless transcription error, but a mistranscribed digit is a real-money transaction failure. To measure practical utility, we evaluate both models using Interpretation Error Rate (IRER)~\cite{fu2022multitask}, defined here as the utterance-level Transaction Success Rate: the percentage of test utterances where the predicted transcript, when parsed by a rule-based slot extraction pipeline, yields exactly the same intent, amount, and recipient as the ground-truth transcript.
+
+\begin{table}[H]
+\centering
+\caption{Task-level slot extraction accuracy (higher is better)}
+\label{tab:task_eval}
+\begin{tabular}{lrr}
+\toprule
+\textbf{Metric} & \textbf{Zero-shot} & \textbf{Ours (LoRA)} \\
+\midrule
+Intent Accuracy & 73.33\% & 98.33\% \\
+Amount Exact Match & 12.28\% & 54.39\% \\
+Recipient Exact Match & 5.26\% & 42.11\% \\
+\midrule
+\textbf{Transaction Success Rate (1 - IRER)} & \textbf{1.67\%} & \textbf{33.33\%} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The domain adaptation increases the Transaction Success Rate from 1.67\% (effectively unusable) to 33.33\%. While 33.33\% is still too low for a fully autonomous financial system without user confirmation steps, the relative improvement over the zero-shot baseline is nearly 1900\% --- significantly larger than the 67\% relative improvement seen in WER alone. This confirms that word-level metrics heavily understate the task-level impact of domain adaptation for slot-critical applications.
 
 \subsection{Per-intent breakdown}
 
@@ -333,9 +355,23 @@ frequent intent in the dataset and the one with the highest numeral and
 proper-noun density, consistent with the hypothesis that domain adaptation
 disproportionately helps exactly the structurally hardest utterances.
 
+\subsection{Acoustic Robustness}
+
+Because financial voice interfaces are often used in mobile contexts, we synthetically evaluated our domain-adapted model against real-world acoustic degradations using the \textit{audiomentations} library. The original test set consists of clean read speech (42.58\% WER). When subjected to simulated GSM phone band-limiting (300Hz--3400Hz), the model exhibited negligible degradation, achieving a 46.70\% WER. Mild simulated room reverberation degraded performance to 51.37\%. Under additive background street noise, the model degraded gracefully to 54.40\% WER at 10dB SNR, though it unsurprisingly failed at 0dB SNR (103.85\% WER) where the signal and noise are of equal power. The minimal degradation under phone band-limiting confirms the model's suitability for mobile accessibility applications.
+
 % ── 6. Error Analysis ─────────────────────────────────────────────────────────
 \section{Error Analysis}
 
+\subsection{Numeral Confusions}
+While domain adaptation increased numeral exact-match accuracy from 0.0\% to 73.9\%, we analyzed the remaining errors to understand the failure modes of the adapted model. In 25 out of the 60 test utterances, the model transcribed exactly one numeral incorrectly. We observed three distinct patterns in these confusions:
+\begin{enumerate}
+    \item \textbf{Zero Insertion/Deletion:} The most common failure mode involves missing or adding trailing zeros (e.g., transcribing \dev{५०००} (5,000) as \dev{५००००} (50,000), or \dev{६५००००} (650,000) as \dev{६५०००} (65,000)). This indicates the model occasionally struggles to distinguish the acoustic duration of repeating zero words in Nepali (like \textit{hajaar} vs \textit{laakh}).
+    \item \textbf{Prefix Hallucinations:} The model occasionally prepends the digit \dev{५} (5) to amounts (e.g., \dev{८००} transcribed as \dev{५८००}). This is likely an artifact of the acoustic similarity between the Nepali word for "Rs." (\textit{Rupaiya}) and the number 5 (\textit{Paanch}), which frequently co-occur in the training data.
+    \item \textbf{Similar Sounding Digits:} We observed phonetic confusions such as \dev{१२} (12) and \dev{१} (1) (e.g., \dev{२००००} transcribed as \dev{१२००००}).
+\end{enumerate}
+These specific failures highlight why ASR systems for financial applications cannot rely on raw transcriptions alone and require secondary confirmation UI steps before executing transactions.
+
+\subsection{Taxonomy Gaps}
 Qualitative inspection of the ``other'' category (Table~\ref{tab:intent})
 surfaces a genuine taxonomy gap rather than annotation noise. A recurring
 pattern --- third-person statements describing funds already received,

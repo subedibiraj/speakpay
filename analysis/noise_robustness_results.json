@@ -1,0 +1,17 @@
+{
+  "clean": {
+    "WER": 42.58
+  },
+  "noise_snr10": {
+    "WER": 54.4
+  },
+  "noise_snr0": {
+    "WER": 103.85
+  },
+  "phone_bandlimit": {
+    "WER": 46.7
+  },
+  "reverb": {
+    "WER": 51.37
+  }
+}

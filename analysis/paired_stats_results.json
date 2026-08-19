@@ -1,0 +1,27 @@
+{
+  "sign_test": {
+    "improved": 59,
+    "worse": 0,
+    "tied": 1,
+    "n_nontied": 59,
+    "p_value": 3.469446951953614e-18
+  },
+  "wer_reduction_bootstrap_ci": {
+    "mean": 87.71825396825398,
+    "ci_lower": 71.84656084656085,
+    "ci_upper": 110.41865079365078,
+    "n_boot": 10000
+  },
+  "zero_shot_wer_bootstrap_ci": {
+    "mean": 130.3293650793651,
+    "ci_lower": 115.15013227513226,
+    "ci_upper": 152.96031746031747,
+    "n_boot": 10000
+  },
+  "domain_adapted_wer_bootstrap_ci": {
+    "mean": 42.6111111111111,
+    "ci_lower": 36.75925925925925,
+    "ci_upper": 48.59126984126983,
+    "n_boot": 10000
+  }
+}

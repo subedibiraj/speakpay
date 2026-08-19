@@ -62,6 +62,17 @@ class SpeechCollator:
 
 
 def main():
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--n-train", type=int, help="Subset train data to N samples")
+    parser.add_argument("--output-dir", type=Path, help="Override checkpoint output directory")
+    args_cli = parser.parse_args()
+
+    global FINAL_DIR, CKPT_DIR
+    if args_cli.output_dir:
+        FINAL_DIR = args_cli.output_dir
+        CKPT_DIR = args_cli.output_dir / "checkpoints"
+
     if not FEATURES_DIR.exists():
         raise SystemExit(
             f"ERROR: {FEATURES_DIR} not found. Run scripts/02_prepare_features.py first."
@@ -76,6 +87,12 @@ def main():
     # ── Load data ────────────────────────────────────────────────────
     print(f"\nLoading prepared features from {FEATURES_DIR}...")
     ds = load_from_disk(str(FEATURES_DIR))
+    
+    if args_cli.n_train is not None:
+        print(f"Subsetting training data to {args_cli.n_train} samples for data efficiency sweep...")
+        # Subset deterministically
+        ds["train"] = ds["train"].select(range(min(args_cli.n_train, len(ds["train"]))))
+        
     print(ds)
 
     processor = WhisperProcessor.from_pretrained(BASE_MODEL, language=LANGUAGE, task=TASK)

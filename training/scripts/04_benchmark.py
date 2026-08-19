@@ -7,7 +7,9 @@ Produces benchmark_results.json — the core research result table.
 import os
 os.environ.setdefault("WANDB_DISABLED", "true")
 
-import json, re
+import json, re, sys
+if sys.stdout.encoding != "utf-8":
+    sys.stdout.reconfigure(encoding="utf-8")
 from pathlib import Path
 
 import torch
@@ -71,6 +73,18 @@ def bench(pipe, paths, refs, name):
 
 
 def main():
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--checkpoint-dir", type=Path, help="Override path to trained LoRA adapter")
+    parser.add_argument("--out", type=Path, help="Override output JSON path")
+    args_cli = parser.parse_args()
+
+    global FINAL_DIR, RESULTS_FILE
+    if args_cli.checkpoint_dir:
+        FINAL_DIR = args_cli.checkpoint_dir
+    if args_cli.out:
+        RESULTS_FILE = args_cli.out
+
     if not TEST_FILE.exists():
         raise SystemExit(f"ERROR: {TEST_FILE} not found. Run scripts/02_prepare_features.py first.")
     if not FINAL_DIR.exists():
@@ -97,42 +111,58 @@ def main():
     del pipe_a
     torch.cuda.empty_cache()
 
-    # ── Model B: general Nepali fine-tune (small) ──────────────────────
-    # Whisper small fine-tuned on OpenSLR54 (~154h general Nepali speech)
+    #  Model B: general Nepali fine-tune (small) 
+    # Whisper small fine-tuned on general Nepali speech
     print("\n[B] General Nepali fine-tune (small)...")
     try:
+        base_b = WhisperForConditionalGeneration.from_pretrained(
+            "Dragneel/whisper-small-nepali", torch_dtype=torch.float16 if DEV == 0 else torch.float32
+        ).to(DEV_STR)
+        proc_b = WhisperProcessor.from_pretrained("openai/whisper-small", language="nepali", task="transcribe")
         pipe_b = pipeline(
             "automatic-speech-recognition",
-            model="fnawaraj/whisper-small-nepali-openslr",
+            model=base_b,
+            tokenizer=proc_b.tokenizer,
+            feature_extractor=proc_b.feature_extractor,
             device=DEV,
             torch_dtype=torch.float16 if DEV == 0 else torch.float32,
         )
         results.append(bench(pipe_b, test_paths, test_labels,
                              "Whisper small (general Nepali FT)"))
         del pipe_b
+        del base_b
         torch.cuda.empty_cache()
     except Exception as e:
         print(f"  Could not load model: {e}")
         results.append({"model": "Whisper small (general Nepali FT)",
                         "WER": "N/A", "CER": "N/A", "NumAcc": "N/A"})
 
-    # ── Model B2: general Nepali fine-tune (large) ────────────────────
-    # Whisper large-v3 fine-tuned on OpenSLR54 (~154h general Nepali speech)
-    print("\n[B2] General Nepali fine-tune (large-v3)...")
+    #  Model B2: general Nepali fine-tune (large) 
+    # Whisper large-v3-turbo fine-tuned on general Nepali speech
+    print("\n[B2] General Nepali fine-tune (large-v3-turbo)...")
     try:
+        base_b2 = WhisperForConditionalGeneration.from_pretrained(
+            "openai/whisper-large-v3-turbo", torch_dtype=torch.float16 if DEV == 0 else torch.float32
+        ).to(DEV_STR)
+        model_b2 = PeftModel.from_pretrained(base_b2, "kiranpantha/whisper-large-v3-turbo-nepali")
+        proc_b2 = WhisperProcessor.from_pretrained("openai/whisper-large-v3-turbo", language="nepali", task="transcribe")
         pipe_b2 = pipeline(
             "automatic-speech-recognition",
-            model="Dragneel/whisper-large-v3-nepali-openslr",
+            model=model_b2,
+            tokenizer=proc_b2.tokenizer,
+            feature_extractor=proc_b2.feature_extractor,
             device=DEV,
             torch_dtype=torch.float16 if DEV == 0 else torch.float32,
         )
         results.append(bench(pipe_b2, test_paths, test_labels,
-                             "Whisper large-v3 (general Nepali FT)"))
+                             "Whisper large-v3-turbo (general Nepali FT)"))
         del pipe_b2
+        del model_b2
+        del base_b2
         torch.cuda.empty_cache()
     except Exception as e:
         print(f"  Could not load model: {e}")
-        results.append({"model": "Whisper large-v3 (general Nepali FT)",
+        results.append({"model": "Whisper large-v3-turbo (general Nepali FT)",
                         "WER": "N/A", "CER": "N/A", "NumAcc": "N/A"})
 
     # ── Model C: our domain LoRA ───────────────────────────────────────
