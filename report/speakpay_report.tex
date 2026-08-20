@@ -359,6 +359,10 @@ disproportionately helps exactly the structurally hardest utterances.
 
 Because financial voice interfaces are often used in mobile contexts, we synthetically evaluated our domain-adapted model against real-world acoustic degradations using the \textit{audiomentations} library. The original test set consists of clean read speech (42.58\% WER). When subjected to simulated GSM phone band-limiting (300Hz--3400Hz), the model exhibited negligible degradation, achieving a 46.70\% WER. Mild simulated room reverberation degraded performance to 51.37\%. Under additive background street noise, the model degraded gracefully to 54.40\% WER at 10dB SNR, though it unsurprisingly failed at 0dB SNR (103.85\% WER) where the signal and noise are of equal power. The minimal degradation under phone band-limiting confirms the model's suitability for mobile accessibility applications.
 
+\subsection{Data Efficiency}
+
+A critical question for low-resource languages is determining the minimum data volume required to achieve usable domain adaptation. We trained our LoRA configuration across increasing subset sizes of the training data ($N \in \{50, 100, 150, 200, 300, 403\}$). At merely 50 examples, Word Error Rate dropped from 131.0\% (zero-shot) to 73.9\%, and Transaction Success Rate (TSR) reached 18.3\%. As data increased, performance consistently improved, plateauing at $N=300$ with a peak TSR of 38.3\%, before slightly degrading at $N=403$ (33.3\% TSR, 43.1\% WER). This demonstrates that significant domain adaptation in highly specialized, constrained vocabularies (like financial digits) can be achieved with fewer than 300 transcribed utterances when utilizing parameter-efficient fine-tuning on large foundational models.
+
 % ── 6. Error Analysis ─────────────────────────────────────────────────────────
 \section{Error Analysis}
 
