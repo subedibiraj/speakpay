@@ -5,6 +5,12 @@ Run: python scripts/03_train.py
 Requires scripts/02_prepare_features.py to have run first.
 """
 import os
+import sys
+
+# Force UTF-8 encoding on Windows to prevent checkmark printing crashes
+if sys.stdout.encoding != "utf-8":
+    sys.stdout.reconfigure(encoding="utf-8")
+
 os.environ.setdefault("WANDB_DISABLED", "true")
 os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
 
