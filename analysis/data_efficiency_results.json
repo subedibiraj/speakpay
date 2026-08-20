@@ -1,0 +1,38 @@
+[
+  {
+    "n_train": 50,
+    "WER": 73.9,
+    "CER": 40.78,
+    "Transaction_Success_Rate": 18.33
+  },
+  {
+    "n_train": 100,
+    "WER": 57.97,
+    "CER": 22.61,
+    "Transaction_Success_Rate": 28.33
+  },
+  {
+    "n_train": 150,
+    "WER": 51.65,
+    "CER": 22.71,
+    "Transaction_Success_Rate": 28.33
+  },
+  {
+    "n_train": 200,
+    "WER": 49.45,
+    "CER": 18.12,
+    "Transaction_Success_Rate": 35.0
+  },
+  {
+    "n_train": 300,
+    "WER": 54.12,
+    "CER": 30.99,
+    "Transaction_Success_Rate": 38.33
+  },
+  {
+    "n_train": 403,
+    "WER": 43.13,
+    "CER": 16.76,
+    "Transaction_Success_Rate": 33.33
+  }
+]
