@@ -140,13 +140,13 @@ read speech or broad-domain utterances; neither reports performance on
 financial or transactional language, which differs substantially in
 vocabulary distribution and numeral density.
 
-\textbf{Multilingual and low-resource speech recognition.} Self-supervised pretraining~\cite{baevski2020wav2vec} and large-scale weakly supervised training~\cite{radford2022} have substantially improved ASR for low-resource languages. The FLEURS benchmark~\cite{conneau2023fleurs} provides standardized evaluation across 102 languages including Nepali, but measures general-domain performance only. Meta's Massively Multilingual Speech project~\cite{pratap2024scaling} extended coverage to over 1,000 languages, confirming that domain mismatch remains a persistent challenge even when general-domain coverage improves. Our work complements these efforts by measuring the domain gap for a specific high-stakes application.
+\textbf{Multilingual and low-resource speech recognition.} Self-supervised pretraining~\cite{baevski2020wav2vec} and large-scale weakly supervised training~\cite{radford2022} have substantially improved ASR for low-resource languages. The FLEURS benchmark~\cite{conneau2023fleurs} provides standardized evaluation across 102 languages including Nepali, but measures general-domain performance only. Meta's Massively Multilingual Speech project~\cite{pratap2024scaling} extended coverage to over 1,000 languages, and IndicSUPERB~\cite{javed2023indicsuperb} benchmarked speech tasks across Indian languages. These efforts confirm that domain mismatch remains a persistent challenge even when general-domain coverage improves. Distillation approaches like Distil-Whisper~\cite{gandhi2023distilwhisper} reduce model size but do not address domain gaps. Our work complements these efforts by measuring the domain gap for a specific high-stakes application.
 
 \textbf{Parameter-efficient fine-tuning.} Hu et al.~\cite{hu2022lora} introduced LoRA, which
 freezes the base model and injects trainable low-rank decomposition
 matrices into attention and feed-forward layers, reducing trainable
 parameters by over 99\% relative to full fine-tuning while matching or
-exceeding its quality on many tasks. Dettmers et al.~\cite{dettmers2023qlora} extended this with quantization (QLoRA), further reducing memory requirements. These methods make adaptation feasible on a
+exceeding its quality on many tasks. Dettmers et al.~\cite{dettmers2023qlora} extended this with quantization (QLoRA), further reducing memory requirements. Recent work has compared LoRA, full fine-tuning, and prompt tuning for domain-specific Whisper adaptation~\cite{chen2024whisperaat}, generally finding LoRA competitive with full fine-tuning at a fraction of the cost. These methods make adaptation feasible on a
 single consumer GPU and on a dataset far too small to safely
 full-fine-tune a 1.55-billion-parameter model.
 
@@ -357,11 +357,66 @@ disproportionately helps exactly the structurally hardest utterances.
 
 \subsection{Acoustic Robustness}
 
-Because financial voice interfaces are often used in mobile contexts, we synthetically evaluated our domain-adapted model against real-world acoustic degradations using the \textit{audiomentations} library. The original test set consists of clean read speech (42.58\% WER). When subjected to simulated GSM phone band-limiting (300Hz--3400Hz), the model exhibited negligible degradation, achieving a 46.70\% WER. Mild simulated room reverberation degraded performance to 51.37\%. Under additive background street noise, the model degraded gracefully to 54.40\% WER at 10dB SNR, though it unsurprisingly failed at 0dB SNR (103.85\% WER) where the signal and noise are of equal power. The minimal degradation under phone band-limiting confirms the model's suitability for mobile accessibility applications.
+Financial voice interfaces are often used over phone lines or in noisy
+environments. We synthetically degraded the test audio using the
+\textit{audiomentations} library and re-evaluated the domain-adapted model.
+
+\begin{table}[H]
+\centering
+\caption{WER under simulated acoustic conditions}
+\label{tab:robustness}
+\begin{tabular}{lr}
+\toprule
+\textbf{Condition} & \textbf{WER\% $\downarrow$} \\
+\midrule
+Clean (original) & 42.58 \\
+GSM phone band-limiting (300--3400 Hz) & 46.70 \\
+Room reverberation (mild) & 51.37 \\
+Street noise (SNR = 10 dB) & 54.40 \\
+Street noise (SNR = 0 dB) & 103.85 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The model degrades gracefully under realistic mobile conditions.
+GSM band-limiting --- the most relevant scenario for phone-based
+payments --- adds only 4.1 percentage points of WER. Performance
+collapses only at 0\,dB SNR, where signal and noise are of equal power.
 
 \subsection{Data Efficiency}
+\label{sec:data_efficiency}
 
-How much data does domain adaptation actually need? We trained our LoRA configuration on increasing subsets of the training data ($N \in \{50, 100, 150, 200, 300, 403\}$). With only 50 examples, WER already dropped from 129.95\% (zero-shot) to 73.9\%, and Transaction Success Rate (TSR) reached 18.3\%. Performance improved steadily with more data, peaking at $N=300$ (TSR 38.3\%), before slightly degrading at $N=403$ (TSR 33.3\%, WER 43.1\%). This suggests that for highly constrained vocabularies like financial commands, fewer than 300 transcribed utterances are sufficient to achieve most of the available gain from LoRA adaptation on a large pretrained model.
+How much data does domain adaptation actually need? We trained our
+LoRA configuration on increasing subsets of the training data and
+evaluated each checkpoint on the full test set.
+
+\begin{table}[H]
+\centering
+\caption{Data efficiency: WER and Transaction Success Rate by training set size}
+\label{tab:data_efficiency}
+\begin{tabular}{rrrr}
+\toprule
+\textbf{$N_{\text{train}}$} & \textbf{WER\% $\downarrow$} & \textbf{CER\% $\downarrow$} & \textbf{TSR\% $\uparrow$} \\
+\midrule
+0 (zero-shot) & 129.95 & 92.32 & 1.67 \\
+50 & 73.90 & 40.78 & 18.33 \\
+100 & 57.97 & 22.61 & 28.33 \\
+150 & 51.65 & 22.71 & 28.33 \\
+200 & 49.45 & 18.12 & 35.00 \\
+300 & 54.12 & 30.99 & 38.33 \\
+403 (full) & 43.13 & 16.76 & 33.33 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+With only 50 examples, WER already drops by 43\% relative to zero-shot.
+Performance improves steadily up to $N=200$, with diminishing returns
+beyond that point. The peak TSR of 38.3\% at $N=300$ and the slight
+regression at $N=403$ suggest that the current dataset size is near the
+saturation point for this LoRA rank and training configuration. For
+practitioners in other low-resource domains, these results indicate that
+a focused collection of 100--300 utterances is sufficient to achieve
+most of the available adaptation gain.
 
 % ── 6. Error Analysis ─────────────────────────────────────────────────────────
 \section{Error Analysis}
