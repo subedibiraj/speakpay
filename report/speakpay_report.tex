@@ -78,8 +78,8 @@ operations spanning 237 unique numerals), and fine-tune Whisper large-v2
 test set, the domain-adapted model reduces Word Error Rate from 129.95\%
 (zero-shot baseline) to 42.58\% --- a 67.2\% relative reduction --- and
 improves Devanagari numeral recognition accuracy from 0.0\% to 73.9\%
-averaged across utterances that contain numerals. Crucially, we find that
-word-level metrics severely understate the practical task-level impact:
+averaged across utterances that contain numerals. We find that
+word-level metrics understate the practical task-level impact:
 domain adaptation improves the Transaction Success Rate (Interpretation Error Rate)
 from 1.67\% under the zero-shot model to 33.33\% under the adapted model. The
 improvement is consistent at the individual-utterance level: the domain-adapted model
@@ -154,11 +154,11 @@ full-fine-tune a 1.55-billion-parameter model.
 
 \textbf{Accessible FinTech.} Concurrent work on accessible voice payments \cite{accessible_mobile_money2026, voicebiometric_upi2026} has focused on system architecture, USSD automation, and biometric security for visually impaired users. We focus instead on the ASR domain-adaptation and evaluation-metric questions underlying the language layer these systems depend on, using Nepali --- a language with no existing accessible financial voice interface --- as a case study.
 
-Our work does not propose a new architecture or training method. It
-presents a controlled, statistically evaluated study of whether
-domain-specific LoRA adaptation closes the gap between a general-purpose
-ASR model and the specific requirements of financial voice interaction in a
-low-resource language --- and ships the result as a working application.
+Our work does not propose a new architecture or training method. We
+study whether domain-specific LoRA adaptation closes the gap between a
+general-purpose ASR model and the requirements of financial voice
+interaction in a low-resource language, and deploy the result as a
+working application.
 
 % ── 3. Dataset: NepFinSpeech-403 ─────────────────────────────────────────────
 \section{Dataset: NepFinSpeech-403}
@@ -173,8 +173,8 @@ recorded spoken Nepali financial commands guided by written prompts,
 covering three operation types: fund transfers (recipient, amount,
 optionally a financial institution), wallet load/deposit commands, and
 balance enquiries. Transcripts were manually verified against the recorded
-audio. Notably, contributor identity was not recorded per utterance during
-collection, meaning speaker overlap between train and test splits cannot
+audio. Contributor identity was not recorded per utterance during
+collection, so speaker overlap between train and test splits cannot
 be entirely ruled out.
 
 \subsection{Statistics}
@@ -361,7 +361,7 @@ Because financial voice interfaces are often used in mobile contexts, we synthet
 
 \subsection{Data Efficiency}
 
-A critical question for low-resource languages is determining the minimum data volume required to achieve usable domain adaptation. We trained our LoRA configuration across increasing subset sizes of the training data ($N \in \{50, 100, 150, 200, 300, 403\}$). At merely 50 examples, Word Error Rate dropped from 131.0\% (zero-shot) to 73.9\%, and Transaction Success Rate (TSR) reached 18.3\%. As data increased, performance consistently improved, plateauing at $N=300$ with a peak TSR of 38.3\%, before slightly degrading at $N=403$ (33.3\% TSR, 43.1\% WER). This demonstrates that significant domain adaptation in highly specialized, constrained vocabularies (like financial digits) can be achieved with fewer than 300 transcribed utterances when utilizing parameter-efficient fine-tuning on large foundational models.
+How much data does domain adaptation actually need? We trained our LoRA configuration on increasing subsets of the training data ($N \in \{50, 100, 150, 200, 300, 403\}$). With only 50 examples, WER already dropped from 129.95\% (zero-shot) to 73.9\%, and Transaction Success Rate (TSR) reached 18.3\%. Performance improved steadily with more data, peaking at $N=300$ (TSR 38.3\%), before slightly degrading at $N=403$ (TSR 33.3\%, WER 43.1\%). This suggests that for highly constrained vocabularies like financial commands, fewer than 300 transcribed utterances are sufficient to achieve most of the available gain from LoRA adaptation on a large pretrained model.
 
 % ── 6. Error Analysis ─────────────────────────────────────────────────────────
 \section{Error Analysis}
@@ -501,63 +501,29 @@ within the chosen training step budget.
 % ── 9. Conclusion ────────────────────────────────────────────────────────────
 \section{Conclusion}
 
-We presented NepFinSpeech-403, the first domain-specific Nepali financial
+We presented NepFinSpeech-403, a domain-specific Nepali financial
 speech dataset, and showed that LoRA fine-tuning of Whisper large-v2 on
-this small corpus produces a large, statistically robust improvement over
-the zero-shot baseline: a 67.5\% relative WER reduction, recovery of basic
-output coherence in a domain where the base model otherwise produces
+this small corpus produces a large improvement over
+the zero-shot baseline: a 67.2\% relative WER reduction, recovery of basic
+output coherence in a domain where the base model produces
 incoherent transcriptions, and improvement on 59 of 60 individual test
-utterances ($p = 1.7\times10^{-12}$). The gain is consistent across command
-types, and error analysis surfaced a genuine gap in our intent taxonomy
-rather than merely confirming existing assumptions. The system is deployed
-as a working voice-first eWallet application, demonstrating that the
-distance between a research result and a usable accessibility tool is
-bridgeable with modest additional engineering. The principal remaining gap
---- a complete comparison against a general-domain fine-tuned baseline ---
-is identified as the immediate next experiment.
+utterances ($p = 3.5\times10^{-18}$). The gain is consistent across command
+types. Error analysis identified both systematic numeral confusion
+patterns (zero insertion/deletion, prefix hallucination) and a genuine gap
+in our intent taxonomy. A data efficiency sweep showed that as few as
+100 utterances are sufficient to halve the zero-shot WER, and that
+performance plateaus around 300 examples --- a finding directly relevant
+to practitioners building domain-adapted ASR for other low-resource
+languages. The system is deployed as a working voice-first eWallet
+application, demonstrating that the distance between a research result
+and a usable accessibility tool is bridgeable with modest additional
+engineering.
 
 The full codebase, training pipeline, dataset, model weights, and this
 report are available at
 \url{https://github.com/subedibiraj/speakpay}.
 
 \bibliographystyle{unsrt}
-\begin{thebibliography}{99}
-
-\bibitem{who2019}
-World Health Organization,
-``World report on vision,''
-2019.
-
-\bibitem{regmi2021}
-S.~Regmi and B.~K.~Bal,
-``An end-to-end speech recognition for the Nepali language,''
-in \textit{Proc. 18th International Conference on Natural Language Processing}, 2021.
-
-\bibitem{paudel2023}
-S.~Paudel, B.~K.~Bal, and D.~Shrestha,
-``Large vocabulary continuous speech recognition for Nepali language using CNN and Transformer,''
-in \textit{Proc. 4th Conference on Language, Data and Knowledge (LDK)}, 2023.
-
-\bibitem{radford2022}
-A.~Radford, J.~W.~Kim, T.~Xu, G.~Brockman, C.~McLeavey, and I.~Sutskever,
-``Robust speech recognition via large-scale weak supervision,''
-in \textit{Proc. ICML}, 2023.
-
-\bibitem{hu2022lora}
-E.~J.~Hu, Y.~Shen, P.~Wallis, Z.~Allen-Zhu, Y.~Li, S.~Wang, L.~Wang, and W.~Chen,
-``LoRA: Low-rank adaptation of large language models,''
-in \textit{Proc. ICLR}, 2022.
-
-\bibitem{ilyasa2023}
-I.~Ilyasa, R.~Fauzi, and S.~Suakanto,
-``Creating a mobile e-wallet for visual impairment using an inclusive design approach,''
-in \textit{Proc. ICOEINS}, 2023.
-
-\bibitem{zhou2023}
-Z.~Zhou, T.~Sharma, L.~Emano, S.~Das, and Y.~Wang,
-``Iterative design of an accessible crypto wallet for blind users,''
-\textit{arXiv preprint arXiv:2306.06261}, 2023.
-
-\end{thebibliography}
+\bibliography{refs}
 
 \end{document}

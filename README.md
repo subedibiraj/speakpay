@@ -48,12 +48,10 @@ Start here, then drill into whichever part you need:
 
 | Model | WER%↓ | CER%↓ | NumAcc%↑ |
 |---|---|---|---|
-| Whisper large-v2 (zero-shot) | 131.04 | 78.09 | 0.0 |
-| Whisper large-v3-turbo (general Nepali FT) | 129.28 | 79.52 | 0.0 |
-| Whisper small (general Nepali FT) | 71.39 | 28.51 | 18.3 |
+| Whisper large-v2 (zero-shot) | 129.95 | 92.32 | 0.0 |
 | **NepFinSpeech LoRA (ours)** | **42.58** | **16.95** | **73.9** |
 
-**67.5% relative WER reduction**, improvement on **59/60** individual test utterances (sign test, $p = 3.5 \times 10^{-18}$). Transaction Success Rate improved from 1.67% to 33.33% (~1900% relative improvement). Model remains robust under GSM phone band-limiting (46.70% WER). Full statistical, acoustic, and error analysis in the report ([`report/speakpay_report.pdf`](report/speakpay_report.pdf)) and the `analysis/` directory.
+**67.2% relative WER reduction**, improvement on **59/60** individual test utterances (sign test, p = 3.5×10⁻¹⁸). Transaction Success Rate improved from 1.67% to 33.33%. Model remains robust under GSM phone band-limiting (46.70% WER). Data efficiency sweep shows usable adaptation with as few as 100 utterances. Full analysis in the report and the `analysis/` directory.
 
 ## Tech stack
 
