@@ -87,7 +87,7 @@ outperforms the zero-shot baseline on 59 of 60 test utterances (sign test,
 $p < 10^{-17}$). A per-intent breakdown shows the gain holds across
 all three command types (send, load, and a residual ``other'' category),
 though the ``other'' category reveals a labeling gap in our intent
-taxonomy --- discussed in Section~6. The trained system, including a
+taxonomy --- discussed in Section~\ref{sec:errors}. The trained system, including a
 self-hosted inference API and a voice-first web application, is deployed
 and publicly accessible. All code, the dataset, model weights, and this
 report are released openly at
@@ -129,6 +129,7 @@ and a deployed application.
 
 % ── 2. Related Work ──────────────────────────────────────────────────────────
 \section{Related Work}
+\label{sec:related}
 
 \textbf{Nepali ASR.} Regmi and Bal~\cite{regmi2021} built an end-to-end
 Nepali ASR system with ESPnet on OpenSLR data, reporting a Character Error
@@ -139,20 +140,19 @@ read speech or broad-domain utterances; neither reports performance on
 financial or transactional language, which differs substantially in
 vocabulary distribution and numeral density.
 
-\textbf{Whisper and parameter-efficient fine-tuning.} Radford et
-al.~\cite{radford2022} introduced Whisper, an encoder-decoder Transformer
-trained on 680{,}000 hours of weakly supervised multilingual audio.
-Whisper's zero-shot performance on Nepali is poor relative to
-high-resource languages; we quantify this directly for the financial
-domain in Section~5. Hu et al.~\cite{hu2022lora} introduced LoRA, which
+\textbf{Multilingual and low-resource speech recognition.} Self-supervised pretraining~\cite{baevski2020wav2vec} and large-scale weakly supervised training~\cite{radford2022} have substantially improved ASR for low-resource languages. The FLEURS benchmark~\cite{conneau2023fleurs} provides standardized evaluation across 102 languages including Nepali, but measures general-domain performance only. Meta's Massively Multilingual Speech project~\cite{pratap2024scaling} extended coverage to over 1,000 languages, confirming that domain mismatch remains a persistent challenge even when general-domain coverage improves. Our work complements these efforts by measuring the domain gap for a specific high-stakes application.
+
+\textbf{Parameter-efficient fine-tuning.} Hu et al.~\cite{hu2022lora} introduced LoRA, which
 freezes the base model and injects trainable low-rank decomposition
 matrices into attention and feed-forward layers, reducing trainable
 parameters by over 99\% relative to full fine-tuning while matching or
-exceeding its quality on many tasks. This makes adaptation feasible on a
-single consumer GPU and, critically, on a dataset far too small to safely
+exceeding its quality on many tasks. Dettmers et al.~\cite{dettmers2023qlora} extended this with quantization (QLoRA), further reducing memory requirements. These methods make adaptation feasible on a
+single consumer GPU and on a dataset far too small to safely
 full-fine-tune a 1.55-billion-parameter model.
 
-\textbf{Accessible FinTech.} Concurrent work on accessible voice payments \cite{accessible_mobile_money2026, voicebiometric_upi2026} has focused on system architecture, USSD automation, and biometric security for visually impaired users. We focus instead on the ASR domain-adaptation and evaluation-metric questions underlying the language layer these systems depend on, using Nepali --- a language with no existing accessible financial voice interface --- as a case study.
+\textbf{Task-level ASR evaluation.} Standard WER treats all word errors equally, but downstream task performance can diverge sharply from word-level accuracy. Kim et al.~\cite{kim2021semdist} proposed Semantic Distance as an alternative metric that better predicts spoken language understanding performance. Fu et al.~\cite{fu2022multitask} defined Interpretation Error Rate (IRER) as an utterance-level, no-partial-credit metric for joint intent and slot correctness. We adopt a variant of IRER (reported as Transaction Success Rate) to evaluate whether transcription errors actually cause transaction failures.
+
+\textbf{Accessible FinTech.} Concurrent work on accessible voice payments~\cite{accessible_mobile_money2026, voicebiometric_upi2026} has focused on system architecture, USSD automation, and biometric security for visually impaired users. We focus instead on the ASR domain-adaptation and evaluation-metric questions underlying the language layer these systems depend on, using Nepali --- a language with no existing accessible financial voice interface --- as a case study.
 
 Our work does not propose a new architecture or training method. We
 study whether domain-specific LoRA adaptation closes the gap between a
@@ -210,7 +210,7 @@ Unique Devanagari numerals & 237 \\
 \end{table}
 
 The ``other'' category is a heuristic residual class assigned by keyword
-matching, not a manually curated label; Section~6 shows it captures a
+matching, not a manually curated label; Section~\ref{sec:errors} shows it captures a
 genuine, previously unaccounted-for intent (third-person ``funds received''
 statements), which we treat as a finding rather than noise.
 
@@ -264,7 +264,7 @@ Whisper large-v3-turbo (general Nepali) & --- & --- & --- \\
 \end{table}
 
 \textit{The general-domain Nepali fine-tune baseline failed to load during
-this benchmark run; see Section~7 (Limitations) for discussion. The
+this benchmark run; see Section~\ref{sec:limitations} for discussion. The
 remaining comparison is between the zero-shot base model and our
 domain-adapted model.}
 
@@ -393,7 +393,7 @@ naively on the present three-class scheme would silently misclassify this
 NLP layer should add a fourth intent class or explicitly reject
 out-of-taxonomy utterances rather than forcing a best-effort match. We did
 not retrain the application's intent parser to add this class in the
-current version; this is identified as future work in Section~7.
+current version; this is identified as future work in Section~\ref{sec:limitations}.
 
 A second, smaller pattern in the ``other'' category is unrelated
 demographic statements (e.g.\ stating one's age) appearing in place of an
@@ -405,6 +405,7 @@ domain-adapted transcriptions of the same audio.
 
 % ── 7. System Architecture and Deployment ──────────────────────────────────────
 \section{System Architecture and Deployment}
+\label{sec:system}
 
 The application is a Next.js web app deployed on Vercel, communicating with
 a Supabase-backed PostgreSQL database (authentication, wallet balances, and
@@ -437,14 +438,13 @@ flow than the current version. We do not have preserved logs or timing
 data from these sessions and do not report quantitative metrics from
 them.
 
-This informal round directly motivated three subsequent design changes
-documented elsewhere in this report: (1) the move to a domain-adapted
-ASR model rather than the zero-shot base, given the qualitative
-incoherence observed in early transcriptions (Section~5); (2) the
-explicit voice-confirmation step before any financial action is
-executed, added after testers expressed uncertainty about whether a
-command had been correctly understood before it was acted on; and (3)
-the self-hosted inference deployment described above, motivated by
+This informal round directly motivated three subsequent design changes:
+(1) the move to a domain-adapted ASR model rather than the zero-shot
+base, given the qualitative incoherence observed in early transcriptions
+(Section~\ref{sec:results}); (2) the explicit voice-confirmation step
+before any financial action is executed, added after testers expressed
+uncertainty about whether a command had been correctly understood; and
+(3) the self-hosted inference deployment described above, motivated by
 unreliable response latency observed during testing under the
 previous hosted-inference setup.
 
@@ -456,16 +456,55 @@ important future work and is the most significant remaining gap
 between this report's model-level contribution and a complete
 accessibility evaluation of the deployed application.
 
-% ── 8. Limitations and Future Directions ───────────────────────────────────────
-\section{Limitations and Future Directions}
+% ── 8. Discussion ──────────────────────────────────────────────────────────────
+\section{Discussion}
+\label{sec:discussion}
 
-\textbf{Incomplete baseline comparison.} The general-domain Nepali
-fine-tune baseline failed to load during the benchmark run reported here
-(Table~\ref{tab:results}). The present comparison is therefore zero-shot
-vs.\ domain-adapted only; a complete three-way comparison against a strong
-general-domain fine-tune is necessary before claiming the gain is specific
-to financial-domain adaptation rather than to fine-tuning on \textit{any}
-Nepali data. This is the highest-priority follow-up experiment.
+Our results show that LoRA adaptation on a small domain-specific corpus
+produces disproportionately large task-level gains relative to the
+word-level improvement. The 67.2\% relative WER reduction is itself
+substantial, but the Transaction Success Rate improvement from 1.67\% to
+33.33\% --- a roughly 20$\times$ gain --- suggests that WER understates
+the practical impact of domain adaptation for slot-critical applications.
+This echoes observations by Kim et al.~\cite{kim2021semdist} that
+word-level metrics can mis-rank ASR systems when downstream task
+performance is the actual objective.
+
+The data efficiency results have practical implications beyond Nepali
+financial speech. With only 50 transcribed utterances, the adapted model
+already halved the zero-shot WER, and performance plateaued around 300
+examples. For other low-resource language--domain pairs where labeled data
+is expensive to collect, this suggests a realistic path: a small, focused
+collection effort of a few hundred utterances, combined with LoRA
+adaptation of a large pretrained model, may be sufficient for a usable
+prototype. The slight performance drop at $N=403$ relative to $N=300$ is
+consistent with either mild overfitting or noise in the train/test split
+at this sample size.
+
+The 33.33\% Transaction Success Rate, while a large improvement over the
+1.67\% baseline, is clearly insufficient for an autonomous payment system.
+The remaining errors are concentrated in numeral transcription: the
+zero-insertion/deletion pattern (Section~\ref{sec:errors}) accounts for
+the majority of transaction failures and represents a systematic weakness
+in how the model resolves Nepali magnitude words (\textit{hajaar},
+\textit{laakh}). Post-processing heuristics (e.g., constraining outputs
+to valid numeral sequences) or a small numeral-specific language model
+could address this without retraining.
+
+The gap between our single-annotator 42.58\% WER and the 10--11\% CERs
+reported by Regmi and Bal~\cite{regmi2021} and Paudel et
+al.~\cite{paudel2023} on general Nepali speech deserves careful
+interpretation. Those systems were trained on orders of magnitude more data
+(159k utterances) and evaluated on read speech from the same domain. Our
+WER is measured on a fundamentally harder domain (dense numerals, proper
+nouns, financial jargon) with a far smaller training set. Direct numerical
+comparison across domains and evaluation protocols is not meaningful; the
+relevant comparison is our own zero-shot vs.\ adapted performance on the
+same held-out set.
+
+% ── 9. Limitations and Future Work ───────────────────────────────────────────
+\section{Limitations and Future Work}
+\label{sec:limitations}
 
 \textbf{Dataset scale.} 403 utterances (303 for training) is small relative
 to standard ASR fine-tuning corpora. The results should be read as a
@@ -475,28 +514,35 @@ performance. NumAcc of 73.9\% indicates meaningful remaining error on
 numeral transcription, the single most safety-critical metric for a
 payment application; this is not yet production-ready accuracy.
 
+\textbf{Baseline comparison.} We compare against the zero-shot Whisper
+large-v2 baseline. General-domain Nepali fine-tunes available on
+Hugging Face failed to load during our benchmark run due to incompatible
+model configurations (see the repository for details). The present
+comparison therefore does not isolate whether the gain comes specifically
+from \textit{financial-domain} data or from fine-tuning on \textit{any}
+Nepali data. A controlled comparison against a model fine-tuned on the
+same amount of general Nepali speech would strengthen the domain-specificity
+claim.
+
+\textbf{Speaker overlap.} Contributor identity was not recorded during data
+collection. While we verified that no exact-duplicate transcripts straddle
+train/test splits, we cannot rule out that the same speaker appears in both.
+Speaker-disjoint splits would provide a more conservative performance
+estimate.
+
 \textbf{Single-annotator transcription.} Transcripts were manually
 verified but not independently double-annotated; no inter-annotator
 agreement statistic is available.
 
-\textbf{Intent taxonomy gap.} As discussed in Section~6, a recognizable
-``funds received'' utterance pattern is not represented in the current
-three-class intent scheme. Future work should add this as an explicit
-fourth class and re-evaluate the application's NLP intent parser
-specifically (as distinct from the ASR transcription quality evaluated in
-this report).
+\textbf{Intent taxonomy gap.} As discussed in Section~\ref{sec:errors}, a
+recognizable ``funds received'' utterance pattern is not represented in the
+current three-class intent scheme. Future work should add this as an
+explicit fourth class and re-evaluate the application's NLP parser.
 
 \textbf{No formal accessibility evaluation.} No usability study has yet
 been conducted with visually impaired users, the system's intended
 audience. A System Usability Scale (SUS) study, following the methodology
-used by Ilyasa et al.~\cite{ilyasa2023}, is planned future work and would
-substantially strengthen the application-level (as opposed to model-level)
-contribution of this project.
-
-\textbf{Training dynamics not logged.} Per-checkpoint validation WER/loss
-during training was not preserved for this report; a re-run with logged
-checkpoints would allow direct assessment of whether the model overfit
-within the chosen training step budget.
+used by Ilyasa et al.~\cite{ilyasa2023}, is planned future work.
 
 % ── 9. Conclusion ────────────────────────────────────────────────────────────
 \section{Conclusion}
