@@ -44,7 +44,7 @@
 
 \pagestyle{fancy}
 \fancyhf{}
-\rhead{\small SpeakPay — Technical Report}
+\rhead{\small SpeakPay}
 \lhead{\small \thepage}
 \renewcommand{\headrulewidth}{0.4pt}
 
@@ -60,7 +60,7 @@
     \small \href{https://github.com/subedibiraj/speakpay}{github.com/subedibiraj/speakpay} \\
     \small \texttt{contact@biraj-subedi.com.np}
 }
-\date{Technical Report $\cdot$ \today}
+\date{\today}
 
 % ─────────────────────────────────────────────────────────────────────────────
 \begin{document}
@@ -69,28 +69,27 @@
 % -- Abstract ----------------------------------------------------------------
 \begin{abstract}
 Mobile payment applications in Nepal are graphically mediated and largely
-inaccessible to visually impaired users. This report presents SpeakPay, a
+inaccessible to visually impaired users. This paper presents SpeakPay, a
 voice-first digital wallet, and documents the central technical
 contribution: a controlled study of domain adaptation for low-resource
 financial speech recognition. We introduce NepFinSpeech-403, a 403-utterance
 dataset of Nepali financial voice commands (send, load, and balance
 operations spanning 237 unique numerals), and fine-tune Whisper large-v2
-test set, the domain-adapted model reduces Word Error Rate from 129.95\%
-(zero-shot baseline) to 42.58\% --- a 67.2\% relative reduction --- and
-improves Devanagari numeral recognition accuracy from 0.0\% to 73.9\%
-averaged across utterances that contain numerals. We find that
-word-level metrics understate the practical task-level impact:
-domain adaptation improves the Transaction Success Rate (Interpretation Error Rate)
-from 1.67\% under the zero-shot model to 33.33\% under the adapted model. The
-improvement is consistent at the individual-utterance level: the domain-adapted model
-outperforms the zero-shot baseline on 59 of 60 test utterances (sign test,
-$p < 10^{-17}$). A per-intent breakdown shows the gain holds across
-all three command types (send, load, and a residual ``other'' category),
-though the ``other'' category reveals a labeling gap in our intent
-taxonomy --- discussed in Section~\ref{sec:errors}. The trained system, including a
-self-hosted inference API and a voice-first web application, is deployed
-and publicly accessible. All code, the dataset, model weights, and this
-report are released openly at
+with LoRA. On the held-out test set, the domain-adapted model reduces
+Word Error Rate from 129.95\% (zero-shot baseline) to 42.58\% --- a 67.2\%
+relative reduction --- and improves Devanagari numeral recognition accuracy
+from 0.0\% to 73.9\%. We find that word-level metrics understate the
+practical task-level impact: domain adaptation improves the Transaction
+Success Rate from 1.67\% to 33.33\%, a roughly 20$\times$ gain. The
+improvement is consistent at the individual-utterance level (sign test,
+$p < 10^{-17}$) and across all command types. A data efficiency analysis
+shows that as few as 100 domain-specific utterances are sufficient to
+halve the zero-shot WER, with performance plateauing around 300 examples.
+Error analysis reveals systematic numeral confusion patterns (zero
+insertion/deletion, prefix hallucination) that account for the majority
+of remaining transaction failures. The trained system is deployed as a
+publicly accessible voice-first web application. All code, dataset, model
+weights, and this report are released at
 \url{https://github.com/subedibiraj/speakpay}.
 \end{abstract}
 
