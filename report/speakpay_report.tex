@@ -413,9 +413,20 @@ With only 50 examples, WER already drops by 43\% relative to zero-shot.
 Performance improves steadily up to $N=200$, with diminishing returns
 beyond that point. The peak TSR of 38.3\% at $N=300$ and the slight
 regression at $N=403$ suggest that the current dataset size is near the
-saturation point for this LoRA rank and training configuration. For
-practitioners in other low-resource domains, these results indicate that
-a focused collection of 100--300 utterances is sufficient to achieve
+saturation point for this LoRA rank and training configuration.
+Figure~\ref{fig:learning_curve} visualizes these trends.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/learning_curve.pdf}
+\caption{Data efficiency learning curve. WER (blue, left axis) decreases
+sharply with the first 100 training examples and continues to improve
+gradually. Transaction Success Rate (red, right axis) peaks at $N=300$.}
+\label{fig:learning_curve}
+\end{figure}
+
+For practitioners in other low-resource domains, these results indicate
+that a focused collection of 100--300 utterances is sufficient to achieve
 most of the available adaptation gain.
 
 % ── 6. Error Analysis ─────────────────────────────────────────────────────────
@@ -428,7 +439,20 @@ While domain adaptation increased numeral exact-match accuracy from 0.0\% to 73.
     \item \textbf{Prefix Hallucinations:} The model occasionally prepends the digit \dev{५} (5) to amounts (e.g., \dev{८००} transcribed as \dev{५८००}). This is likely an artifact of the acoustic similarity between the Nepali word for "Rs." (\textit{Rupaiya}) and the number 5 (\textit{Paanch}), which frequently co-occur in the training data.
     \item \textbf{Similar Sounding Digits:} We observed phonetic confusions such as \dev{१२} (12) and \dev{१} (1) (e.g., \dev{२००००} transcribed as \dev{१२००००}).
 \end{enumerate}
-These specific failures highlight why ASR systems for financial applications cannot rely on raw transcriptions alone and require secondary confirmation UI steps before executing transactions.
+Figure~\ref{fig:error_patterns} shows the distribution of these error
+types across the 25 affected utterances.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{figures/error_patterns.pdf}
+\caption{Distribution of numeral error patterns in the 25 test utterances
+where exactly one numeral was incorrectly transcribed.}
+\label{fig:error_patterns}
+\end{figure}
+
+These specific failures highlight why ASR systems for financial
+applications cannot rely on raw transcriptions alone and require
+secondary confirmation UI steps before executing transactions.
 
 \subsection{Taxonomy Gaps}
 Qualitative inspection of the ``other'' category (Table~\ref{tab:intent})
