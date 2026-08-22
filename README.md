@@ -50,6 +50,7 @@ Start here, then drill into whichever part you need:
 | Model | WER%↓ | CER%↓ | NumAcc%↑ |
 |---|---|---|---|
 | Whisper large-v2 (zero-shot) | 129.95 | 92.32 | 0.0 |
+| Whisper small (general Nepali FT) | 106.32 | 63.48 | 0.0 |
 | **NepFinSpeech LoRA (ours)** | **42.58** | **16.95** | **73.9** |
 
 **67.2% relative WER reduction**, improvement on **59/60** individual test utterances (sign test, p = 3.5×10⁻¹⁸). Transaction Success Rate improved from 1.67% to 33.33%. Model remains robust under GSM phone band-limiting (46.70% WER). Data efficiency sweep shows usable adaptation with as few as 100 utterances. Full analysis in the report and the `analysis/` directory.

@@ -131,7 +131,7 @@ and a deployed application.
 \label{sec:related}
 
 \textbf{Nepali ASR.} Regmi and Bal~\cite{regmi2021} built an end-to-end
-Nepali ASR system with ESPnet on OpenSLR data, reporting a Character Error
+Nepali ASR system with ESPnet on the OpenSLR-54 corpus~\cite{openslr54}, reporting a Character Error
 Rate (CER) of 10.3\% on 159k general-domain utterances. Paudel et
 al.~\cite{paudel2023} used a CNN-Transformer architecture, achieving CER of
 11.14\% on a similarly general corpus. Both systems are evaluated on
@@ -249,23 +249,31 @@ never seen during training (fixed seed for reproducibility).
 
 \begin{table}[H]
 \centering
-\caption{Benchmark results on the NepFinSpeech-403 test set}
+\caption{Benchmark results on the NepFinSpeech-403 test set (60 held-out utterances)}
 \label{tab:results}
 \begin{tabular}{lccc}
 \toprule
 \textbf{Model} & \textbf{WER\% $\downarrow$} & \textbf{CER\% $\downarrow$} & \textbf{NumAcc\% $\uparrow$} \\
 \midrule
 Whisper large-v2 (zero-shot) & 129.95 & 92.32 & 0.0 \\
-Whisper large-v3-turbo (general Nepali) & --- & --- & --- \\
+Whisper small (general Nepali FT) & 106.32 & 63.48 & 0.0 \\
 \textbf{Whisper large-v2 + LoRA (ours)} & \textbf{42.58} & \textbf{16.95} & \textbf{73.9} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\textit{The general-domain Nepali fine-tune baseline failed to load during
-this benchmark run; see Section~\ref{sec:limitations} for discussion. The
-remaining comparison is between the zero-shot base model and our
-domain-adapted model.}
+The general-domain Nepali fine-tune (Dragneel/whisper-small-nepali,
+trained on the OpenSLR-54 corpus~\cite{openslr54}) achieves lower WER
+than zero-shot Whisper large-v2, but critically, its NumAcc remains
+0.0\%. Inspection of its predictions reveals a \textit{numeral format
+mismatch}: the general-domain model outputs numerals as Nepali words
+(\textit{``tin hajaar ek saya pacchis''}) rather than Devanagari digits
+(\dev{३१२५}), since the OpenSLR training data uses word-form
+transcriptions. Even when the number is semantically correct, the
+downstream intent parser cannot extract a digit sequence from word-form
+output. This confirms that the improvement from our domain-adapted model
+is not simply due to fine-tuning on \textit{any} Nepali data, but
+specifically from financial-domain data with digit-form transcriptions.
 
 The zero-shot WER exceeds 100\%, which indicates the model's output is, on
 average, longer than the reference --- consistent with insertion-heavy
@@ -580,6 +588,17 @@ comparison across domains and evaluation protocols is not meaningful; the
 relevant comparison is our own zero-shot vs.\ adapted performance on the
 same held-out set.
 
+The general-domain baseline (Table~\ref{tab:results}) provides further
+evidence that the gain is domain-specific, not merely a fine-tuning
+artifact. The Whisper small model fine-tuned on 154 hours of general
+Nepali speech achieves 106.32\% WER on our test set --- better than
+zero-shot Whisper large-v2 (129.95\%) but far worse than our
+domain-adapted model (42.58\%). More critically, it achieves 0\%
+numeral accuracy because the OpenSLR training data transcribes numbers
+in word form rather than digit form. This numeral format mismatch
+renders the general-domain model unusable for any downstream financial
+application, regardless of its word-level accuracy.
+
 % ── 9. Limitations and Future Work ───────────────────────────────────────────
 \section{Limitations and Future Work}
 \label{sec:limitations}
@@ -592,15 +611,14 @@ performance. NumAcc of 73.9\% indicates meaningful remaining error on
 numeral transcription, the single most safety-critical metric for a
 payment application; this is not yet production-ready accuracy.
 
-\textbf{Baseline comparison.} We compare against the zero-shot Whisper
-large-v2 baseline. General-domain Nepali fine-tunes available on
-Hugging Face failed to load during our benchmark run due to incompatible
-model configurations (see the repository for details). The present
-comparison therefore does not isolate whether the gain comes specifically
-from \textit{financial-domain} data or from fine-tuning on \textit{any}
-Nepali data. A controlled comparison against a model fine-tuned on the
-same amount of general Nepali speech would strengthen the domain-specificity
-claim.
+\textbf{Baseline comparison.} Our general-domain baseline uses Whisper
+small (244M parameters) rather than Whisper large-v2 (1.55B parameters),
+making the comparison imperfect --- the general-domain model is
+disadvantaged by model size. A controlled experiment would fine-tune the
+same large-v2 base on a size-matched sample of general Nepali speech.
+Additionally, the 0\% numeral accuracy of the general-domain baseline is
+partly attributable to a numeral format difference (word-form vs.\
+digit-form transcription) rather than purely to domain mismatch.
 
 \textbf{Speaker overlap.} Contributor identity was not recorded during data
 collection. While we verified that no exact-duplicate transcripts straddle
