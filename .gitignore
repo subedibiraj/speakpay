@@ -19,6 +19,8 @@ training/data/features/
 training/data/manifest.json
 training/data/test_split.json
 training/benchmark_results.json
+training/benchmark_results_n*.json
+analysis/slot_eval_n*.json
 *.egg-info/
 
 # ── LaTeX (report/) ──────────────────────────────────────────────────
@@ -46,3 +48,6 @@ Thumbs.db
 **/*token*.txt
 app/.env.production
 hf_space/__pycache__/
+hf_space_repo
+app/dummy.wav
+app/silent.wav

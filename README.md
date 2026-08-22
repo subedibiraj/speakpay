@@ -26,7 +26,8 @@ speakpay/
 ├── app/         Next.js web application (frontend + API + Supabase schema)
 ├── training/    LoRA fine-tuning pipeline (5 sequential Python scripts)
 ├── data/        NepFinSpeech-403 dataset + reproducibility scripts
-├── report/      Technical report (LaTeX source + compiled PDF)
+├── analysis/    Evaluation scripts (statistical tests, slot eval, robustness, plots)
+├── report/      Paper (LaTeX source, figures, compiled PDF)
 ├── docs/        Architecture, deployment guide, dataset card
 └── .github/     CI workflow
 ```
@@ -88,11 +89,11 @@ Published dataset: [huggingface.co/datasets/birajsubedi/NepFinSpeech](https://hu
 ## Citation
 
 ```bibtex
-@misc{speakpay2025,
+@misc{subedi2026speakpay,
   title   = {SpeakPay: Domain-Adaptive LoRA Fine-Tuning of Whisper for
              Low-Resource Nepali Financial Speech Recognition},
-  author  = {Biraj Subedi},
-  year    = {2025},
+  author  = {Subedi, Biraj},
+  year    = {2026},
   url     = {https://github.com/subedibiraj/speakpay}
 }
 ```
