@@ -1,5 +1,5 @@
 """
-SpeakPay — numeral/amount error analysis.
+SpeakPay  -  numeral/amount error analysis.
 
 Identifies systematic digit confusion patterns in the domain-adapted
 model's predictions by comparing predicted vs reference numerals in

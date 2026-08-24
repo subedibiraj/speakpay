@@ -1,5 +1,5 @@
 """
-SpeakPay — Step 5: Data-efficiency sweep.
+SpeakPay  -  Step 5: Data-efficiency sweep.
 
 Answers a question that matters to every low-resource-language practitioner,
 not just Nepali/finance: "how much domain data do you actually need before
@@ -7,7 +7,7 @@ LoRA domain adaptation pays off?" Retrains at increasing dataset sizes and
 records WER + Transaction Success Rate at each point, producing a learning
 curve instead of a single number.
 
-THIS IS A LONG-RUNNING SCRIPT — budget for N_SIZES x normal training time.
+THIS IS A LONG-RUNNING SCRIPT  -  budget for N_SIZES x normal training time.
 Run it as its own session; it's independent of everything else in Tier 1/2.
 
 Requires: training/scripts/03_train.py and 04_benchmark.py already working
@@ -67,7 +67,7 @@ def main():
     Path(args.out).parent.mkdir(parents=True, exist_ok=True)
     json.dump(results, open(args.out, "w", encoding="utf-8"), indent=2)
     print(f"\nSaved learning curve to {args.out}")
-    print("\nPlot n_train (x) vs WER (y) — this figure is the paper's second headline result.")
+    print("\nPlot n_train (x) vs WER (y)  -  this figure is the paper's second headline result.")
     print("Also worth running slot_eval.py on each benchmark_results_n{N}.json for a")
     print("second curve: n_train vs Transaction Success Rate.")
 

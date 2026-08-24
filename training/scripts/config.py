@@ -1,5 +1,5 @@
 """
-SpeakPay — Shared configuration
+SpeakPay  -  Shared configuration
 Edit HF_USERNAME before running any scripts.
 """
 
@@ -26,7 +26,7 @@ LORA_DROPOUT = 0.05
 LORA_TARGET_MODULES = ["q_proj", "v_proj", "k_proj", "out_proj", "fc1", "fc2"]
 
 # ── Training ─────────────────────────────────────────────────────────
-# RTX 3060 has 12GB VRAM — these settings fit comfortably in fp16
+# RTX 3060 has 12GB VRAM  -  these settings fit comfortably in fp16
 # without 8-bit quantization (avoids the bitsandbytes/triton issues
 # that plagued the Colab environment).
 TRAIN_BATCH_SIZE = 1

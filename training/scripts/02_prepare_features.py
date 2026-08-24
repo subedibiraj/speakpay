@@ -1,5 +1,5 @@
 """
-SpeakPay — Step 2: Build train/val/test splits and extract Whisper features
+SpeakPay  -  Step 2: Build train/val/test splits and extract Whisper features
 Run: python scripts/02_prepare_features.py
 
 This is separated from training so feature extraction (slow, CPU-bound)

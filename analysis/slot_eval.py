@@ -1,5 +1,5 @@
 """
-SpeakPay — task-level evaluation: Transaction Success Rate (TSR).
+SpeakPay  -  task-level evaluation: Transaction Success Rate (TSR).
 
 Core idea: WER treats every word error equally, but in a financial voice
 transaction a wrong filler word is harmless and a wrong amount digit is a
@@ -9,25 +9,25 @@ level, not the word level.
 
 NOTE ON NOVELTY (read before writing this up as a contribution): this is
 NOT a new metric. "Transaction Success Rate" below is, by construction,
-Interpretation Error Rate (IRER) as defined in the SLU literature — an
+Interpretation Error Rate (IRER) as defined in the SLU literature  -  an
 utterance-level, no-partial-credit metric for joint intent+slot correctness
 (Fu et al. 2022, arXiv:2204.00558; see also Kim et al. 2021 "SemDist",
 Interspeech). Cite that work and use their terminology (report "1 - IRER"
 or rename this variable to match) rather than presenting TSR as invented.
 The actual contribution is applying task-level SLU evaluation to a
 low-resource-language, accessibility-focused, financial-safety context
-where nobody has done this measurement before — quantifying the WER-vs-IRER
+where nobody has done this measurement before  -  quantifying the WER-vs-IRER
 gap for THIS system is the finding, not the existence of the metric.
 
 Ground truth is derived by parsing the REFERENCE transcript with the same
-parser (state this assumption explicitly in the paper — it measures whether
+parser (state this assumption explicitly in the paper  -  it measures whether
 ASR errors change the parsed outcome, not absolute parser correctness).
 
 Metrics reported, for each model:
   - Intent accuracy       (predicted action == reference action)
   - Amount exact-match    (only where reference has an amount)
   - Recipient match       (only where reference has a recipient; normalized)
-  - Transaction Success Rate (ALL applicable slots correct — the headline
+  - Transaction Success Rate (ALL applicable slots correct  -  the headline
     number: "would this transcript have executed the intended transaction")
 
 Usage:

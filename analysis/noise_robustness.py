@@ -1,14 +1,14 @@
 """
-SpeakPay — noise robustness evaluation.
+SpeakPay  -  noise robustness evaluation.
 
 Your test set is presumably clean/read speech. A real blind user calling
 this from a phone, on a street, over a spotty mic, will not sound like that.
 This script synthetically degrades the test audio in controlled ways and
 reruns benchmarking, so you can report a robustness curve rather than a
-single clean-condition WER — this directly strengthens the "real-world
+single clean-condition WER  -  this directly strengthens the "real-world
 accessibility tool" framing over a "lab benchmark" framing.
 
-Requires: the actual test-set WAV files (not included in the repo zip —
+Requires: the actual test-set WAV files (not included in the repo zip  - 
 pull them from wherever the NepFinSpeech audio is hosted, e.g. your HF
 dataset repo) and `audiomentations` (pip install audiomentations).
 
@@ -113,7 +113,7 @@ def main():
     Path(args.out).parent.mkdir(parents=True, exist_ok=True)
     json.dump(results, open(args.out, "w", encoding="utf-8"), indent=2)
     print(f"\nSaved to {args.out}")
-    print("This table is your robustness section — report degradation relative to")
+    print("This table is your robustness section  -  report degradation relative to")
     print("'clean' rather than absolute numbers, since absolute WER under heavy noise")
     print("is expected to be high for any model.")
 

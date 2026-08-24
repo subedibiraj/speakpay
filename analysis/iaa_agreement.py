@@ -1,5 +1,5 @@
 """
-SpeakPay — inter-annotator agreement (IAA) for the transcript dataset.
+SpeakPay  -  inter-annotator agreement (IAA) for the transcript dataset.
 
 Addresses the "single annotator" reviewer objection: have a second person
 independently transcribe a random subset (50 utterances is a reasonable
@@ -10,7 +10,7 @@ translate cleanly to free-text transcription:
   1. Exact-match agreement rate (normalized: lowercased, whitespace-collapsed)
   2. Mean WER between the two annotators' transcripts (annotator-vs-annotator,
      same metric used for model evaluation, so it's directly comparable to
-     model WER — e.g. "human WER" gives a rough upper bound on achievable
+     model WER  -  e.g. "human WER" gives a rough upper bound on achievable
      ASR performance)
 
 Input format (JSON list), one file per annotator, aligned by index or by
@@ -46,7 +46,7 @@ def main():
 
     shared = sorted(set(a) & set(b))
     if not shared:
-        raise SystemExit("No overlapping audio IDs between the two annotator files — check alignment.")
+        raise SystemExit("No overlapping audio IDs between the two annotator files  -  check alignment.")
     if len(shared) < len(a) or len(shared) < len(b):
         print(f"Warning: only {len(shared)} of {len(a)}/{len(b)} utterances overlap; scoring the overlap only.")
 

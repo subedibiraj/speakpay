@@ -1,5 +1,5 @@
 """
-SpeakPay — Step 5: Push dataset, model, and benchmark results to Hugging Face
+SpeakPay  -  Step 5: Push dataset, model, and benchmark results to Hugging Face
 Run: python scripts/05_push_to_hub.py
 
 Requires: huggingface-cli login   (run once, paste your HF write token)

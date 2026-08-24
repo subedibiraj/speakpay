@@ -1,5 +1,5 @@
 """
-SpeakPay — paired statistical analysis for the zero-shot vs. domain-adapted
+SpeakPay  -  paired statistical analysis for the zero-shot vs. domain-adapted
 comparison. Fills the reproducibility gap: this is the script that SHOULD
 have produced data/intent_breakdown_analysis.json, so the sign test and
 per-utterance numbers in the report can be independently re-run.
@@ -7,7 +7,7 @@ per-utterance numbers in the report can be independently re-run.
 Input:  benchmark_results.json produced by training/scripts/04_benchmark.py
         (must contain "predictions" list for the zero-shot and LoRA runs,
         in the same order as data/test_split.json references)
-Output: analysis/paired_stats_results.json — sign test + bootstrap CIs,
+Output: analysis/paired_stats_results.json  -  sign test + bootstrap CIs,
         ready to cite directly in the report.
 
 Usage:
@@ -69,7 +69,7 @@ def main():
     ap.add_argument("--results", required=True, help="benchmark_results.json from 04_benchmark.py")
     ap.add_argument("--refs", required=True, help="test_split.json with ground-truth 'sentence' field")
     ap.add_argument("--zs-name", default="Whisper large-v2 (zero-shot)")
-    ap.add_argument("--ours-name", default="Whisper + LoRA (NepFinSpeech — ours)")
+    ap.add_argument("--ours-name", default="Whisper + LoRA (NepFinSpeech  -  ours)")
     ap.add_argument("--n-boot", type=int, default=10000)
     ap.add_argument("--out", default="analysis/paired_stats_results.json")
     args = ap.parse_args()
@@ -79,7 +79,7 @@ def main():
 
     preds_zs = results[args.zs_name]["predictions"]
     preds_ours = results[args.ours_name]["predictions"]
-    assert len(preds_zs) == len(preds_ours) == len(refs), "length mismatch — check test split alignment"
+    assert len(preds_zs) == len(preds_ours) == len(refs), "length mismatch  -  check test split alignment"
 
     wer_zs = per_utterance_wer(preds_zs, refs)
     wer_ours = per_utterance_wer(preds_ours, refs)

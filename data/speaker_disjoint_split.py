@@ -1,17 +1,17 @@
 """
-SpeakPay — speaker-disjoint train/val/test split.
+SpeakPay  -  speaker-disjoint train/val/test split.
 
 Drop-in replacement for the relevant part of
 training/scripts/02_prepare_features.py, once you have a speaker/contributor
 ID per utterance (from the original collection platform's backend, if
-recoverable — see analysis note in this session).
+recoverable  -  see analysis note in this session).
 
 Guarantees no speaker appears in more than one split, so WER improvements
 can't be partly attributed to the model recognizing a specific voice it saw
 in training. Falls back to a warning (not a silent no-op) if the input
 lacks speaker IDs, so this can't be run by accident on data without them.
 
-Expected input format — same as nepfinspeech_dataset.json but with an
+Expected input format  -  same as nepfinspeech_dataset.json but with an
 added "speaker_id" field per entry:
     [{"audio_id": "audio1", "url": "...", "transcript": "...",
       "speaker_id": "contributor_07"}, ...]
@@ -42,7 +42,7 @@ def main():
     if not data or "speaker_id" not in data[0]:
         sys.exit(
             "ERROR: input has no 'speaker_id' field. This script only runs on "
-            "speaker-annotated data — if you don't have speaker IDs, do NOT "
+            "speaker-annotated data  -  if you don't have speaker IDs, do NOT "
             "fake a random-split result; report the limitation in the paper instead."
         )
 

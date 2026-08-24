@@ -1,5 +1,5 @@
 """
-SpeakPay — Step 3: Fine-tune Whisper large-v2 with LoRA
+SpeakPay  -  Step 3: Fine-tune Whisper large-v2 with LoRA
 Run: python scripts/03_train.py
 
 Requires scripts/02_prepare_features.py to have run first.
@@ -103,7 +103,7 @@ def main():
 
     processor = WhisperProcessor.from_pretrained(BASE_MODEL, language=LANGUAGE, task=TASK)
 
-    # ── Load model (fp16, no quantization needed — 12GB VRAM is plenty) ──
+    # ── Load model (fp16, no quantization needed  -  12GB VRAM is plenty) ──
     print(f"\nLoading {BASE_MODEL} (fp16)...")
     model = WhisperForConditionalGeneration.from_pretrained(
         BASE_MODEL, torch_dtype=torch.float16
@@ -208,7 +208,7 @@ def main():
 
     print(f"\nStarting training: {MAX_STEPS} steps, effective batch={TRAIN_BATCH_SIZE * GRAD_ACCUM}")
     result = trainer.train()
-    print(f"\n✓ Training done — loss: {result.training_loss:.4f}")
+    print(f"\n✓ Training done  -  loss: {result.training_loss:.4f}")
 
     FINAL_DIR.mkdir(parents=True, exist_ok=True)
     model.save_pretrained(str(FINAL_DIR))

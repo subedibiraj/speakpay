@@ -1,5 +1,5 @@
 """
-SpeakPay — Step 1: Download and prepare NepFinSpeech-403
+SpeakPay  -  Step 1: Download and prepare NepFinSpeech-403
 Run: python scripts/01_prepare_data.py
 """
 import json, os, sys
@@ -44,7 +44,7 @@ def download_audio(dataset: list[dict]) -> tuple[int, list]:
             else:
                 failed.append((aid, msg))
             if (i + 1) % 80 == 0 or i + 1 == len(dataset):
-                print(f"  {i+1}/{len(dataset)} — {ok} ok, {len(failed)} failed")
+                print(f"  {i+1}/{len(dataset)}  -  {ok} ok, {len(failed)} failed")
     return ok, failed
 
 

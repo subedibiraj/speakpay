@@ -1,8 +1,8 @@
 """
-SpeakPay — Step 4: Benchmark base vs general vs domain-adapted model
+SpeakPay  -  Step 4: Benchmark base vs general vs domain-adapted model
 Run: python scripts/04_benchmark.py
 
-Produces benchmark_results.json — the core research result table.
+Produces benchmark_results.json  -  the core research result table.
 """
 import os
 os.environ.setdefault("WANDB_DISABLED", "true")
@@ -166,7 +166,7 @@ def main():
                         "WER": "N/A", "CER": "N/A", "NumAcc": "N/A"})
 
     # ── Model C: our domain LoRA ───────────────────────────────────────
-    print("\n[C] Domain LoRA (NepFinSpeech — ours)...")
+    print("\n[C] Domain LoRA (NepFinSpeech  -  ours)...")
     base_c = WhisperForConditionalGeneration.from_pretrained(
         BASE_MODEL, torch_dtype=torch.float16 if DEV == 0 else torch.float32
     ).to(DEV_STR)
@@ -180,11 +180,11 @@ def main():
         torch_dtype=torch.float16 if DEV == 0 else torch.float32,
         device=DEV,
     )
-    results.append(bench(pipe_c, test_paths, test_labels, "Whisper + LoRA (NepFinSpeech — ours)"))
+    results.append(bench(pipe_c, test_paths, test_labels, "Whisper + LoRA (NepFinSpeech  -  ours)"))
 
     # ── Final table ─────────────────────────────────────────────────
     print("\n" + "=" * 65)
-    print("BENCHMARK — NepFinSpeech Test Set")
+    print("BENCHMARK  -  NepFinSpeech Test Set")
     print("=" * 65)
     print(f"{'Model':<42} {'WER%':>6} {'CER%':>6} {'NumAcc%':>8}")
     print("-" * 65)

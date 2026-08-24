@@ -1,5 +1,5 @@
 """
-SpeakPay — Extract audio-transcript pairs from the original .xlsb file
+SpeakPay  -  Extract audio-transcript pairs from the original .xlsb file
 
 This script makes the dataset construction fully reproducible. The
 original transcripts were recorded in Microsoft Excel Binary format

@@ -1,5 +1,5 @@
 """
-SpeakPay — duplicate-transcript leakage check.
+SpeakPay  -  duplicate-transcript leakage check.
 
 403 utterances is small enough that a handful of exact-duplicate
 transcripts (different audio takes of the same sentence) can leak across
@@ -7,7 +7,7 @@ train/test if the split is a plain random shuffle. This flags any case
 where a transcript's occurrences land in more than one split, so you can
 either move them into the same split or note it as negligible if the
 audio is meaningfully different (e.g. different speakers reading the same
-prompt is fine — that's the split unit that matters, once speaker IDs
+prompt is fine  -  that's the split unit that matters, once speaker IDs
 exist; this catches the word-sequence-level version of the same problem).
 
 Usage:

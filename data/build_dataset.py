@@ -1,5 +1,5 @@
 """
-SpeakPay — Merge transcript pairs with Cloudinary audio URLs
+SpeakPay  -  Merge transcript pairs with Cloudinary audio URLs
 
 Combines dataset_pairs.json (from extract_xlsb.py) with the audio
 hosting URLs to produce the final nepfinspeech_dataset.json consumed
@@ -27,7 +27,7 @@ OUTPUT_FILE  = Path("nepfinspeech_dataset.json")
 
 
 def fetch_url_map_from_api(retries: int = 3, timeout: int = 45) -> dict:
-    """The Render free-tier API sleeps after inactivity — first request
+    """The Render free-tier API sleeps after inactivity  -  first request
     can take 30-50s to wake it up. We retry with a longer timeout."""
     for attempt in range(1, retries + 1):
         try:
@@ -70,7 +70,7 @@ def main():
     url_map = fetch_url_map_from_api()
 
     if not url_map:
-        print("\nAPI unavailable — falling back to bundled url_map.json snapshot")
+        print("\nAPI unavailable  -  falling back to bundled url_map.json snapshot")
         url_map = load_url_map_fallback()
 
     if not url_map:
