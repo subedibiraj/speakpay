@@ -238,7 +238,7 @@ export default function Dashboard() {
           className="card p-6 bg-gradient-to-br from-teal to-teal-dark text-white">
           <p className="text-white/70 text-sm nepali">कुल ब्यालेन्स</p>
           <p className="display text-4xl font-semibold mt-1">
-            {balance === null ? '—' : `रु ${balance.toLocaleString()}`}
+            {balance === null ? ' - ' : `रु ${balance.toLocaleString()}`}
           </p>
           <div className="flex gap-2 mt-4">
             <a href="/send"

@@ -15,18 +15,18 @@ size_categories:
 - n<1K
 ---
 
-# NepFinSpeech — Nepali Financial Speech Dataset
+# NepFinSpeech  -  Nepali Financial Speech Dataset
 
 ## Dataset Description
 
 **NepFinSpeech** is a domain-specific Automatic Speech Recognition (ASR)
 dataset of **403 transcribed Nepali financial voice commands**, built as
-part of the SpeakPay project — an AI-assisted eWallet for visually
+part of the SpeakPay project  -  a voice-first eWallet for visually
 impaired individuals.
 
 This fills a gap in Nepali ASR resources: while general-purpose corpora
 (OpenSLR, Common Voice) exist, none focus on the financial domain
-specifically — the number-heavy utterances required for mobile payment
+specifically  -  the number-heavy utterances required for mobile payment
 applications.
 
 ### Statistics

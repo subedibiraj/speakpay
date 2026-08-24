@@ -9,7 +9,7 @@ export type VoiceStage =
   | 'idle'
   | 'recording'
   | 'processing'    // waiting for HF API
-  | 'model_loading' // HF cold start — show spinner + retry count
+  | 'model_loading' // HF cold start  -  show spinner + retry count
   | 'confirm'
   | 'executing'
   | 'success'

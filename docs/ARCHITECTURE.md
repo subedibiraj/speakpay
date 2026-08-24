@@ -6,15 +6,15 @@ SpeakPay has three independent, loosely-coupled parts that share the
 NepFinSpeech dataset as their common artifact:
 
 ```
-data/           — the dataset (source of truth)
+data/            -  the dataset (source of truth)
    │
-   ├──→ training/   — produces the fine-tuned ASR model
+   ├──→ training/    -  produces the fine-tuned ASR model
    │                  (consumed by app/ via Hugging Face Inference API)
    │
-   └──→ app/        — the production web application
+   └──→ app/         -  the production web application
                        (consumes the model, not the raw data)
 
-report/         — technical report documenting both training/ and app/
+report/          -  paper documenting both training/ and app/
 ```
 
 ## Data flow at runtime
@@ -36,7 +36,7 @@ Hugging Face Inference API
 Transcript (Nepali text)
         │
         ▼
-parseIntent()  (src/lib/nlp.ts — two-stage rule + classifier parser)
+parseIntent()  (src/lib/nlp.ts  -  two-stage rule + classifier parser)
         │
         ▼
 ParsedIntent { action, amount, recipient, confidence }
@@ -53,7 +53,7 @@ User confirms via spoken PIN
 POST /api/wallet/send | /api/wallet/load
         │
         ▼
-Supabase transfer_funds() — atomic SQL transaction
+Supabase transfer_funds()  -  atomic SQL transaction
         │
         ▼
 TTS confirms result to user
@@ -67,13 +67,13 @@ CORS-free fetch calls between frontend and backend.
 
 **Supabase (not a custom Postgres + Express setup)**: free tier
 includes Row Level Security, a SQL editor, and instant REST/RPC
-access — removes the need to write and host a separate API server
+access  -  removes the need to write and host a separate API server
 for the database layer.
 
 **Hugging Face Inference API for the model (not self-hosted)**: the
 LoRA adapter is ~60MB; HF's free Inference API serves it without
 requiring SpeakPay to run its own GPU server. Trade-off: cold-start
-latency (~20-30s) on the first request after inactivity — handled
+latency (~20-30s) on the first request after inactivity  -  handled
 client-side with retry + backoff (`src/lib/asr.ts`).
 
 **LoRA (not full fine-tuning)**: 403 training samples is too small
@@ -94,10 +94,10 @@ financial application.
 
 | File | Role |
 |---|---|
-| `app/src/lib/nlp.ts` | Intent parser — the "brain" that turns transcripts into actions |
-| `app/src/lib/asr.ts` | ASR client — handles cold starts, retries, browser fallback |
+| `app/src/lib/nlp.ts` | Intent parser  -  the "brain" that turns transcripts into actions |
+| `app/src/lib/asr.ts` | ASR client  -  handles cold starts, retries, browser fallback |
 | `app/src/hooks/useVoiceCommand.ts` | State machine for the entire voice interaction loop |
 | `app/supabase_schema.sql` | Database schema + atomic transfer function |
 | `training/scripts/03_train.py` | The actual LoRA fine-tuning loop |
 | `training/scripts/04_benchmark.py` | Produces the core research result table |
-| `data/extract_xlsb.py` | Reproducibility — regenerates the dataset from source |
+| `data/extract_xlsb.py` | Reproducibility  -  regenerates the dataset from source |

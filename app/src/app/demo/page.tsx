@@ -107,7 +107,7 @@ export default function DemoPage() {
           </h1>
           <p className="text-slate-400 mt-3 text-sm leading-relaxed max-w-lg">
             Domain-adaptive LoRA fine-tuning of Whisper large-v2 on{' '}
-            <strong className="text-white">NepFinSpeech-403</strong> —
+            <strong className="text-white">NepFinSpeech-403</strong>  - 
             the first financial-domain Nepali speech corpus.
             Speak a Nepali financial command and see live transcription.
           </p>
@@ -131,7 +131,7 @@ export default function DemoPage() {
           <div className="mt-8 rounded-2xl border border-white/10 overflow-hidden">
             <div className="px-5 py-3 bg-white/5 border-b border-white/10 flex items-center gap-2">
               <BarChart2 size={14} className="text-teal-light"/>
-              <span className="text-sm font-medium">Results — NepFinSpeech Test Set (N=61)</span>
+              <span className="text-sm font-medium">Results  -  NepFinSpeech Test Set (N=61)</span>
             </div>
             <table className="w-full text-sm">
               <thead>
@@ -161,7 +161,7 @@ export default function DemoPage() {
               </tbody>
             </table>
             <p className="text-xs text-slate-600 px-5 py-2 border-t border-white/5">
-              NumAcc = fraction of Nepali numerals correctly recognised — the critical metric for payment apps.
+              NumAcc = fraction of Nepali numerals correctly recognised  -  the critical metric for payment apps.
             </p>
           </div>
 
@@ -175,7 +175,7 @@ export default function DemoPage() {
             {/* Reference input for live WER */}
             <div className="mb-4">
               <label className="text-xs text-slate-500 mb-1.5 block nepali">
-                Reference transcript (optional — for live WER calculation)
+                Reference transcript (optional  -  for live WER calculation)
               </label>
               <input value={reference} onChange={e => setReference(e.target.value)}
                 placeholder="रामलाई ५०० रुपैयाँ पठाउ"

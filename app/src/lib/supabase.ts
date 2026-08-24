@@ -7,7 +7,7 @@ const svc  = process.env.SUPABASE_SERVICE_ROLE_KEY!
 // Browser client (anon key, RLS applies)
 export const supabase = createClient(url, anon)
 
-// Server client (service role, bypasses RLS — only use in API routes)
+// Server client (service role, bypasses RLS  -  only use in API routes)
 export const supabaseAdmin = createClient(url, svc, {
   auth: { autoRefreshToken: false, persistSession: false }
 })

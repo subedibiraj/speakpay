@@ -11,7 +11,7 @@ Evaluation and analysis scripts for the SpeakPay ASR experiments. All scripts us
 | `noise_robustness.py` | WER under simulated acoustic degradations | `noise_robustness_results.json` |
 | `error_analysis.py` | Numeral confusion pattern analysis | `error_analysis_results.json` |
 | `plot_learning_curve.py` | Generate data efficiency learning curve figure | `../report/figures/learning_curve.pdf` |
-| `iaa_agreement.py` | Inter-annotator agreement (requires second annotator) | — |
+| `iaa_agreement.py` | Inter-annotator agreement (requires second annotator) |  -  |
 
 ## Usage
 

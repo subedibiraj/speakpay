@@ -3,8 +3,8 @@
  * Run: npm test
  *
  * All expected values in this file were verified by compiling nlp.ts
- * with `tsc` and executing the real logic against each case — not
- * guessed — so these are accurate regression tests, not aspirational ones.
+ * with `tsc` and executing the real logic against each case  -  not
+ * guessed  -  so these are accurate regression tests, not aspirational ones.
  */
 import { parseIntent, computeWER, numberAccuracy, normalizeNumerals } from '../nlp'
 
@@ -19,7 +19,7 @@ describe('normalizeNumerals', () => {
   })
 })
 
-describe('parseIntent — send', () => {
+describe('parseIntent  -  send', () => {
   it('parses a clean send command with recipient and amount', () => {
     const r = parseIntent('रामलाई ५०० रुपैयाँ पठाउ')
     expect(r.action).toBe('send')
@@ -45,7 +45,7 @@ describe('parseIntent — send', () => {
   })
 })
 
-describe('parseIntent — load', () => {
+describe('parseIntent  -  load', () => {
   it('parses a load command', () => {
     const r = parseIntent('मेरो खातामा १०००० लोड गर')
     expect(r.action).toBe('load')
@@ -60,7 +60,7 @@ describe('parseIntent — load', () => {
   })
 })
 
-describe('parseIntent — balance', () => {
+describe('parseIntent  -  balance', () => {
   it('parses a balance query', () => {
     const r = parseIntent('मेरो ब्यालेन्स कति छ')
     expect(r.action).toBe('balance')
@@ -73,7 +73,7 @@ describe('parseIntent — balance', () => {
   })
 })
 
-describe('parseIntent — unknown', () => {
+describe('parseIntent  -  unknown', () => {
   it('returns unknown for unrelated speech', () => {
     const r = parseIntent('आज मौसम राम्रो छ')
     expect(r.action).toBe('unknown')

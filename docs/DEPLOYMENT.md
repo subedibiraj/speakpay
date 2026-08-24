@@ -19,7 +19,7 @@ See `training/README.md` for full detail. Summary:
 cd training
 python -m venv venv && source venv/bin/activate   # or venv\Scripts\activate on Windows
 pip install -r requirements.txt
-# Edit scripts/config.py — set HF_USERNAME
+# Edit scripts/config.py  -  set HF_USERNAME
 huggingface-cli login
 cd scripts
 python 01_prepare_data.py
@@ -33,7 +33,7 @@ At the end you'll have a model live at:
 `https://huggingface.co/birajsubedi/whisper-large-v2-nepali-financial`
 
 **Verify it's accessible**: visit the model page and confirm it shows
-"Inference API" as available (not "cold" forever — first request
+"Inference API" as available (not "cold" forever  -  first request
 after inactivity takes 20-30s, this is normal for free tier).
 
 ## 2. Set up Supabase
@@ -69,14 +69,14 @@ history.
 
 ## 4. Deploy to Vercel
 
-**Option A — via GitHub (recommended):**
+**Option A  -  via GitHub (recommended):**
 1. Push this repo to GitHub
 2. [vercel.com/new](https://vercel.com/new) → Import the repo
-3. **Root Directory**: set to `app` (important — this is a monorepo)
+3. **Root Directory**: set to `app` (important  -  this is a monorepo)
 4. Add all environment variables from `.env.local` in the Vercel project settings
 5. Deploy
 
-**Option B — via CLI:**
+**Option B  -  via CLI:**
 ```bash
 cd app
 npm install -g vercel
@@ -89,7 +89,7 @@ vercel
 
 - [ ] Visit your live URL, register a test account
 - [ ] Test voice command end-to-end (send, load, balance)
-- [ ] Visit `/report` — confirm research data and benchmark table renders
+- [ ] Visit `/report`  -  confirm research data and benchmark table renders
 - [x] Update placeholder URLs in `README.md` and `report/speakpay_report.tex`
 - [x] Update benchmark numbers using `training/benchmark_results.json`
 
@@ -102,7 +102,7 @@ Directory is set to `app`, not the repo root.
 exactly what you pushed in step 1, and `HF_TOKEN` has at least Read access.
 
 **"insufficient_funds" on every send** → the wallet starts with ₹100
-welcome balance (see `app/src/app/api/auth/register/route.ts`) — make
+welcome balance (see `app/src/app/api/auth/register/route.ts`)  -  make
 sure you're testing with realistic amounts.
 
 **Database errors** → confirm `supabase_schema.sql` ran without

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { computeWER, numberAccuracy, normalizeNumerals } from '@/lib/nlp'
 
-// Error analysis page — per-utterance WER breakdown by intent, number range, and length.
+// Error analysis page  -  per-utterance WER breakdown by intent, number range, and length.
 
 interface Sample {
   reference:  string
@@ -115,7 +115,7 @@ export default function AnalysisPage() {
         <div className="mt-4 rounded-xl border border-amber/20 bg-amber/5 p-4">
           <p className="text-sm font-medium text-amber mb-1">Key finding</p>
           <p className="text-sm text-slate-300 leading-relaxed">
-            Number recognition is the primary failure mode — when errors occur, they are
+            Number recognition is the primary failure mode  -  when errors occur, they are
             almost always on large or ambiguous Nepali numerals (e.g. ४०४५ → ४४५).
             The model correctly recognises numbers in {(avgNumAcc * 100).toFixed(0)}% of utterances,
             compared to ~XX% for the base Whisper model. Intent classification remains
@@ -189,7 +189,7 @@ export default function AnalysisPage() {
               additional training data with large financial amounts.
             </li>
             <li className="flex gap-2"><span className="text-teal mt-0.5">→</span>
-              Proper-noun recognition (bank names, person names) remains a challenge —
+              Proper-noun recognition (bank names, person names) remains a challenge  - 
               a future direction is named-entity augmentation in the training corpus.
             </li>
           </ul>

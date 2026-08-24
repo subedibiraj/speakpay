@@ -47,8 +47,18 @@ function normalizeForDigitExtraction(text: string): string {
   // Step 1: Replace Nepali digit characters with ASCII
   s = s.replace(/[०-९]/g, d => NEP_DIGIT[d] ?? d)
   // Step 2: Replace Nepali spoken number words with digits
+  // Words like 'छ' (six) also mean 'is' in Nepali. Only replace them
+  // when they appear next to other digits or number words, not standalone.
+  const ambiguous = new Set(['छ'])
   for (const [word, digit] of Object.entries(NEP_WORD_DIGIT)) {
+    if (ambiguous.has(word)) continue
     s = s.replace(new RegExp(word, 'g'), digit)
+  }
+  // Only replace ambiguous words if we already found digits nearby
+  if (/\d/.test(s)) {
+    for (const word of ambiguous) {
+      s = s.replace(new RegExp(word, 'g'), NEP_WORD_DIGIT[word])
+    }
   }
   // Step 3: Strip all whitespace so "9 8 0 1 2 3 4 5 6 7" → "9801234567"
   s = s.replace(/\s+/g, '')
@@ -163,7 +173,7 @@ export function toConfirmation(intent: ParsedIntent): string {
   }
 }
 
-// WER — word edit distance
+// WER  -  word edit distance
 export function computeWER(hypothesis: string, reference: string): number {
   const h = hypothesis.trim().split(/\s+/)
   const r = reference.trim().split(/\s+/)
@@ -177,7 +187,7 @@ export function computeWER(hypothesis: string, reference: string): number {
   return dp[r.length][h.length] / r.length
 }
 
-// Number accuracy — critical metric for financial ASR
+// Number accuracy  -  critical metric for financial ASR
 export function numberAccuracy(hypothesis: string, reference: string): number {
   const re      = /[०-९]+|[0-9]+/g
   const refNums = [...reference.matchAll(re)].map(m => m[0])

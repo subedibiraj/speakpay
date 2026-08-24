@@ -1,7 +1,7 @@
 # SpeakPay
 
 **Voice-first eWallet for visually impaired individuals**
-*Research project — Tribhuvan University / Advanced College of Engineering and Management, 2025*
+*Research project, Tribhuvan University / Advanced College of Engineering and Management, 2025*
 
 [![CI](https://github.com/subedibiraj/speakpay/actions/workflows/ci.yml/badge.svg)](https://github.com/subedibiraj/speakpay/actions)
 [![Live Demo](https://img.shields.io/badge/Live_Demo-speakpay.biraj--subedi.com.np-0F7173)](https://speakpay.biraj-subedi.com.np)
@@ -12,7 +12,7 @@
 ---
 
 SpeakPay lets visually impaired users manage a digital wallet entirely
-through spoken Nepali — no screen reading, no visual navigation
+through spoken Nepali. No screen reading, no visual navigation
 required. The research contribution is **NepFinSpeech-403**, the first
 domain-specific Nepali financial speech dataset, and a LoRA fine-tune
 of Whisper large-v2 that significantly improves number recognition
@@ -42,7 +42,7 @@ Start here, then drill into whichever part you need:
 | Deploy my own instance | [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) |
 | Reproduce the model training | [`training/README.md`](training/README.md) |
 | Inspect/rebuild the dataset | [`data/README.md`](data/README.md) |
-| Read the technical report | [`report/speakpay_report.pdf`](report/speakpay_report.pdf) |
+| Read the paper | [`report/speakpay_report.pdf`](report/speakpay_report.pdf) |
 | See benchmark results | [`docs/DATASET_CARD.md`](docs/DATASET_CARD.md) |
 
 ## Research findings
@@ -53,7 +53,7 @@ Start here, then drill into whichever part you need:
 | Whisper small (general Nepali FT) | 106.32 | 63.48 | 0.0 |
 | **NepFinSpeech LoRA (ours)** | **42.58** | **16.95** | **73.9** |
 
-**67.2% relative WER reduction**, improvement on **59/60** individual test utterances (sign test, p = 3.5×10⁻¹⁸). Transaction Success Rate improved from 1.67% to 33.33%. Model remains robust under GSM phone band-limiting (46.70% WER). Data efficiency sweep shows usable adaptation with as few as 100 utterances. Full analysis in the report and the `analysis/` directory.
+**67.2% relative WER reduction**, improvement on **59/60** individual test utterances (sign test, p = 3.5×10⁻¹⁸). Transaction Success Rate improved from 1.67% to 33.33%. Model holds up under GSM phone band-limiting (46.70% WER). Data efficiency sweep shows usable adaptation with as few as 100 utterances. Full analysis in the report and the `analysis/` directory.
 
 ## Tech stack
 
@@ -61,7 +61,7 @@ Start here, then drill into whichever part you need:
 - **Database + Auth**: Supabase (Postgres + Row Level Security)
 - **ASR**: Whisper large-v2 + LoRA, served via HF Inference API
 - **NLP**: Two-stage rule + confidence-scored intent parser (no
-  separate trained classifier — see `docs/ARCHITECTURE.md` for why)
+  separate trained classifier; see `docs/ARCHITECTURE.md` for why)
 - **Training**: PyTorch + 🤗 PEFT, runs on a single consumer GPU (RTX 3060 / Colab T4)
 
 ## Quick start
@@ -80,7 +80,7 @@ deploy): see [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md).
 
 ## Dataset: NepFinSpeech-403
 
-403 transcribed Nepali financial voice commands — 193 send-money
+403 transcribed Nepali financial voice commands: 193 send-money
 commands, 61 balance queries, 56 load commands, 93 other financial
 utterances, spanning 237 unique Nepali numerals.
 

@@ -1,4 +1,4 @@
-# NepFinSpeech-403 — Data Pipeline
+# NepFinSpeech-403  -  Data Pipeline
 
 This directory contains the dataset and the scripts that produced it,
 for full reproducibility.
@@ -7,7 +7,7 @@ for full reproducibility.
 
 | File | Description |
 |---|---|
-| `nepfinspeech_dataset.json` | **Final dataset** — 403 audio URLs + transcripts. This is what `training/scripts/01_prepare_data.py` consumes. |
+| `nepfinspeech_dataset.json` | **Final dataset**  -  403 audio URLs + transcripts. This is what `training/scripts/01_prepare_data.py` consumes. |
 | `dataset_pairs.json` | Intermediate: transcript pairs only (no URLs), extracted from the original `.xlsb`. |
 | `url_map.json` | Fallback snapshot of audio_id → Cloudinary URL, in case the live collection API is unavailable. |
 | `extract_xlsb.py` | Parses the original `.xlsb` transcription file (binary Excel format) and produces `dataset_pairs.json`. |
@@ -23,7 +23,7 @@ python build_dataset.py
 ```
 
 If you don't have the `.xlsb` (e.g. you're a third party who only
-cloned this repo), `nepfinspeech_dataset.json` is already included —
+cloned this repo), `nepfinspeech_dataset.json` is already included  - 
 no extraction needed. Just point `training/scripts/01_prepare_data.py`
 at it directly.
 

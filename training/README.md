@@ -1,4 +1,4 @@
-# SpeakPay — Local Fine-Tuning (RTX 3060)
+# SpeakPay  -  Local Fine-Tuning (RTX 3060)
 
 Trains a LoRA-adapted Whisper large-v2 on NepFinSpeech-403 entirely on
 your local GPU. No Colab, no environment drift.
@@ -23,7 +23,7 @@ python -c "import torch; print(torch.cuda.is_available(), torch.cuda.get_device_
 ```
 
 This must print `True` and `NVIDIA GeForce RTX 3060` (or similar).
-If it prints `False`, your PyTorch install isn't CUDA-enabled — stop
+If it prints `False`, your PyTorch install isn't CUDA-enabled  -  stop
 and fix that first (reinstall PyTorch from pytorch.org with the
 correct CUDA version for your driver).
 
@@ -41,14 +41,14 @@ source venv/bin/activate
 
 ## 2. Install dependencies
 
-**Important**: do NOT install `torch` again — keep your existing
+**Important**: do NOT install `torch` again  -  keep your existing
 CUDA-enabled PyTorch. Only install the rest:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-If you get any dependency conflict mentioning `torch`, that's fine —
+If you get any dependency conflict mentioning `torch`, that's fine  - 
 it just means pip is checking compatibility, not reinstalling it.
 
 ## 3. Configure
@@ -66,7 +66,7 @@ huggingface-cli login
 # Paste your HF token (the one with "Write" permission)
 ```
 
-## 4. Run the pipeline — four scripts, in order
+## 4. Run the pipeline  -  four scripts, in order
 
 ```bash
 cd scripts
@@ -84,10 +84,10 @@ python 03_train.py
 # Takes ~30-50 min on RTX 3060 for 300 steps
 # Watch GPU usage: nvidia-smi -l 2  (in another terminal)
 
-# Step 4: Benchmark — base vs general vs your domain model
+# Step 4: Benchmark  -  base vs general vs your domain model
 python 04_benchmark.py
 # Takes ~10-15 min, downloads 2 extra models temporarily
-# Produces benchmark_results.json — THIS IS YOUR CORE RESULT
+# Produces benchmark_results.json  -  THIS IS YOUR CORE RESULT
 
 # Step 5: Push everything to Hugging Face
 python 05_push_to_hub.py
@@ -107,8 +107,8 @@ GRAD_ACCUM       = 8   # was 4  (keeps effective batch = 16)
 
 ## 6. What you'll have at the end
 
-- `checkpoints/final/` — your trained LoRA adapter (~60MB)
-- `benchmark_results.json` — WER/CER/NumAcc for all 3 models
+- `checkpoints/final/`  -  your trained LoRA adapter (~60MB)
+- `benchmark_results.json`  -  WER/CER/NumAcc for all 3 models
 - A public model on Hugging Face: `huggingface.co/birajsubedi/whisper-large-v2-nepali-financial`
 - A public dataset on Hugging Face: `huggingface.co/datasets/birajsubedi/NepFinSpeech`
 
