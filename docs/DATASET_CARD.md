@@ -74,7 +74,7 @@ transcription spreadsheet.
 @misc{nepfinspeech2025,
   title   = {NepFinSpeech: A Domain-Specific Nepali Financial Speech Dataset},
   author  = {Biraj Subedi},
-  year    = {2025},
+  year    = {2026},
   url     = {https://huggingface.co/datasets/birajsubedi/NepFinSpeech},
   license = {cc-by-4.0}
 }
