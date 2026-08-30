@@ -93,6 +93,9 @@ weights, and this paper are released at
 \url{https://github.com/subedibiraj/speakpay}.
 \end{abstract}
 
+\vspace{0.3em}
+\noindent\textbf{Keywords:} Automatic Speech Recognition, Low-Resource Languages, Nepali, Domain Adaptation, LoRA, Whisper, Financial Speech, Accessibility
+
 \vspace{0.5em}
 \hrule
 \vspace{1em}
@@ -125,6 +128,22 @@ dataset, and no reproducible benchmark. This version is a complete
 independent rewrite: a newly assembled and characterized dataset, a
 reproducible LoRA fine-tuning pipeline, a statistically grounded evaluation,
 and a deployed application.
+
+Our contributions are:
+\begin{enumerate}[noitemsep]
+  \item \textbf{NepFinSpeech-403}, the first public Nepali financial speech
+        dataset, released on Hugging Face under CC-BY 4.0.
+  \item A controlled comparison showing that LoRA fine-tuning reduces WER by
+        67.2\% relative to the zero-shot baseline and improves the Transaction
+        Success Rate from 1.67\% to 33.33\%.
+  \item A data efficiency analysis demonstrating that 100--300 domain-specific
+        utterances suffice for most of the available adaptation gain.
+  \item An error taxonomy of Devanagari numeral confusions (zero
+        insertion/deletion, prefix hallucination) specific to the financial
+        speech domain.
+  \item A deployed, publicly accessible voice-first eWallet application
+        integrating the adapted ASR model.
+\end{enumerate}
 
 % ── 2. Related Work ──────────────────────────────────────────────────────────
 \section{Related Work}
@@ -171,7 +190,9 @@ purpose-built web platform
 recorded spoken Nepali financial commands guided by written prompts,
 covering three operation types: fund transfers (recipient, amount,
 optionally a financial institution), wallet load/deposit commands, and
-balance enquiries. Transcripts were manually verified against the recorded
+balance enquiries. Recordings were captured via browser microphone
+(varied devices, no controlled acoustic environment) and stored as WAV
+files at 16~kHz. Transcripts were manually verified against the recorded
 audio. Contributor identity was not recorded per utterance during
 collection, so speaker overlap between train and test splits cannot
 be entirely ruled out.
@@ -233,11 +254,15 @@ LoRA's parameter efficiency is not merely a compute convenience here --- it
 is the difference between a feasible and an infeasible experiment at this
 dataset scale.
 
-\textbf{Training configuration.} fp16 precision, no quantization, single
-consumer GPU (RTX 3060, 12GB), effective batch size 16 via gradient
-accumulation, learning rate $1\times10^{-4}$. We train for a maximum of 300
-steps over the 303-utterance training set, corresponding to roughly 15.8 epochs.
-Full configuration in \texttt{training/scripts/config.py} of the accompanying repository.
+\textbf{Training configuration.} AdamW optimizer, fp16 precision, no
+quantization, single consumer GPU (RTX 3060, 12~GB VRAM). Effective batch
+size 16 via gradient accumulation ($1 \times 16$), learning rate
+$1\times10^{-4}$ with 30 warmup steps. LoRA dropout of 0.05. Audio is
+resampled to 16~kHz. We train for a maximum of 300 steps over the
+303-utterance training set (roughly 16 epochs), evaluating on the
+validation set every 75 steps and selecting the final checkpoint at step
+300. Full configuration in \texttt{training/scripts/config.py} of the
+accompanying repository.
 
 % ── 5. Results ─────────────────────────────────────────────────────────────────
 \section{Results}
@@ -308,7 +333,7 @@ Sign test (two-sided, $n=59$ non-tied pairs) & $p = 3.5\times10^{-18}$ \\
 \end{tabular}
 \end{table}
 
-The zero-shot model yielded a mean per-utterance WER of 130.33\% (95\% bootstrap CI [115.15, 152.96]), whereas the domain-adapted model achieved 42.61\% (95\% bootstrap CI [36.76, 48.59]).
+The zero-shot model yielded a mean per-utterance WER of 130.33\% (95\% bootstrap CI [115.15, 152.96], $B=10{,}000$), whereas the domain-adapted model achieved 42.61\% (95\% bootstrap CI [36.76, 48.59]).
 
 The improvement is not driven by a handful of outliers: the domain-adapted
 model is better on essentially every individual utterance in the test set,
@@ -412,10 +437,11 @@ evaluated each checkpoint on the full test set.
 150 & 51.65 & 22.71 & 28.33 \\
 200 & 49.45 & 18.12 & 35.00 \\
 300 & 54.12 & 30.99 & 38.33 \\
-403 (full) & 43.13 & 16.76 & 33.33 \\
+403 (full)\footnotemark & 43.13 & 16.76 & 33.33 \\
 \bottomrule
 \end{tabular}
 \end{table}
+\footnotetext{WER differs slightly from Table~\ref{tab:results} (42.58\%) because each sweep run is trained from scratch with independent random initialization.}
 
 With only 50 examples, WER already drops by 43\% relative to zero-shot.
 Performance improves steadily up to $N=200$, with diminishing returns
@@ -667,6 +693,27 @@ engineering.
 The full codebase, training pipeline, dataset, model weights, and this
 paper are available at
 \url{https://github.com/subedibiraj/speakpay}.
+
+\section*{Ethics Statement}
+
+All audio contributors voluntarily recorded prompted phrases through a web
+platform and consented to release of their recordings under CC-BY 4.0.
+No personally identifiable information (names, phone numbers, or account
+details) was collected or stored. The dataset contains only scripted
+financial commands, not real transactions. The deployed application
+operates on simulated wallet balances and does not process real money.
+Contributor identity was not tracked per utterance, which limits our
+ability to report demographic statistics but also minimizes privacy risk.
+
+\section*{Data and Code Availability}
+
+The NepFinSpeech-403 dataset is available at
+\url{https://huggingface.co/datasets/birajsubedi/NepFinSpeech} under
+CC-BY 4.0. The fine-tuned model weights are at
+\url{https://huggingface.co/birajsubedi/whisper-large-v2-nepali-financial}.
+The full source code, training scripts, evaluation scripts, and analysis
+notebooks are at
+\url{https://github.com/subedibiraj/speakpay} under the MIT license.
 
 \bibliographystyle{unsrt}
 \bibliography{refs}
