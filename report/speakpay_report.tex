@@ -241,6 +241,7 @@ Full configuration in \texttt{training/scripts/config.py} of the accompanying re
 
 % ── 5. Results ─────────────────────────────────────────────────────────────────
 \section{Results}
+\label{sec:results}
 
 \subsection{Aggregate benchmark}
 
@@ -314,7 +315,7 @@ model is better on essentially every individual utterance in the test set,
 and the sign test rejects the null hypothesis of no systematic difference
 at an extremely high confidence level. Given the small absolute sample
 size ($n=60$), we report the non-parametric sign test rather than relying
-assumptions and outlier influence.
+on assumptions and outlier influence.
 
 \subsection{Task-level Interpretation Accuracy}
 
@@ -432,12 +433,14 @@ gradually. Transaction Success Rate (red, right axis) peaks at $N=300$.}
 \label{fig:learning_curve}
 \end{figure}
 
-For practitioners in other low-resource domains, these results indicate
-that a focused collection of 100--300 utterances is sufficient to achieve
-most of the available adaptation gain.
+For practitioners in other low-resource domains, these results align with
+recent findings on data-efficient LoRA adaptation~\cite{shinohara2024smalldata}
+and indicate that a focused collection of 100--300 utterances is sufficient
+to achieve most of the available adaptation gain.
 
 % ── 6. Error Analysis ─────────────────────────────────────────────────────────
 \section{Error Analysis}
+\label{sec:errors}
 
 \subsection{Numeral Confusions}
 While domain adaptation increased numeral exact-match accuracy from 0.0\% to 73.9\%, we analyzed the remaining errors to understand the failure modes of the adapted model. In 25 out of the 60 test utterances, the model transcribed exactly one numeral incorrectly. We observed three distinct patterns in these confusions:
@@ -640,7 +643,7 @@ been conducted with visually impaired users, the system's intended
 audience. A System Usability Scale (SUS) study, following the methodology
 used by Ilyasa et al.~\cite{ilyasa2023}, is planned future work.
 
-% ── 9. Conclusion ────────────────────────────────────────────────────────────
+% -- 10. Conclusion -----------------------------------------------------------
 \section{Conclusion}
 
 We presented NepFinSpeech-403, a domain-specific Nepali financial
@@ -662,7 +665,7 @@ and a usable accessibility tool is bridgeable with modest additional
 engineering.
 
 The full codebase, training pipeline, dataset, model weights, and this
-report are available at
+paper are available at
 \url{https://github.com/subedibiraj/speakpay}.
 
 \bibliographystyle{unsrt}
