@@ -158,19 +158,52 @@ read speech or broad-domain utterances; neither reports performance on
 financial or transactional language, which differs substantially in
 vocabulary distribution and numeral density.
 
-\textbf{Multilingual and low-resource speech recognition.} Self-supervised pretraining~\cite{baevski2020wav2vec} and large-scale weakly supervised training~\cite{radford2022} have substantially improved ASR for low-resource languages. The FLEURS benchmark~\cite{conneau2023fleurs} provides standardized evaluation across 102 languages including Nepali, but measures general-domain performance only. Meta's Massively Multilingual Speech project~\cite{pratap2024scaling} extended coverage to over 1,000 languages, and IndicSUPERB~\cite{javed2023indicsuperb} benchmarked speech tasks across Indian languages. These efforts confirm that domain mismatch remains a persistent challenge even when general-domain coverage improves. Distillation approaches like Distil-Whisper~\cite{gandhi2023distilwhisper} reduce model size but do not address domain gaps. Our work complements these efforts by measuring the domain gap for a specific high-stakes application.
+\textbf{Multilingual and low-resource speech recognition.}
+Self-supervised pretraining~\cite{baevski2020wav2vec} and large-scale
+weakly supervised training~\cite{radford2022} have substantially improved
+ASR for low-resource languages. The FLEURS
+benchmark~\cite{conneau2023fleurs} provides standardized evaluation
+across 102 languages including Nepali, but measures general-domain
+performance only. Meta's Massively Multilingual Speech
+project~\cite{pratap2024scaling} extended coverage to over 1,000
+languages, and IndicSUPERB~\cite{javed2023indicsuperb} benchmarked speech
+tasks across Indian languages. These efforts confirm that domain mismatch
+remains a persistent challenge even when general-domain coverage improves.
+Distillation approaches like Distil-Whisper~\cite{gandhi2023distilwhisper}
+reduce model size but do not address domain gaps. Our work complements
+these efforts by measuring the domain gap for a specific high-stakes
+application.
 
-\textbf{Parameter-efficient fine-tuning.} Hu et al.~\cite{hu2022lora} introduced LoRA, which
-freezes the base model and injects trainable low-rank decomposition
-matrices into attention and feed-forward layers, reducing trainable
-parameters by over 99\% relative to full fine-tuning while matching or
-exceeding its quality on many tasks. Dettmers et al.~\cite{dettmers2023qlora} extended this with quantization (QLoRA), further reducing memory requirements. Recent work has compared LoRA, full fine-tuning, and prompt tuning for domain-specific Whisper adaptation~\cite{chen2024whisperaat}, generally finding LoRA competitive with full fine-tuning at a fraction of the cost. These methods make adaptation feasible on a
-single consumer GPU and on a dataset far too small to safely
-full-fine-tune a 1.55-billion-parameter model.
+\textbf{Parameter-efficient fine-tuning.} Hu et
+al.~\cite{hu2022lora} introduced LoRA, which freezes the base model and
+injects trainable low-rank decomposition matrices into attention and
+feed-forward layers, reducing trainable parameters by over 99\% relative
+to full fine-tuning while matching or exceeding its quality on many tasks.
+Dettmers et al.~\cite{dettmers2023qlora} extended this with quantization
+(QLoRA), further reducing memory requirements. Recent work has compared
+LoRA, full fine-tuning, and prompt tuning for domain-specific Whisper
+adaptation~\cite{chen2024whisperaat}, generally finding LoRA competitive
+with full fine-tuning at a fraction of the cost. These methods make
+adaptation feasible on a single consumer GPU and on a dataset far too
+small to safely full-fine-tune a 1.55-billion-parameter model.
 
-\textbf{Task-level ASR evaluation.} Standard WER treats all word errors equally, but downstream task performance can diverge sharply from word-level accuracy. Kim et al.~\cite{kim2021semdist} proposed Semantic Distance as an alternative metric that better predicts spoken language understanding performance. Fu et al.~\cite{fu2022multitask} defined Interpretation Error Rate (IRER) as an utterance-level, no-partial-credit metric for joint intent and slot correctness. We adopt a variant of IRER (reported as Transaction Success Rate) to evaluate whether transcription errors actually cause transaction failures.
+\textbf{Task-level ASR evaluation.} Standard WER treats all word errors
+equally, but downstream task performance can diverge sharply from
+word-level accuracy. Kim et al.~\cite{kim2021semdist} proposed Semantic
+Distance as an alternative metric that better predicts spoken language
+understanding performance. Fu et al.~\cite{fu2022multitask} defined
+Interpretation Error Rate (IRER) as an utterance-level, no-partial-credit
+metric for joint intent and slot correctness. We adopt a variant of IRER
+(reported as Transaction Success Rate) to evaluate whether transcription
+errors actually cause transaction failures.
 
-\textbf{Accessible FinTech.} Concurrent work on accessible voice payments~\cite{accessible_mobile_money2026, voicebiometric_upi2026} has focused on system architecture, USSD automation, and biometric security for visually impaired users. We focus instead on the ASR domain-adaptation and evaluation-metric questions underlying the language layer these systems depend on, using Nepali --- a language with no existing accessible financial voice interface --- as a case study.
+\textbf{Accessible FinTech.} Concurrent work on accessible voice
+payments~\cite{accessible_mobile_money2026, voicebiometric_upi2026} has
+focused on system architecture, USSD automation, and biometric security
+for visually impaired users. We focus instead on the ASR
+domain-adaptation and evaluation-metric questions underlying the language
+layer these systems depend on, using Nepali --- a language with no
+existing accessible financial voice interface --- as a case study.
 
 Our work does not propose a new architecture or training method. We
 study whether domain-specific LoRA adaptation closes the gap between a
@@ -333,7 +366,10 @@ Sign test (two-sided, $n=59$ non-tied pairs) & $p = 3.5\times10^{-18}$ \\
 \end{tabular}
 \end{table}
 
-The zero-shot model yielded a mean per-utterance WER of 130.33\% (95\% bootstrap CI [115.15, 152.96], $B=10{,}000$), whereas the domain-adapted model achieved 42.61\% (95\% bootstrap CI [36.76, 48.59]).
+The zero-shot model yielded a mean per-utterance WER of 130.33\%
+(95\% bootstrap CI [115.15, 152.96], $B=10{,}000$), whereas the
+domain-adapted model achieved 42.61\% (95\% bootstrap CI
+[36.76, 48.59]).
 
 The improvement is not driven by a handful of outliers: the domain-adapted
 model is better on essentially every individual utterance in the test set,
@@ -344,7 +380,15 @@ on assumptions and outlier influence.
 
 \subsection{Task-level Interpretation Accuracy}
 
-While Word Error Rate is the standard ASR benchmark, it treats all word errors equally. In a financial voice interface, a wrong filler word is a harmless transcription error, but a mistranscribed digit is a real-money transaction failure. To measure practical utility, we evaluate both models using Interpretation Error Rate (IRER)~\cite{fu2022multitask}, defined here as the utterance-level Transaction Success Rate: the percentage of test utterances where the predicted transcript, when parsed by a rule-based slot extraction pipeline, yields exactly the same intent, amount, and recipient as the ground-truth transcript.
+While Word Error Rate is the standard ASR benchmark, it treats all word
+errors equally. In a financial voice interface, a wrong filler word is a
+harmless transcription error, but a mistranscribed digit is a real-money
+transaction failure. To measure practical utility, we evaluate both models
+using Interpretation Error Rate (IRER)~\cite{fu2022multitask}, defined
+here as the utterance-level Transaction Success Rate: the percentage of
+test utterances where the predicted transcript, when parsed by a
+rule-based slot extraction pipeline, yields exactly the same intent,
+amount, and recipient as the ground-truth transcript.
 
 \begin{table}[H]
 \centering
@@ -363,7 +407,13 @@ Recipient Exact Match & 5.26\% & 42.11\% \\
 \end{tabular}
 \end{table}
 
-The domain adaptation increases the Transaction Success Rate from 1.67\% (effectively unusable) to 33.33\%. While 33.33\% is still too low for a fully autonomous financial system without user confirmation steps, the relative improvement over the zero-shot baseline is nearly 1900\% --- significantly larger than the 67\% relative improvement seen in WER alone. This confirms that word-level metrics heavily understate the task-level impact of domain adaptation for slot-critical applications.
+The domain adaptation increases the Transaction Success Rate from 1.67\%
+(effectively unusable) to 33.33\%. While 33.33\% is still too low for a
+fully autonomous financial system without user confirmation steps, the
+relative improvement over the zero-shot baseline is nearly 1900\% ---
+significantly larger than the 67\% relative improvement seen in WER alone.
+This confirms that word-level metrics understate the task-level impact of
+domain adaptation for slot-critical applications.
 
 \subsection{Per-intent breakdown}
 
