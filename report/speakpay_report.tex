@@ -327,7 +327,7 @@ than zero-shot Whisper large-v2, but critically, its NumAcc remains
 0.0\%. Inspection of its predictions reveals a \textit{numeral format
 mismatch}: the general-domain model outputs numerals as Nepali words
 (\textit{``tin hajaar ek saya pacchis''}) rather than Devanagari digits
-(\dev{३१२५}), since the OpenSLR training data uses word-form
+(\texttt{3125}), since the OpenSLR training data uses word-form
 transcriptions. Even when the number is semantically correct, the
 downstream intent parser cannot extract a digit sequence from word-form
 output. This confirms that the improvement from our domain-adapted model
@@ -521,9 +521,20 @@ to achieve most of the available adaptation gain.
 \subsection{Numeral Confusions}
 While domain adaptation increased numeral exact-match accuracy from 0.0\% to 73.9\%, we analyzed the remaining errors to understand the failure modes of the adapted model. In 25 out of the 60 test utterances, the model transcribed exactly one numeral incorrectly. We observed three distinct patterns in these confusions:
 \begin{enumerate}
-    \item \textbf{Zero Insertion/Deletion:} The most common failure mode involves missing or adding trailing zeros (e.g., transcribing \dev{५०००} (5,000) as \dev{५००००} (50,000), or \dev{६५००००} (650,000) as \dev{६५०००} (65,000)). This indicates the model occasionally struggles to distinguish the acoustic duration of repeating zero words in Nepali (like \textit{hajaar} vs \textit{laakh}).
-    \item \textbf{Prefix Hallucinations:} The model occasionally prepends the digit \dev{५} (5) to amounts (e.g., \dev{८००} transcribed as \dev{५८००}). This is likely an artifact of the acoustic similarity between the Nepali word for "Rs." (\textit{Rupaiya}) and the number 5 (\textit{Paanch}), which frequently co-occur in the training data.
-    \item \textbf{Similar Sounding Digits:} We observed phonetic confusions such as \dev{१२} (12) and \dev{१} (1) (e.g., \dev{२००००} transcribed as \dev{१२००००}).
+    \item \textbf{Zero Insertion/Deletion:} The most common failure mode
+    involves missing or adding trailing zeros (e.g., transcribing
+    \texttt{5000} as \texttt{50000}, or \texttt{650000} as
+    \texttt{65000}). This indicates the model occasionally struggles to
+    distinguish the acoustic duration of repeating zero words in Nepali
+    (like \textit{hajaar} vs \textit{laakh}).
+    \item \textbf{Prefix Hallucinations:} The model occasionally prepends
+    the digit 5 to amounts (e.g., \texttt{800} transcribed as
+    \texttt{5800}). This is likely an artifact of the acoustic similarity
+    between the Nepali word for ``Rs.'' (\textit{Rupaiya}) and the number
+    5 (\textit{Paanch}), which frequently co-occur in the training data.
+    \item \textbf{Similar Sounding Digits:} We observed phonetic confusions
+    between digits such as 12 and 1 (e.g., \texttt{20000} transcribed as
+    \texttt{120000}).
 \end{enumerate}
 Figure~\ref{fig:error_patterns} shows the distribution of these error
 types across the 25 affected utterances.
@@ -544,8 +555,8 @@ secondary confirmation UI steps before executing transactions.
 Qualitative inspection of the ``other'' category (Table~\ref{tab:intent})
 surfaces a genuine taxonomy gap rather than annotation noise. A recurring
 pattern --- third-person statements describing funds already received,
-e.g.\ \dev{अर्चना श्रेष्ठले कुमारी बैंकमा रु ४७५० प्राप्त गरेका छन्} (``Archana
-Shrestha received Rs.\ 4750 at Kumari Bank'') --- does not map cleanly onto
+e.g.\ \textit{``Archana Shrestha-le Kumari Bank-ma ru 4750 prapta gareka
+chhan''} (``Archana Shrestha received Rs.\ 4750 at Kumari Bank'') --- does not map cleanly onto
 the send/load/balance taxonomy used elsewhere in this work, since it is
 neither a command nor strictly a balance query. We did not anticipate this
 pattern during dataset design; it appears to have entered the corpus
