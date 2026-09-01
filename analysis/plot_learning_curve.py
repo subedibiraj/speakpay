@@ -1,7 +1,7 @@
 """
 SpeakPay  -  plot data efficiency learning curve.
 
-Generates Figure 1 of the technical report: a dual-axis plot showing
+Generates Figure 1 of the paper: a dual-axis plot showing
 WER (decreasing) and Transaction Success Rate (increasing) as a
 function of training set size.
 

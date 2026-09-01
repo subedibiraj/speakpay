@@ -2,13 +2,13 @@
 SpeakPay  -  paired statistical analysis for the zero-shot vs. domain-adapted
 comparison. Fills the reproducibility gap: this is the script that SHOULD
 have produced data/intent_breakdown_analysis.json, so the sign test and
-per-utterance numbers in the report can be independently re-run.
+per-utterance numbers in the paper can be independently re-run.
 
 Input:  benchmark_results.json produced by training/scripts/04_benchmark.py
         (must contain "predictions" list for the zero-shot and LoRA runs,
         in the same order as data/test_split.json references)
 Output: analysis/paired_stats_results.json  -  sign test + bootstrap CIs,
-        ready to cite directly in the report.
+        ready to cite directly in the paper.
 
 Usage:
     python analysis/paired_stats.py \
