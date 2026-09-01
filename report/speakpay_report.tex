@@ -17,26 +17,15 @@
 \usepackage{fancyhdr}
 \usepackage{enumitem}
 \usepackage{abstract}
-\usepackage{iftex}
-\ifXeTeX
-  \usepackage{fontspec}
-  \setmainfont{FreeSerif}
-  \newfontfamily\devfont{FreeSerif}
-  \newcommand{\dev}[1]{{\devfont #1}}
-\else\ifLuaTeX
-  \usepackage{fontspec}
-  \setmainfont{FreeSerif}
-  \newfontfamily\devfont{FreeSerif}
-  \newcommand{\dev}[1]{{\devfont #1}}
-\else
-  \newcommand{\dev}[1]{#1}
-\fi\fi
 
 \hypersetup{
     colorlinks=true,
     linkcolor=blue!60!black,
     citecolor=blue!60!black,
-    urlcolor=blue!60!black
+    urlcolor=blue!60!black,
+    pdftitle={SpeakPay: Domain-Adaptive LoRA Fine-Tuning of Whisper for Low-Resource Nepali Financial Speech Recognition},
+    pdfauthor={Biraj Subedi},
+    pdfsubject={Automatic Speech Recognition, Low-Resource Languages, Domain Adaptation}
 }
 
 \titleformat{\section}{\large\bfseries}{{\thesection.}}{0.5em}{}
@@ -60,7 +49,7 @@
     \small \href{https://github.com/subedibiraj/speakpay}{github.com/subedibiraj/speakpay} \\
     \small \texttt{contact@biraj-subedi.com.np}
 }
-\date{\today}
+\date{September 2026}
 
 % ─────────────────────────────────────────────────────────────────────────────
 \begin{document}
