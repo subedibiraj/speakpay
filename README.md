@@ -4,6 +4,7 @@
 *Research project, Tribhuvan University / Advanced College of Engineering and Management, 2026*
 
 [![CI](https://github.com/subedibiraj/speakpay/actions/workflows/ci.yml/badge.svg)](https://github.com/subedibiraj/speakpay/actions)
+[![arXiv](https://img.shields.io/badge/arXiv-2609.01737-b31b1b.svg)](https://arxiv.org/abs/2609.01737)
 [![Live Demo](https://img.shields.io/badge/Live_Demo-speakpay.biraj--subedi.com.np-0F7173)](https://speakpay.biraj-subedi.com.np)
 [![Dataset](https://img.shields.io/badge/🤗_Dataset-NepFinSpeech-yellow)](https://huggingface.co/datasets/birajsubedi/NepFinSpeech)
 [![Model](https://img.shields.io/badge/🤗_Model-Whisper_LoRA-yellow)](https://huggingface.co/birajsubedi/whisper-large-v2-nepali-financial)
@@ -42,7 +43,7 @@ Start here, then drill into whichever part you need:
 | Deploy my own instance | [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) |
 | Reproduce the model training | [`training/README.md`](training/README.md) |
 | Inspect/rebuild the dataset | [`data/README.md`](data/README.md) |
-| Read the paper | [`report/speakpay_report.pdf`](report/speakpay_report.pdf) |
+| Read the paper | [arXiv:2609.01737](https://arxiv.org/abs/2609.01737) |
 | See benchmark results | [`docs/DATASET_CARD.md`](docs/DATASET_CARD.md) |
 
 ## Research findings
@@ -91,11 +92,14 @@ Published dataset: [huggingface.co/datasets/birajsubedi/NepFinSpeech](https://hu
 
 ```bibtex
 @misc{subedi2026speakpay,
-  title   = {SpeakPay: Domain-Adaptive LoRA Fine-Tuning of Whisper for
-             Low-Resource Nepali Financial Speech Recognition},
-  author  = {Subedi, Biraj},
-  year    = {2026},
-  url     = {https://github.com/subedibiraj/speakpay}
+  title         = {SpeakPay: Domain-Adaptive LoRA Fine-Tuning of Whisper for
+                   Low-Resource Nepali Financial Speech Recognition},
+  author        = {Subedi, Biraj},
+  year          = {2026},
+  eprint        = {2609.01737},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CL},
+  url           = {https://arxiv.org/abs/2609.01737}
 }
 ```
 
